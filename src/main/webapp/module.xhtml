@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="modules.xhtml">Modules</a></li>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>#{moduleMBean.module.name}</h1>
+                </div>
+                <h:form>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            #{moduleMBean.module.description}
+                            <h:button outcome="module_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{moduleMBean.module.id}"/>
+                            </h:button>
+                        </div>
+                    </div>    
+                </h:form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sub-Modules</div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="subModule" items="#{moduleMBean.subModules}">
+                                        <h:link outcome="module" value="#{subModule.name}" class="list-group-item">
+                                            <f:param name="id" value="#{subModule.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Packages</div>
+                            <div class="panel-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
