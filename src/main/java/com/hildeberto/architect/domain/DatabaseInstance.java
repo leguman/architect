@@ -6,9 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,8 +16,8 @@ import javax.validation.constraints.Size;
  * @author Hildeberto Mendonca
  */
 @Entity
-@Table(name="database_schema")
-public class DatabaseSchema implements Serializable, Identified {
+@Table(name="database_instance")
+public class DatabaseInstance implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -32,23 +30,18 @@ public class DatabaseSchema implements Serializable, Identified {
     @Size(min = 1, max = 30)
     private String name;
     
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="database_ins")
-    private DatabaseInstance databaseInstance;
-    
     @Lob
     @Size(max = 32700)
     private String description;
 
-    public DatabaseSchema() {
+    public DatabaseInstance() {
     }
 
-    public DatabaseSchema(Integer id) {
+    public DatabaseInstance(Integer id) {
         this.id = id;
     }
 
-    public DatabaseSchema(Integer id, String name) {
+    public DatabaseInstance(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -71,14 +64,6 @@ public class DatabaseSchema implements Serializable, Identified {
         this.name = name;
     }
 
-    public DatabaseInstance getDatabaseInstance() {
-        return databaseInstance;
-    }
-
-    public void setDatabaseInstance(DatabaseInstance databaseInstance) {
-        this.databaseInstance = databaseInstance;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -96,10 +81,10 @@ public class DatabaseSchema implements Serializable, Identified {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof DatabaseSchema)) {
+        if (!(object instanceof DatabaseInstance)) {
             return false;
         }
-        DatabaseSchema other = (DatabaseSchema) object;
+        DatabaseInstance other = (DatabaseInstance) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

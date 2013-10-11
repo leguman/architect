@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 @Inheritance
 @Table(name="database_element")
 @DiscriminatorColumn(name="element_type")
-public class DatabaseElement implements Serializable, Identified {
+public abstract class DatabaseElement implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -35,6 +35,11 @@ public class DatabaseElement implements Serializable, Identified {
     @NotNull
     @Size(min = 1, max = 100)
     private String name;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="database_ins")
+    private DatabaseInstance databaseInstance;
         
     @ManyToOne
     @JoinColumn(name="database_schema")
@@ -67,6 +72,14 @@ public class DatabaseElement implements Serializable, Identified {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public DatabaseInstance getDatabaseInstance() {
+        return databaseInstance;
+    }
+
+    public void setDatabaseInstance(DatabaseInstance databaseInstance) {
+        this.databaseInstance = databaseInstance;
     }
 
     public DatabaseSchema getDatabaseSchema() {

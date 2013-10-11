@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,6 +39,10 @@ public class Package implements Serializable, Identified {
     @ManyToOne
     @JoinColumn(name="module")
     private Module module;
+    
+    @Lob
+    @Size(max = 32700)
+    private String description;
 
     public Package() {
     }
@@ -83,6 +88,14 @@ public class Package implements Serializable, Identified {
 
     public void setModule(Module module) {
         this.module = module;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

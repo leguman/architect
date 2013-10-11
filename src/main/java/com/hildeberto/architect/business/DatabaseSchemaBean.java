@@ -1,5 +1,6 @@
 package com.hildeberto.architect.business;
 
+import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -27,7 +28,9 @@ public class DatabaseSchemaBean extends AbstractBean<DatabaseSchema> {
         return em;
     }
     
-    public List<DatabaseSchema> findAll() {
-        return em.createQuery("select ds from DatabaseSchema ds order by ds.name asc").getResultList();
+    public List<DatabaseSchema> findByDatabaseInstance(DatabaseInstance database) {
+        return em.createQuery("select ds from DatabaseSchema ds where ds.databaseInstance = :database order by ds.name asc")
+                 .setParameter("database", database)
+                 .getResultList();
     }
 }

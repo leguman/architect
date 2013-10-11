@@ -1,6 +1,8 @@
 package com.hildeberto.architect.controller;
 
+import com.hildeberto.architect.business.DatabaseInstanceBean;
 import com.hildeberto.architect.business.DatabaseSchemaBean;
+import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,21 +17,32 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class DatabaseSchemaMBean {
+public class DatabaseMBean {
  
+    @EJB
+    private DatabaseInstanceBean databaseInstanceBean;
+    
     @EJB
     private DatabaseSchemaBean databaseSchemaBean;
         
+    private List<DatabaseInstance> databases;
     private List<DatabaseSchema> schemas;
     
     @ManagedProperty(value="#{param.id}")
     private Integer id;
     
-    private DatabaseSchema schema;
+    private DatabaseInstance database;
+    
+    public List<DatabaseInstance> getDatabases() {
+        if(databases == null) {
+            databases = databaseInstanceBean.findAll();
+        }
+        return databases;
+    }
     
     public List<DatabaseSchema> getSchemas() {
-        if(schemas == null) {
-            schemas = databaseSchemaBean.findAll();
+        if(schemas == null && database != null) {
+            schemas = databaseSchemaBean.findByDatabaseInstance(database);
         }
         return schemas;
     }
@@ -38,22 +51,22 @@ public class DatabaseSchemaMBean {
         this.id = id;
     }
     
-    public DatabaseSchema getSchema() {
-        return this.schema;
+    public DatabaseInstance getDatabase() {
+        return this.database;
     }
     
     @PostConstruct
     public void load() {
         if(id != null) {
-            this.schema = databaseSchemaBean.find(id);
+            this.database = databaseInstanceBean.find(id);
         }
         else {
-            this.schema = new DatabaseSchema();
+            this.database = new DatabaseInstance();
         }
     }
     
     public String save() {
-        databaseSchemaBean.save(this.schema);
-        return "schemas";
+        databaseInstanceBean.save(this.database);
+        return "databases";
     }
 }

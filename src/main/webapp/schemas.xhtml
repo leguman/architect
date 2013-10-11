@@ -13,14 +13,31 @@
             
             <ui:define name="content">
                 <h:form>
-                    <h:button outcome="schema_form" value="Create" class="btn btn-default pull-right"/>
-                
-                    <h:dataTable var="schema" value="#{databaseSchemaMBean.schemas}" class="table">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h:selectOneMenu id="database" label="Database" value="#{schemaMBean.selectedDatabase}" class="form-control">
+                                <f:selectItem itemLabel="Databases ..." itemValue="0"/>
+                                <f:selectItems value="#{schemaMBean.databases}" var="database" itemLabel="#{database.name}" itemValue="#{database.id}"/>
+                                <f:ajax render="schemas create"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-md-4">
+                            <h:button id="create" outcome="schema_form" value="Create" class="btn btn-default pull-right">
+                                <f:param name="dbId" value="#{schemaMBean.selectedDatabase}"/>
+                            </h:button>
+                        </div>
+                    </div>
+                    
+                    <h:dataTable id="schemas" var="schema" value="#{schemaMBean.schemas}" class="table">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="schema" value="#{schema.name}">
                                 <f:param name="id" value="#{schema.id}"/>
                             </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Description</f:facet>
+                            <h:outputText value="#{schema.description}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>

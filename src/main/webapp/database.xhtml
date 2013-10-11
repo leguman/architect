@@ -3,24 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition template="./layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
-                <li><a href="schemas.xhtml">Schemas</a></li>
+                <li><a href="databases.xhtml">Databases</a></li>
             </ui:define>
             
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{schemaMBean.schema.name}</h1>
+                    <h1>#{databaseMBean.database.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{schemaMBean.schema.description}
-                            <h:button outcome="schema_form" value="Edit" class="btn btn-default pull-right">
-                                <f:param name="id" value="#{schemaMBean.schema.id}"/>
+                            #{databaseMBean.database.description}
+                            <h:button outcome="database_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{databaseMBean.database.id}"/>
                             </h:button>
                         </div>
                     </div>    
@@ -28,17 +29,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Tables</div>
+                            <div class="panel-heading">Schemas</div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    
+                                    <c:forEach var="schema" items="#{databaseMBean.schemas}">
+                                        <h:link outcome="schema" value="#{schema.name}" class="list-group-item">
+                                            <f:param name="id" value="#{schema.id}"/>
+                                        </h:link>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Views</div>
+                            <div class="panel-heading">Elements</div>
                             <div class="panel-body"></div>
                         </div>
                     </div>
