@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="packages.xhtml">Packages</a></li>
+            </ui:define>
+            
+            <ui:define name="content">
+                <h:form id="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="application">Application</label>
+                                <h:selectOneMenu id="application" label="Application" value="#{packageMBean.selectedApplication}" class="form-control">
+                                    <f:selectItem itemLabel="Select ..." itemValue="0"/>
+                                    <f:selectItems value="#{packageMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                    <f:ajax render="module save"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="under">Module</label>
+                                <h:selectOneMenu id="module" label="Module" value="#{packageMBean.selectedModule}" class="form-control">
+                                    <f:selectItem itemLabel="Select..." itemValue="0"/>
+                                    <f:selectItems value="#{packageMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
+                                    <f:ajax render="save"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <h:inputText id="name" class="form-control" value="#{packageMBean.package.name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <h:inputTextarea id="description" class="form-control" value="#{packageMBean.package.description}"/>
+                    </div>
+                    
+                    <h:inputHidden value="#{packageMBean.package.id}"/>
+                    
+                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{packageMBean.save}">
+                        <f:param name="appId" value="#{packageMBean.selectedApplication}"/>
+                        <f:param name="modId" value="#{packageMBean.selectedModule}"/>
+                    </h:commandButton>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

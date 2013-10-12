@@ -2,8 +2,10 @@ package com.hildeberto.architect.controller;
 
 import com.hildeberto.architect.business.ApplicationBean;
 import com.hildeberto.architect.business.ModuleBean;
+import com.hildeberto.architect.business.PackageBean;
 import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.Module;
+import com.hildeberto.architect.domain.Package;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -25,8 +27,12 @@ public class ApplicationMBean {
     @EJB
     private ModuleBean moduleBean;
     
+    @EJB
+    private PackageBean packageBean;
+    
     private List<Application> applications;
     private List<Module> modules;
+    private List<Package> packages;
     
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -47,6 +53,13 @@ public class ApplicationMBean {
         return modules;
     }
     
+    public List<Package> getPackages() {
+        if(this.packages == null && this.application.getId() != null) {
+            this.packages = packageBean.findByApplication(this.application);
+        }
+        return this.packages;
+    }
+        
     public void setId(Integer id) {
         this.id = id;
     }

@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Modules</div>
+                            <div class="panel-heading">Modules <span class="badge">#{applicationMBean.modules.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
                                     <c:forEach var="module" items="#{applicationMBean.modules}">
@@ -43,8 +43,16 @@
                     </div>
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Packages</div>
-                            <div class="panel-body"></div>
+                            <div class="panel-heading">Packages <span class="badge">#{applicationMBean.packages.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="package" items="#{applicationMBean.packages}">
+                                        <h:link outcome="package" value="#{package.name}" class="list-group-item">
+                                            <f:param name="id" value="#{package.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
