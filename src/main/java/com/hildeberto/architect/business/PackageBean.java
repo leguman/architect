@@ -1,6 +1,7 @@
 package com.hildeberto.architect.business;
 
 import com.hildeberto.architect.domain.Application;
+import com.hildeberto.architect.domain.Layer;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
 import java.util.ArrayList;
@@ -49,6 +50,12 @@ public class PackageBean extends AbstractBean<Package> {
     public List<Package> findByModule(Module module) {
         return em.createQuery("select p from Package p where p.module = :module order by p.name asc")
                  .setParameter("module", module)
+                 .getResultList();
+    }
+    
+    public List<Package> findByLayer(Layer layer) {
+        return em.createQuery("select p from Package p where p.layer = :layer order by p.name asc")
+                 .setParameter("layer", layer)
                  .getResultList();
     }
     

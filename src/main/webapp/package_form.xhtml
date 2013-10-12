@@ -14,7 +14,7 @@
             <ui:define name="content">
                 <h:form id="form">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="application">Application</label>
                                 <h:selectOneMenu id="application" label="Application" value="#{packageMBean.selectedApplication}" class="form-control">
@@ -24,13 +24,22 @@
                                 </h:selectOneMenu>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="under">Module</label>
                                 <h:selectOneMenu id="module" label="Module" value="#{packageMBean.selectedModule}" class="form-control">
                                     <f:selectItem itemLabel="Select..." itemValue="0"/>
                                     <f:selectItems value="#{packageMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
                                     <f:ajax render="save"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="under">Layer</label>
+                                <h:selectOneMenu id="layer" label="Layer" value="#{packageMBean.selectedLayer}" class="form-control">
+                                    <f:selectItem itemLabel="Select..." itemValue="0"/>
+                                    <f:selectItems value="#{packageMBean.layers}" var="layer" itemLabel="#{layer.name}" itemValue="#{layer.id}"/>
                                 </h:selectOneMenu>
                             </div>
                         </div>

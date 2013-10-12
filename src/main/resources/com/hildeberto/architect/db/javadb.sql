@@ -90,3 +90,39 @@ alter table entity_class add constraint fk_application_entity foreign key (appli
 alter table entity_class add constraint fk_module_entity foreign key (module) references module (id) on delete set null;
 alter table entity_class add constraint fk_package_entity foreign key (package) references package (id) on delete set null;
 alter table entity_class add constraint fk_database_element_entity foreign key (database_element) references database_element (id) on delete set null;
+
+--changeset htmfilho:2
+create table layer (
+    id          integer      not null primary key auto_increment,
+    name        varchar(50)  not null,
+    description text             null
+) engine = innodb;
+
+alter table package add layer integer null;
+create index idx_layer_package on package (layer);
+alter table package add constraint fk_layer_package foreign key (layer) references layer (id) on delete set null;
+
+drop table if exists entity_class;
+
+create table code_artifact (
+    id               integer      not null primary key auto_increment,
+    name             varchar(255) not null,
+    artifact_type    varchar(20)  not null,
+    application      integer      not null,
+    module           integer          null,
+    package          integer          null,
+    layer            integer          null,
+    description      text             null,
+    database_element integer          null
+) engine = innodb;
+
+create index idx_application_artifact on code_artifact (application);
+create index idx_module_artifact on code_artifact (module);
+create index idx_package_artifact on code_artifact (package);
+create index idx_layer_artifact on code_artifact (layer);
+create index idx_database_element_artifact on code_artifact (database_element);
+alter table code_artifact add constraint fk_application_artifact foreign key (application) references application (id) on delete cascade;
+alter table code_artifact add constraint fk_module_artifact foreign key (module) references module (id) on delete set null;
+alter table code_artifact add constraint fk_package_artifact foreign key (package) references package (id) on delete set null;
+alter table code_artifact add constraint fk_layer_artifact foreign key (layer) references layer (id) on delete set null;
+alter table code_artifact add constraint fk_database_element_artifact foreign key (database_element) references database_element (id) on delete set null;

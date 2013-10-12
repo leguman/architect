@@ -1,7 +1,9 @@
 package com.hildeberto.architect.controller;
 
+import com.hildeberto.architect.business.LayerBean;
 import com.hildeberto.architect.business.PackageBean;
 import com.hildeberto.architect.domain.Application;
+import com.hildeberto.architect.domain.Layer;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
 import java.util.List;
@@ -21,9 +23,13 @@ public class PackageMBean {
  
     @EJB
     private PackageBean packageBean;
+    
+    @EJB
+    private LayerBean layerBean;
         
     private List<Package> packages;
     private List<Module> relatedModules;
+    private List<Layer> layers;
     
     @ManagedProperty(value="#{packageFilterMBean}")
     private PackageFilterMBean packageFilterMBean;
@@ -36,7 +42,9 @@ public class PackageMBean {
     
     @ManagedProperty(value="#{param.modId}")
     private Integer modId;
-        
+    
+    private Integer selectedLayer;
+    
     private Package pack;
           
     public List<Package> getPackages() {
@@ -81,6 +89,13 @@ public class PackageMBean {
         return this.packageFilterMBean.getModules();
     }
     
+    public List<Layer> getLayers() {
+        if(this.layers == null) {
+            this.layers = layerBean.findAll();
+        }
+        return this.layers;
+    }
+    
     public Integer getSelectedApplication() {
         return this.packageFilterMBean.getSelectedApplication();
     }
@@ -97,6 +112,14 @@ public class PackageMBean {
         this.packageFilterMBean.setSelectedModule(selectedModule);
     }
     
+    public Integer getSelectedLayer() {
+        return this.selectedLayer;
+    }
+    
+    public void setSelectedLayer(Integer selectedLayer) {
+        this.selectedLayer = selectedLayer;
+    }
+    
     public List<Module> getRelatedModules() {
         if(this.relatedModules == null && this.pack != null) {
             this.relatedModules = packageBean.findModulesByPackage(pack);
@@ -111,6 +134,9 @@ public class PackageMBean {
             this.packageFilterMBean.setSelectedApplication(this.pack.getApplication().getId());
             if(this.pack.getModule() != null) {
                 this.packageFilterMBean.setSelectedModule(this.pack.getModule().getId());
+            }
+            if(this.pack.getLayer() != null) {
+                this.selectedLayer = this.pack.getLayer().getId();
             }
         }
         else {
@@ -129,6 +155,11 @@ public class PackageMBean {
     public String save() {
         this.pack.setApplication(packageFilterMBean.getApplication());
         this.pack.setModule(packageFilterMBean.getModule());
+        
+        if(this.selectedLayer != null) {
+            Layer layer = layerBean.find(this.selectedLayer);
+            this.pack.setLayer(layer);
+        }
         
         packageBean.save(this.pack);
         return "packages?faces-redirect=true&appId=" + this.pack.getApplication().getId() + "&modId=" + this.pack.getModule().getId();

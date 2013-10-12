@@ -6,20 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Hildeberto Mendonca
+ * @author mendoncafilh
  */
 @Entity
-@Table(name="package")
-public class Package implements Serializable, Identified {
+@Table(name="layer")
+public class Layer implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -32,32 +30,15 @@ public class Package implements Serializable, Identified {
     @Size(min = 1, max = 50)
     private String name;
     
-    @ManyToOne
-    @JoinColumn(name = "application")
-    private Application application;
-    
-    @ManyToOne
-    @JoinColumn(name="module")
-    private Module module;
-    
     @Lob
     @Size(max = 32700)
     private String description;
-    
-    @ManyToOne
-    @JoinColumn(name = "layer")
-    private Layer layer;
 
-    public Package() {
+    public Layer() {
     }
 
-    public Package(Integer id) {
+    public Layer(Integer id) {
         this.id = id;
-    }
-
-    public Package(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     @Override
@@ -78,36 +59,12 @@ public class Package implements Serializable, Identified {
         this.name = name;
     }
 
-    public Application getApplication() {
-        return application;
-    }
-
-    public void setApplication(Application application) {
-        this.application = application;
-    }
-
-    public Module getModule() {
-        return module;
-    }
-
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Layer getLayer() {
-        return layer;
-    }
-
-    public void setLayer(Layer layer) {
-        this.layer = layer;
     }
 
     @Override
@@ -119,10 +76,10 @@ public class Package implements Serializable, Identified {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Package)) {
+        if (!(object instanceof Layer)) {
             return false;
         }
-        Package other = (Package) object;
+        Layer other = (Layer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -132,5 +89,5 @@ public class Package implements Serializable, Identified {
     @Override
     public String toString() {
         return this.name;
-    }    
+    }
 }

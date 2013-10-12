@@ -2,10 +2,13 @@ package com.hildeberto.architect.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -15,21 +18,24 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Hildeberto Mendonca
+ * @author Hildeberto Mendonça
  */
 @Entity
-@Table(name="package")
-public class Package implements Serializable, Identified {
+@Inheritance
+@Table(name="code_artifact")
+@DiscriminatorColumn(name="artifact_type")
+public abstract class CodeArtifact implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
-    
+        
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
     private String name;
     
     @ManyToOne
@@ -37,27 +43,26 @@ public class Package implements Serializable, Identified {
     private Application application;
     
     @ManyToOne
-    @JoinColumn(name="module")
+    @JoinColumn(name = "module")
     private Module module;
+    
+    @ManyToOne
+    @JoinColumn(name = "package")
+    private Package pack;
+    
+    @ManyToOne
+    @JoinColumn(name = "layer")
+     Layer layer;
     
     @Lob
     @Size(max = 32700)
     private String description;
-    
-    @ManyToOne
-    @JoinColumn(name = "layer")
-    private Layer layer;
 
-    public Package() {
+    public CodeArtifact() {
     }
 
-    public Package(Integer id) {
+    public CodeArtifact(Integer id) {
         this.id = id;
-    }
-
-    public Package(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     @Override
@@ -76,6 +81,22 @@ public class Package implements Serializable, Identified {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Package getPackage() {
+        return pack;
+    }
+
+    public void setPackage(Package pack) {
+        this.pack = pack;
+    }
+
+    public Layer getLayer() {
+        return layer;
+    }
+
+    public void setLayer(Layer layer) {
+        this.layer = layer;
     }
 
     public Application getApplication() {
@@ -102,14 +123,6 @@ public class Package implements Serializable, Identified {
         this.description = description;
     }
 
-    public Layer getLayer() {
-        return layer;
-    }
-
-    public void setLayer(Layer layer) {
-        this.layer = layer;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,10 +132,10 @@ public class Package implements Serializable, Identified {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Package)) {
+        if (!(object instanceof CodeArtifact)) {
             return false;
         }
-        Package other = (Package) object;
+        CodeArtifact other = (CodeArtifact) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
