@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="data_sources.xhtml">Data Sources</a></li>
+                <li><a href="elements.xhtml">Elements</a></li>
+            </ui:define>
+            
+            <ui:define name="content">
+                <h:form>
+                    <p:tabView id="tabView" activeIndex="#{param.tab}">
+                        <p:tab title="Tables">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h:selectOneMenu id="databaseInstanceTable" label="Database Instance" value="#{tableMBean.selectedDatabaseInstance}" class="form-control">
+                                        <f:selectItem itemLabel="Database Instances ..." itemValue="0"/>
+                                        <f:selectItems value="#{tableMBean.databaseInstances}" var="dbi" itemLabel="#{dbi.name}" itemValue="#{dbi.id}"/>
+                                        <f:ajax render="databaseSchemaTable tables createTable"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:selectOneMenu id="databaseSchemaTable" label="Schema" value="#{tableMBean.selectedDatabaseSchema}" class="form-control">
+                                        <f:selectItem itemLabel="Schemas ..." itemValue="0"/>
+                                        <f:selectItems value="#{tableMBean.databaseSchemas}" var="sch" itemLabel="#{sch.name}" itemValue="#{sch.id}"/>
+                                        <f:ajax render="tables createTable"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-2">
+                                    <h:button id="createTable" outcome="table_form" value="Create" class="btn btn-default pull-right">
+                                        <f:param name="dbiId" value="#{tableMBean.selectedDatabaseInstance}"/>
+                                        <f:param name="schId" value="#{tableMBean.selectedDatabaseSchema}"/>
+                                    </h:button>
+                                </div>
+                            </div>
+
+                            <h:dataTable id="tables" var="table" value="#{tableMBean.tables}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:link outcome="table" value="#{table.name}">
+                                        <f:param name="id" value="#{table.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Description</f:facet>
+                                    <h:outputText value="#{table.description}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </p:tab>
+                        <p:tab title="Views">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h:selectOneMenu id="databaseInstanceView" label="Database Instance" value="#{viewMBean.selectedDatabaseInstance}" class="form-control">
+                                        <f:selectItem itemLabel="Database Instances ..." itemValue="0"/>
+                                        <f:selectItems value="#{viewMBean.databaseInstances}" var="dbi" itemLabel="#{dbi.name}" itemValue="#{dbi.id}"/>
+                                        <f:ajax render="databaseSchemaView views createView"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:selectOneMenu id="databaseSchemaView" label="Schema" value="#{viewMBean.selectedDatabaseSchema}" class="form-control">
+                                        <f:selectItem itemLabel="Schemas ..." itemValue="0"/>
+                                        <f:selectItems value="#{viewMBean.databaseSchemas}" var="sch" itemLabel="#{sch.name}" itemValue="#{sch.id}"/>
+                                        <f:ajax render="views createView"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-2">
+                                    <h:button id="createView" outcome="view_form" value="Create" class="btn btn-default pull-right">
+                                        <f:param name="dbiId" value="#{viewMBean.selectedDatabaseInstance}"/>
+                                        <f:param name="schId" value="#{viewMBean.selectedDatabaseSchema}"/>
+                                    </h:button>
+                                </div>
+                            </div>
+
+                            <h:dataTable id="views" var="vw" value="#{viewMBean.views}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:link outcome="view" value="#{vw.name}">
+                                        <f:param name="id" value="#{vw.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Description</f:facet>
+                                    <h:outputText value="#{vw.description}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

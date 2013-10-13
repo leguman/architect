@@ -126,3 +126,6 @@ alter table code_artifact add constraint fk_module_artifact foreign key (module)
 alter table code_artifact add constraint fk_package_artifact foreign key (package) references package (id) on delete set null;
 alter table code_artifact add constraint fk_layer_artifact foreign key (layer) references layer (id) on delete set null;
 alter table code_artifact add constraint fk_database_element_artifact foreign key (database_element) references database_element (id) on delete set null;
+
+--changeset htmfilho:3
+alter table database_element drop column primary_key;

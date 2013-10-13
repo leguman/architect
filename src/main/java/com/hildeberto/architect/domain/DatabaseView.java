@@ -9,5 +9,5 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("VIEW")
-public class View extends DatabaseElement {
+public class DatabaseView extends DatabaseElement {
 }

@@ -1,6 +1,5 @@
 package com.hildeberto.architect.business;
 
-import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import java.util.List;
 import javax.ejb.LocalBean;

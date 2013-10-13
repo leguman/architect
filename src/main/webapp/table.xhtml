@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="data_sources.xhtml">Data Sources</a></li>
+                <li><a href="elements.xhtml">Elements</a></li>
+            </ui:define>
+            
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>#{tableMBean.table.name}</h1>
+                </div>
+                <h:form>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            #{tableMBean.table.databaseInstance}
+                            <br/>#{tableMBean.table.databaseSchema}
+                            <br/>#{tableMBean.table.description}
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h:button outcome="table_form" value="Edit" class="btn btn-default pull-right">
+                                        <f:param name="id" value="#{tableMBean.table.id}"/>
+                                    </h:button>
+                                </div>
+                                <div class="col-md-1">
+                                    <h:commandButton id="remove" class="btn btn-default pull-right" value="Remove" action="#{tableMBean.remove}">
+                                        <f:param name="id" value="#{tableMBean.table.id}"/>
+                                        <f:param name="dbiId" value="#{tableMBean.table.databaseInstance.id}"/>
+                                        <f:param name="schId" value="#{tableMBean.table.databaseSchema.id}"/>
+                                    </h:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

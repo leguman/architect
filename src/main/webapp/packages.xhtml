@@ -14,21 +14,21 @@
             <ui:define name="content">
                 <h:form>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <h:selectOneMenu id="application" label="Application" value="#{packageMBean.selectedApplication}" class="form-control">
                                 <f:selectItem itemLabel="Applications ..." itemValue="0"/>
                                 <f:selectItems value="#{packageMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
                                 <f:ajax render="module packages create"/>
                             </h:selectOneMenu>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <h:selectOneMenu id="module" label="Module" value="#{packageMBean.selectedModule}" class="form-control">
                                 <f:selectItem itemLabel="Modules ..." itemValue="0"/>
                                 <f:selectItems value="#{packageMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
                                 <f:ajax render="packages create"/>
                             </h:selectOneMenu>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <h:button id="create" outcome="package_form" value="Create" class="btn btn-default pull-right">
                                 <f:param name="appId" value="#{packageMBean.selectedApplication}"/>
                                 <f:param name="modId" value="#{packageMBean.selectedModule}"/>
