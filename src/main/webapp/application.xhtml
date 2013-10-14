@@ -10,21 +10,26 @@
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="applications.xhtml">Applications</a></li>
+                <li><a href="#">Application</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{applicationMBean.application.name}</h1>
+                    <h1>Application: #{applicationMBean.application.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{applicationMBean.application.description}
+                            <dl class="dl-horizontal">
+                                <dt>Description</dt>
+                                <dd>#{applicationMBean.application.description}</dd>
+                            </dl>
+
                             <h:button outcome="application_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{applicationMBean.application.id}"/>
                             </h:button>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
                 <div class="row">
                     <div class="col-md-6">

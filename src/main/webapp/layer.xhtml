@@ -10,24 +10,29 @@
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="layers.xhtml">Layers</a></li>
+                <li><a href="#">Layer</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{layerMBean.layer.name}</h1>
+                    <h1>Layer: #{layerMBean.layer.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{layerMBean.layer.description}
+                            <dl class="dl-horizontal">
+                                <dt>Description</dt>
+                                <dd>#{layerMBean.layer.description}</dd>
+                            </dl>
+
                             <h:button outcome="layer_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{layerMBean.layer.id}"/>
                             </h:button>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">Packages <span class="badge">#{layerMBean.packages.size()}</span></div>
                             <div class="panel-body">
@@ -37,16 +42,6 @@
                                             <f:param name="id" value="#{pack.id}"/>
                                         </h:link>
                                     </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Artifacts <span class="badge">?</span></div>
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    
                                 </ul>
                             </div>
                         </div>

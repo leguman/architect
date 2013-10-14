@@ -10,8 +10,12 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="elements.xhtml">Elements</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Table</h1>
+                </div>
+
                 <h:form id="form">
                     <div class="row">
                         <div class="col-md-6">
@@ -43,9 +47,9 @@
                         <label for="description">Description</label>
                         <h:inputTextarea id="description" class="form-control" value="#{tableMBean.table.description}"/>
                     </div>
-                                        
+
                     <h:inputHidden value="#{tableMBean.table.id}"/>
-                    
+
                     <div class="row">
                         <div class="col-md-1">
                             <h:commandButton id="save" class="btn btn-default" value="Save" action="#{tableMBean.save}">

@@ -10,8 +10,12 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="schemas.xhtml">Schemas</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Schema</h1>
+                </div>
+
                 <h:form id="form">
                     <div class="form-group">
                         <label for="database">Database</label>
@@ -29,7 +33,7 @@
                         <h:inputTextarea id="description" class="form-control" value="#{schemaMBean.schema.description}"/>
                     </div>
                     <h:inputHidden value="#{schemaMBean.schema.id}"/>
-                    
+
                     <h:commandButton class="btn btn-default" value="Save" action="#{schemaMBean.save}">
                         <f:param name="appId" value="#{schemaMBean.selectedDatabase}"/>
                     </h:commandButton>

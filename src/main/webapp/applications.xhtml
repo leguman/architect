@@ -10,12 +10,16 @@
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="applications.xhtml">Applications</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Applications</h1>
+                </div>
+
                 <h:form>
                     <h:button outcome="application_form" value="Create" class="btn btn-default pull-right"/>
-                
-                    <h:dataTable var="app" value="#{applicationMBean.applications}" class="table">
+
+                    <h:dataTable var="app" value="#{applicationMBean.applications}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="application" value="#{app.name}">

@@ -10,8 +10,12 @@
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="modules.xhtml">Modules</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Modules</h1>
+                </div>
+
                 <h:form>
                     <div class="row">
                         <div class="col-md-8">
@@ -27,8 +31,8 @@
                             </h:button>
                         </div>
                     </div>
-                    
-                    <h:dataTable id="modules" var="module" value="#{moduleMBean.modules}" class="table">
+
+                    <h:dataTable id="modules" var="module" value="#{moduleMBean.modules}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="module" value="#{module.name}">

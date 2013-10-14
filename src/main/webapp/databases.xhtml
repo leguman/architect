@@ -10,12 +10,16 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="databases.xhtml">Databases</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Database Instances</h1>
+                </div>
+
                 <h:form>
                     <h:button outcome="database_form" value="Create" class="btn btn-default pull-right"/>
-                
-                    <h:dataTable var="database" value="#{databaseMBean.databases}" class="table">
+
+                    <h:dataTable var="database" value="#{databaseMBean.databases}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="database" value="#{database.name}">

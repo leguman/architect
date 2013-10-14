@@ -11,8 +11,12 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="elements.xhtml">Elements</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Elements</h1>
+                </div>
+
                 <h:form>
                     <p:tabView id="tabView" activeIndex="#{param.tab}">
                         <p:tab title="Tables">
@@ -39,7 +43,7 @@
                                 </div>
                             </div>
 
-                            <h:dataTable id="tables" var="table" value="#{tableMBean.tables}" class="table">
+                            <h:dataTable id="tables" var="table" value="#{tableMBean.tables}" class="table table-hover">
                                 <h:column>
                                     <f:facet name="header">Name</f:facet>
                                     <h:link outcome="table" value="#{table.name}">
@@ -76,7 +80,7 @@
                                 </div>
                             </div>
 
-                            <h:dataTable id="views" var="vw" value="#{viewMBean.views}" class="table">
+                            <h:dataTable id="views" var="vw" value="#{viewMBean.views}" class="table table-hover">
                                 <h:column>
                                     <f:facet name="header">Name</f:facet>
                                     <h:link outcome="view" value="#{vw.name}">

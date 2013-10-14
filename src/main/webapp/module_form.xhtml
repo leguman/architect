@@ -10,8 +10,12 @@
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="modules.xhtml">Modules</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Module</h1>
+                </div>
+
                 <h:form id="form">
                     <div class="form-group">
                         <label for="application">Application</label>
@@ -37,7 +41,7 @@
                         </h:selectOneMenu>
                     </div>
                     <h:inputHidden value="#{moduleMBean.module.id}"/>
-                    
+
                     <h:commandButton class="btn btn-default" value="Save" action="#{moduleMBean.save}">
                         <f:param name="appId" value="#{moduleMBean.selectedApplication}"/>
                     </h:commandButton>

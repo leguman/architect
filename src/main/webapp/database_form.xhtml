@@ -9,8 +9,12 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="databases.xhtml">Databases</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Database Instance</h1>
+                </div>
+
                 <h:form id="form">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -21,7 +25,7 @@
                         <h:inputTextarea id="description" class="form-control" value="#{databaseMBean.database.description}"/>
                     </div>
                     <h:inputHidden value="#{databaseMBean.database.id}"/>
-                    
+
                     <h:commandButton class="btn btn-default" value="Save" action="#{databaseMBean.save}"/>
                 </h:form>
             </ui:define>

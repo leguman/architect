@@ -10,21 +10,28 @@
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="modules.xhtml">Modules</a></li>
+                <li><a href="#">Module</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{moduleMBean.module.name}</h1>
+                    <h1>Module: #{moduleMBean.module.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{moduleMBean.module.description}
+                            <dl class="dl-horizontal">
+                                <dt>Application</dt>
+                                <dd><a href="application.xhtml?id=#{moduleMBean.module.application.id}">#{moduleMBean.module.application}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{moduleMBean.module.description}</dd>
+                            </dl>
+
                             <h:button outcome="module_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{moduleMBean.module.id}"/>
                             </h:button>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
                 <div class="row">
                     <div class="col-md-6">

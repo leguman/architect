@@ -10,8 +10,12 @@
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="schemas.xhtml">Schemas</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Schemas</h1>
+                </div>
+
                 <h:form>
                     <div class="row">
                         <div class="col-md-8">
@@ -27,8 +31,8 @@
                             </h:button>
                         </div>
                     </div>
-                    
-                    <h:dataTable id="schemas" var="schema" value="#{schemaMBean.schemas}" class="table">
+
+                    <h:dataTable id="schemas" var="schema" value="#{schemaMBean.schemas}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="schema" value="#{schema.name}">

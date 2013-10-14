@@ -9,18 +9,25 @@
             <ui:define name="breadcrumbs">
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="elements.xhtml">Elements</a></li>
+                <li><a href="#">Table</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{tableMBean.table.name}</h1>
+                    <h1>Table: #{tableMBean.table.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{tableMBean.table.databaseInstance}
-                            <br/>#{tableMBean.table.databaseSchema}
-                            <br/>#{tableMBean.table.description}
+                            <dl class="dl-horizontal">
+                                <dt>Database Instance</dt>
+                                <dd><a href="database.xhtml?id=#{tableMBean.table.databaseInstance.id}">#{tableMBean.table.databaseInstance}</a></dd>
+                                <dt>Schema</dt>
+                                <dd><a href="schema.xhtml?id=#{tableMBean.table.databaseSchema.id}">#{tableMBean.table.databaseSchema}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{tableMBean.table.description}</dd>
+                            </dl>
+
                             <div class="row">
                                 <div class="col-md-11">
                                     <h:button outcome="table_form" value="Edit" class="btn btn-default pull-right">
@@ -36,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
             </ui:define>
         </ui:composition>

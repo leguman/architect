@@ -9,8 +9,12 @@
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="layers.xhtml">Layers</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
+                <div class="page-header">
+                    <h1>Layer</h1>
+                </div>
+
                 <h:form id="form">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -21,7 +25,7 @@
                         <h:inputTextarea id="description" class="form-control" value="#{layerMBean.layer.description}"/>
                     </div>
                     <h:inputHidden value="#{layerMBean.layer.id}"/>
-                    
+
                     <h:commandButton class="btn btn-default" value="Save" action="#{layerMBean.save}"/>
                 </h:form>
             </ui:define>

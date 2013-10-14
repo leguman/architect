@@ -9,24 +9,31 @@
             <ui:define name="breadcrumbs">
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="elements.xhtml">Elements</a></li>
+                <li><a href="#">View</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{viewMBean.view.name}</h1>
+                    <h1>View: #{viewMBean.view.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{viewMBean.view.databaseInstance}
-                            <br/>#{viewMBean.view.databaseSchema}
-                            <br/>#{viewMBean.view.description}
+                            <dl class="dl-horizontal">
+                                <dt>Database Instance</dt>
+                                <dd><a href="database.xhtml?id=#{viewMBean.view.databaseInstance.id}">#{viewMBean.view.databaseInstance}</a></dd>
+                                <dt>Database Schema</dt>
+                                <dd><a href="schema.xhtml?id=#{viewMBean.view.databaseSchema.id}">#{viewMBean.view.databaseSchema}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{viewMBean.view.description}</dd>
+                            </dl>
+
                             <h:button outcome="view_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{viewMBean.view.id}"/>
                             </h:button>
                         </div>
-                    </div>    
-                </h:form>                
+                    </div>
+                </h:form>
             </ui:define>
         </ui:composition>
     </body>

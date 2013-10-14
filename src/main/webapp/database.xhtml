@@ -10,29 +10,34 @@
             <ui:define name="breadcrumbs">
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="databases.xhtml">Databases</a></li>
+                <li><a href="#">Database</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{databaseMBean.database.name}</h1>
+                    <h1>Database Instance: #{databaseMBean.database.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{databaseMBean.database.description}
+                            <dl class="dl-horizontal">
+                                <dt>Description</dt>
+                                <dd>#{databaseMBean.database.description}</dd>
+                            </dl>
+
                             <h:button outcome="database_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{databaseMBean.database.id}"/>
                             </h:button>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Schemas <span class="badge">#{databaseMBean.schemas.size()}</span></div>
+                            <div class="panel-heading">Schemas <span class="badge">#{databaseMBean.relatedSchemas.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="schema" items="#{databaseMBean.schemas}">
+                                    <c:forEach var="schema" items="#{databaseMBean.relatedSchemas}">
                                         <h:link outcome="schema" value="#{schema.name}" class="list-group-item">
                                             <f:param name="id" value="#{schema.id}"/>
                                         </h:link>
@@ -41,10 +46,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Elements</div>
-                            <div class="panel-body"></div>
+                            <div class="panel-heading">Tables <span class="badge">#{databaseMBean.relatedTables.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="table" items="#{databaseMBean.relatedTables}">
+                                        <h:link outcome="table" value="#{table.name}" class="list-group-item">
+                                            <f:param name="id" value="#{table.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">View <span class="badge">#{databaseMBean.relatedViews.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="vw" items="#{databaseMBean.relatedViews}">
+                                        <h:link outcome="view" value="#{vw.name}" class="list-group-item">
+                                            <f:param name="id" value="#{vw.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

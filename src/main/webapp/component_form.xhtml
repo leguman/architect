@@ -8,12 +8,12 @@
         <ui:composition template="./layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
-                <li><a href="packages.xhtml">Packages</a></li>
+                <li><a href="artifacts.xhtml">Artifacts</a></li>
             </ui:define>
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Package</h1>
+                    <h1>Component</h1>
                 </div>
 
                 <h:form id="form">
@@ -21,47 +21,48 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="application">Application</label>
-                                <h:selectOneMenu id="application" label="Application" value="#{packageMBean.selectedApplication}" class="form-control">
+                                <h:selectOneMenu id="application" label="Application" value="#{componentMBean.selectedApplication}" class="form-control">
                                     <f:selectItem itemLabel="Select ..." itemValue="0"/>
-                                    <f:selectItems value="#{packageMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                    <f:selectItems value="#{componentMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
                                     <f:ajax render="module save"/>
                                 </h:selectOneMenu>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="under">Module</label>
-                                <h:selectOneMenu id="module" label="Module" value="#{packageMBean.selectedModule}" class="form-control">
+                                <label for="module">Module</label>
+                                <h:selectOneMenu id="module" label="Module" value="#{componentMBean.selectedModule}" class="form-control">
                                     <f:selectItem itemLabel="Select..." itemValue="0"/>
-                                    <f:selectItems value="#{packageMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
+                                    <f:selectItems value="#{componentMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
                                     <f:ajax render="save"/>
                                 </h:selectOneMenu>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="under">Layer</label>
-                                <h:selectOneMenu id="layer" label="Layer" value="#{packageMBean.selectedLayer}" class="form-control">
+                                <label for="package">Package</label>
+                                <h:selectOneMenu id="package" label="Package" value="#{componentMBean.selectedPackage}" class="form-control">
                                     <f:selectItem itemLabel="Select..." itemValue="0"/>
-                                    <f:selectItems value="#{packageMBean.layers}" var="layer" itemLabel="#{layer.name}" itemValue="#{layer.id}"/>
+                                    <f:selectItems value="#{componentMBean.packages}" var="pkg" itemLabel="#{pkg.name}" itemValue="#{pkg.id}"/>
                                 </h:selectOneMenu>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <h:inputText id="name" class="form-control" value="#{packageMBean.package.name}"/>
+                        <h:inputText id="name" class="form-control" value="#{componentMBean.component.name}"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <h:inputTextarea id="description" class="form-control" value="#{packageMBean.package.description}"/>
+                        <h:inputTextarea id="description" class="form-control" value="#{componentMBean.component.description}"/>
                     </div>
 
-                    <h:inputHidden value="#{packageMBean.package.id}"/>
+                    <h:inputHidden value="#{componentMBean.component.id}"/>
 
-                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{packageMBean.save}">
-                        <f:param name="appId" value="#{packageMBean.selectedApplication}"/>
-                        <f:param name="modId" value="#{packageMBean.selectedModule}"/>
+                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{componentMBean.save}">
+                        <f:param name="appId" value="#{componentMBean.selectedApplication}"/>
+                        <f:param name="modId" value="#{componentMBean.selectedModule}"/>
+                        <f:param name="pkgId" value="#{componentMBean.selectedPackage}"/>
                     </h:commandButton>
                 </h:form>
             </ui:define>

@@ -10,26 +10,33 @@
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="packages.xhtml">Packages</a></li>
+                <li><a href="#">Package</a></li>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>#{packageMBean.package.name}</h1>
+                    <h1>Package: #{packageMBean.package.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            #{packageMBean.package.application}
-                            <br/>#{packageMBean.package.module}
-                            <br/>#{packageMBean.package.description}
+                            <dl class="dl-horizontal">
+                                <dt>Application</dt>
+                                <dd><a href="application.xhtml?id=#{packageMBean.package.application.id}">#{packageMBean.package.application}</a></dd>
+                                <dt>Module</dt>
+                                <dd><a href="module.xhtml?id=#{packageMBean.package.module.id}">#{packageMBean.package.module}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{packageMBean.package.description}</dd>
+                            </dl>
+
                             <h:button outcome="package_form" value="Edit" class="btn btn-default pull-right">
                                 <f:param name="id" value="#{packageMBean.package.id}"/>
                             </h:button>
                         </div>
-                    </div>    
+                    </div>
                 </h:form>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">Modules <span class="badge">#{packageMBean.relatedModules.size()}</span></div>
                             <div class="panel-body">
@@ -43,10 +50,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Classes</div>
-                            <div class="panel-body"></div>
+                            <div class="panel-heading">Entity Classes <span class="badge">#{packageMBean.relatedEntityClasses.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="cls" items="#{packageMBean.relatedEntityClasses}">
+                                        <h:link outcome="entity_class" value="#{cls.name}" class="list-group-item">
+                                            <f:param name="id" value="#{cls.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Components <span class="badge">#{packageMBean.relatedComponents.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="cpn" items="#{packageMBean.relatedComponents}">
+                                        <h:link outcome="component" value="#{cpn.name}" class="list-group-item">
+                                            <f:param name="id" value="#{cpn.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

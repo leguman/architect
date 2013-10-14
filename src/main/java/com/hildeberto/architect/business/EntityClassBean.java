@@ -20,31 +20,31 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     public EntityClassBean() {
         super(EntityClass.class);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     public List<EntityClass> findByApplication(Application application) {
         return em.createQuery("select ec from EntityClass ec where ec.application = :application order by ec.name asc")
                  .setParameter("application", application)
                  .getResultList();
     }
-    
+
     public List<EntityClass> findByModule(Module module) {
         return em.createQuery("select ec from EntityClass ec where ec.module = :module order by ec.name asc")
                  .setParameter("module", module)
                  .getResultList();
     }
-    
+
     public List<EntityClass> findByPackage(Package pack) {
-        return em.createQuery("select ec from EntityClass ec where ec.package = :package order by ec.name asc")
-                 .setParameter("package", pack)
+        return em.createQuery("select ec from EntityClass ec where ec.pack = :pack order by ec.name asc")
+                 .setParameter("pack", pack)
                  .getResultList();
     }
 }

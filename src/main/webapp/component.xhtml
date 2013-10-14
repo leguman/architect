@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="artifacts.xhtml">Artifacts</a></li>
+                <li><a href="#">Component</a></li>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>Component: #{componentMBean.component.package}.#{componentMBean.component.name}</h1>
+                </div>
+                <h:form>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>Application</dt>
+                                <dd>#{componentMBean.component.application}</dd>
+                                <dt>Module</dt>
+                                <dd><a href="module.xhtml?id=#{componentMBean.component.module.id}">#{componentMBean.component.module}</a></dd>
+                                <dt>Package</dt>
+                                <dd><a href="package.xhtml?id=#{componentMBean.component.package.id}">#{componentMBean.component.package}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{componentMBean.component.description}</dd>
+                            </dl>
+
+                            <h:button outcome="component_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{componentMBean.component.id}"/>
+                            </h:button>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
