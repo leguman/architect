@@ -49,11 +49,7 @@ public abstract class CodeArtifact implements Serializable, Identified {
     @ManyToOne
     @JoinColumn(name = "package")
     private Package pack;
-    
-    @ManyToOne
-    @JoinColumn(name = "layer")
-     Layer layer;
-    
+        
     @Lob
     @Size(max = 32700)
     private String description;
@@ -89,14 +85,6 @@ public abstract class CodeArtifact implements Serializable, Identified {
 
     public void setPackage(Package pack) {
         this.pack = pack;
-    }
-
-    public Layer getLayer() {
-        return layer;
-    }
-
-    public void setLayer(Layer layer) {
-        this.layer = layer;
     }
 
     public Application getApplication() {

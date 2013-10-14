@@ -8,6 +8,6 @@ import javax.persistence.Entity;
  * @author mendoncafilh
  */
 @Entity
-@DiscriminatorValue("EJB")
-public class EnterpriseJavaBean extends CodeArtifact {
+@DiscriminatorValue("COMPONENT")
+public class Component extends CodeArtifact {
 }

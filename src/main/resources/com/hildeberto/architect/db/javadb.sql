@@ -129,3 +129,8 @@ alter table code_artifact add constraint fk_database_element_artifact foreign ke
 
 --changeset htmfilho:3
 alter table database_element drop column primary_key;
+
+--changeset htmfilho:4
+alter table code_artifact drop foreign key fk_layer_artifact;
+alter table code_artifact drop index idx_layer_artifact;
+alter table code_artifact drop column layer;

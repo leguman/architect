@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="artifacts.xhtml">Artifacts</a></li>
+            </ui:define>
+            
+            <ui:define name="content">
+                <h:form>
+                    <p:tabView id="tabView" activeIndex="#{param.tab}">
+                        <p:tab title="Entity Classes">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:selectOneMenu id="applicationEntityClass" label="Application" value="#{entityClassMBean.selectedApplication}" class="form-control">
+                                        <f:selectItem itemLabel="Applications ..." itemValue="0"/>
+                                        <f:selectItems value="#{entityClassMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                        <f:ajax render="moduleEntityClass packageEntityClass entityClasses createEntityClass"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:selectOneMenu id="moduleEntityClass" label="Module" value="#{entityClassMBean.selectedModule}" class="form-control">
+                                        <f:selectItem itemLabel="Modules ..." itemValue="0"/>
+                                        <f:selectItems value="#{entityClassMBean.modules}" var="mdl" itemLabel="#{mdl.name}" itemValue="#{mdl.id}"/>
+                                        <f:ajax render="packageEntityClass entityClasses createEntityClass"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:selectOneMenu id="packageEntityClass" label="Package" value="#{entityClassMBean.selectedPackage}" class="form-control">
+                                        <f:selectItem itemLabel="Packages ..." itemValue="0"/>
+                                        <f:selectItems value="#{entityClassMBean.packages}" var="pkg" itemLabel="#{pkg.name}" itemValue="#{pkg.id}"/>
+                                        <f:ajax render="entityClasses createEntityClass"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-2">
+                                    <h:button id="createEntityClass" outcome="table_form" value="Create" class="btn btn-default pull-right">
+                                        <f:param name="appId" value="#{entityClassMBean.selectedApplication}"/>
+                                        <f:param name="modId" value="#{entityClassMBean.selectedModule}"/>
+                                        <f:param name="pkgId" value="#{entityClassMBean.selectedPackage}"/>
+                                    </h:button>
+                                </div>
+                            </div>
+
+                            <h:dataTable id="entityClasses" var="entity" value="#{entityClassMBean.entityClasses}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:link outcome="entity_class" value="#{entity.name}">
+                                        <f:param name="id" value="#{entity.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Description</f:facet>
+                                    <h:outputText value="#{entity.description}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </p:tab>
+                        <p:tab title="Components">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:selectOneMenu id="applicationComponent" label="Application" value="#{componentMBean.selectedApplication}" class="form-control">
+                                        <f:selectItem itemLabel="Applications ..." itemValue="0"/>
+                                        <f:selectItems value="#{componentMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                        <f:ajax render="moduleComponent packageComponent components createComponent"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:selectOneMenu id="moduleComponent" label="Module" value="#{componentMBean.selectedModule}" class="form-control">
+                                        <f:selectItem itemLabel="Modules ..." itemValue="0"/>
+                                        <f:selectItems value="#{componentMBean.modules}" var="mdl" itemLabel="#{mdl.name}" itemValue="#{mdl.id}"/>
+                                        <f:ajax render="packageComponent components createComponent"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:selectOneMenu id="packageComponent" label="Package" value="#{componentMBean.selectedPackage}" class="form-control">
+                                        <f:selectItem itemLabel="Packages ..." itemValue="0"/>
+                                        <f:selectItems value="#{componentMBean.packages}" var="pkg" itemLabel="#{pkg.name}" itemValue="#{pkg.id}"/>
+                                        <f:ajax render="components createComponent"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-2">
+                                    <h:button id="createComponent" outcome="table_form" value="Create" class="btn btn-default pull-right">
+                                        <f:param name="appId" value="#{componentMBean.selectedApplication}"/>
+                                        <f:param name="modId" value="#{componentMBean.selectedModule}"/>
+                                        <f:param name="pkgId" value="#{componentMBean.selectedPackage}"/>
+                                    </h:button>
+                                </div>
+                            </div>
+
+                            <h:dataTable id="components" var="component" value="#{componentMBean.components}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:link outcome="component" value="#{component.name}">
+                                        <f:param name="id" value="#{component.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Description</f:facet>
+                                    <h:outputText value="#{component.description}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

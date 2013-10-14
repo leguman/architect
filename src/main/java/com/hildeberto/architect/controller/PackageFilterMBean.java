@@ -2,8 +2,10 @@ package com.hildeberto.architect.controller;
 
 import com.hildeberto.architect.business.ApplicationBean;
 import com.hildeberto.architect.business.ModuleBean;
+import com.hildeberto.architect.business.PackageBean;
 import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.Module;
+import com.hildeberto.architect.domain.Package;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -23,11 +25,16 @@ public class PackageFilterMBean {
     @EJB
     private ModuleBean moduleBean;
     
+    @EJB
+    private PackageBean packageBean;
+    
     private List<Application> applications;
     private List<Module> modules;
+    private List<Package> packages;
     
     private Integer selectedApplication;
     private Integer selectedModule;
+    private Integer selectedPackage;
             
     public List<Application> getApplications() {
         if(this.applications == null) {
@@ -43,6 +50,18 @@ public class PackageFilterMBean {
         }
         return this.modules;
     }
+    
+    public List<Package> getPackages() {
+        if(this.selectedApplication != null && this.selectedModule == null) {
+            Application application = new Application(this.selectedApplication);
+            this.packages = packageBean.findByApplication(application);
+        }
+        else if(this.selectedModule != null) {
+            Module module = new Module(this.selectedModule);
+            this.packages = packageBean.findByModule(module);
+        }
+        return this.packages;
+    }
 
     public Integer getSelectedApplication() {
         return selectedApplication;
@@ -50,6 +69,22 @@ public class PackageFilterMBean {
 
     public void setSelectedApplication(Integer selectedApplication) {
         this.selectedApplication = selectedApplication;
+    }    
+
+    public Integer getSelectedModule() {
+        return selectedModule;
+    }
+
+    public void setSelectedModule(Integer selectedModule) {
+        this.selectedModule = selectedModule;
+    }
+
+    public Integer getSelectedPackage() {
+        return selectedPackage;
+    }
+
+    public void setSelectedPackage(Integer selectedPackage) {
+        this.selectedPackage = selectedPackage;
     }
     
     public Application getApplication() {
@@ -60,18 +95,19 @@ public class PackageFilterMBean {
             return null;
         }
     }
-
-    public Integer getSelectedModule() {
-        return selectedModule;
-    }
-
-    public void setSelectedModule(Integer selectedModule) {
-        this.selectedModule = selectedModule;
-    }
     
     public Module getModule() {
         if(this.selectedModule != null) {
             return moduleBean.find(this.selectedModule);
+        }
+        else {
+            return null;
+        }
+    }
+    
+    public Package getPackage() {
+        if(this.selectedPackage != null) {
+            return packageBean.find(this.selectedPackage);
         }
         else {
             return null;
