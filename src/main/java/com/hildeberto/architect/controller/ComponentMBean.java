@@ -26,7 +26,7 @@ public class ComponentMBean {
     private List<Component> components;
 
     @ManagedProperty(value="#{packageFilterMBean}")
-    private PackageFilterMBean packageFilterMBean;
+    private ApplicationFilterMBean packageFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -80,7 +80,7 @@ public class ComponentMBean {
         return this.component;
     }
 
-    public void setPackageFilterMBean(PackageFilterMBean packageFilterMBean) {
+    public void setPackageFilterMBean(ApplicationFilterMBean packageFilterMBean) {
         this.packageFilterMBean = packageFilterMBean;
     }
 

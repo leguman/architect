@@ -25,7 +25,7 @@ public class TableMBean {
     private List<DatabaseTable> tables;
     
     @ManagedProperty(value="#{elementFilterMBean}")
-    private ElementFilterMBean elementFilterMBean;
+    private DatabaseFilterMBean elementFilterMBean;
         
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -68,7 +68,7 @@ public class TableMBean {
         return this.table;
     }
     
-    public void setElementFilterMBean(ElementFilterMBean elementFilterMBean) {
+    public void setElementFilterMBean(DatabaseFilterMBean elementFilterMBean) {
         this.elementFilterMBean = elementFilterMBean;
     }
     

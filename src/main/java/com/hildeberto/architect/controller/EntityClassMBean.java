@@ -26,7 +26,7 @@ public class EntityClassMBean {
     private List<EntityClass> entityClasses;
 
     @ManagedProperty(value="#{packageFilterMBean}")
-    private PackageFilterMBean packageFilterMBean;
+    private ApplicationFilterMBean packageFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -80,7 +80,7 @@ public class EntityClassMBean {
         return this.entityClass;
     }
 
-    public void setPackageFilterMBean(PackageFilterMBean packageFilterMBean) {
+    public void setPackageFilterMBean(ApplicationFilterMBean packageFilterMBean) {
         this.packageFilterMBean = packageFilterMBean;
     }
 

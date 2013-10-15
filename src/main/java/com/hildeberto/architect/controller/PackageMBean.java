@@ -44,7 +44,7 @@ public class PackageMBean {
     private List<Layer> layers;
 
     @ManagedProperty(value="#{packageFilterMBean}")
-    private PackageFilterMBean packageFilterMBean;
+    private ApplicationFilterMBean packageFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -89,7 +89,7 @@ public class PackageMBean {
         return this.pack;
     }
 
-    public void setPackageFilterMBean(PackageFilterMBean packageFilterMBean) {
+    public void setPackageFilterMBean(ApplicationFilterMBean packageFilterMBean) {
         this.packageFilterMBean = packageFilterMBean;
     }
 

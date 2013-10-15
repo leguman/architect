@@ -4,6 +4,8 @@ import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
+import com.hildeberto.architect.domain.DatabaseTable;
+import com.hildeberto.architect.domain.DatabaseView;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -46,5 +48,17 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
         return em.createQuery("select ec from EntityClass ec where ec.pack = :pack order by ec.name asc")
                  .setParameter("pack", pack)
                  .getResultList();
+    }
+
+    public List<EntityClass> findNotMappedClasses(EntityClass except) {
+        if(except != null) {
+            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null && ec != :except order by ec.name asc")
+                     .setParameter("except", except)
+                     .getResultList();
+        }
+        else {
+            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null order by ec.name asc")
+                     .getResultList();
+        }
     }
 }

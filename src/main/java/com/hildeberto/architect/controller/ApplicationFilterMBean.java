@@ -17,7 +17,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class PackageFilterMBean {
+public class ApplicationFilterMBean {
     
     @EJB
     private ApplicationBean applicationBean;

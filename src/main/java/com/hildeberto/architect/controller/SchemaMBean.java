@@ -1,6 +1,5 @@
 package com.hildeberto.architect.controller;
 
-import com.hildeberto.architect.business.DatabaseInstanceBean;
 import com.hildeberto.architect.business.DatabaseSchemaBean;
 import com.hildeberto.architect.business.DatabaseTableBean;
 import com.hildeberto.architect.business.DatabaseViewBean;
@@ -27,16 +26,12 @@ public class SchemaMBean {
     private DatabaseSchemaBean databaseSchemaBean;
 
     @EJB
-    private DatabaseInstanceBean databaseInstanceBean;
-
-    @EJB
     private DatabaseTableBean databaseTableBean;
 
     @EJB
     private DatabaseViewBean databaseViewBean;
 
     private List<DatabaseSchema> schemas;
-    private List<DatabaseInstance> databases;
     private List<DatabaseTable> relatedTables;
     private List<DatabaseView> relatedViews;
 
@@ -44,21 +39,20 @@ public class SchemaMBean {
     private Integer id;
 
     @ManagedProperty(value="#{param.dbId}")
-    private Integer selectedDatabase;
+    private Integer dbId;
+
+    @ManagedProperty(value="#{databaseFilterMBean}")
+    private DatabaseFilterMBean databaseFilterMBean;
 
     private DatabaseSchema schema;
 
     public List<DatabaseInstance> getDatabases() {
-        if(this.databases == null) {
-            this.databases = databaseInstanceBean.findAll();
-        }
-        return this.databases;
+        return this.databaseFilterMBean.getDatabaseInstances();
     }
 
     public List<DatabaseSchema> getSchemas() {
-        if(schemas == null && selectedDatabase != null) {
-            DatabaseInstance databaseInstance = new DatabaseInstance(selectedDatabase);
-            schemas = databaseSchemaBean.findByDatabaseInstance(databaseInstance);
+        if(schemas == null && this.databaseFilterMBean.getDatabaseInstance() != null) {
+            schemas = databaseSchemaBean.findByDatabaseInstance(this.databaseFilterMBean.getDatabaseInstance());
         }
         return schemas;
     }
@@ -86,34 +80,37 @@ public class SchemaMBean {
     }
 
     public void setDbId(Integer dbId) {
-        this.selectedDatabase = dbId;
+        this.dbId = dbId;
     }
 
     public Integer getSelectedDatabase() {
-        return selectedDatabase;
+        return this.databaseFilterMBean.getSelectedDatabaseInstance();
     }
 
     public void setSelectedDatabase(Integer selectedDatabase) {
-        this.selectedDatabase = selectedDatabase;
+        this.databaseFilterMBean.setSelectedDatabaseInstance(selectedDatabase);
+    }
+
+    public void setDatabaseFilterMBean(DatabaseFilterMBean databaseFilterMBean) {
+        this.databaseFilterMBean = databaseFilterMBean;
     }
 
     @PostConstruct
     public void load() {
         if(id != null) {
             this.schema = databaseSchemaBean.find(id);
-            this.selectedDatabase = this.schema.getDatabaseInstance().getId();
+            this.databaseFilterMBean.setSelectedDatabaseInstance(this.schema.getDatabaseInstance().getId());
         }
         else {
             this.schema = new DatabaseSchema();
-            if(selectedDatabase != null) {
-                this.schema.setDatabaseInstance(databaseInstanceBean.find(selectedDatabase));
+            if(this.databaseFilterMBean.getDatabaseInstance() != null) {
+                this.schema.setDatabaseInstance(this.databaseFilterMBean.getDatabaseInstance());
             }
         }
     }
 
     public String save() {
-        DatabaseInstance database = databaseInstanceBean.find(selectedDatabase);
-        this.schema.setDatabaseInstance(database);
+        this.schema.setDatabaseInstance(this.databaseFilterMBean.getDatabaseInstance());
 
         databaseSchemaBean.save(this.schema);
         return "schemas";

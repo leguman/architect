@@ -15,7 +15,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ElementFilterMBean {
+public class DatabaseFilterMBean {
     
     @EJB
     private DatabaseInstanceBean databaseInstanceBean;
