@@ -1,10 +1,9 @@
 package com.hildeberto.architect.business;
 
+import com.hildeberto.architect.domain.DatabaseElement;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
-import com.hildeberto.architect.domain.DatabaseView;
-import com.hildeberto.architect.domain.EntityClass;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -43,7 +42,7 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
                  .getResultList();
     }
 
-    public List<DatabaseTable> findNotMappedTables(DatabaseTable except) {
+    public List<DatabaseTable> findNotMappedTables(DatabaseElement except) {
         if(except != null) {
             return em.createQuery("select dt from DatabaseTable dt where dt not in (select ec.databaseElement from EntityClass ec where ec.databaseElement != :except) order by dt.name asc")
                      .setParameter("except", except)

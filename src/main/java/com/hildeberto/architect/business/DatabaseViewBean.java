@@ -1,5 +1,6 @@
 package com.hildeberto.architect.business;
 
+import com.hildeberto.architect.domain.DatabaseElement;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseView;
@@ -41,7 +42,7 @@ public class DatabaseViewBean extends AbstractBean<DatabaseView> {
                  .getResultList();
     }
 
-    public List<DatabaseView> findNotMappedViews(DatabaseView except) {
+    public List<DatabaseView> findNotMappedViews(DatabaseElement except) {
         if(except != null) {
             return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec where ec.databaseElement != :except) order by dv.name asc")
                      .setParameter("except", except)

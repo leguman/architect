@@ -18,118 +18,118 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class ViewMBean {
- 
+
     @EJB
     private DatabaseViewBean databaseViewBean;
-            
+
     private List<DatabaseView> views;
-    
-    @ManagedProperty(value="#{elementFilterMBean}")
-    private DatabaseFilterMBean elementFilterMBean;
-        
+
+    @ManagedProperty(value="#{databaseFilterMBean}")
+    private DatabaseFilterMBean databaseFilterMBean;
+
     @ManagedProperty(value="#{param.id}")
     private Integer id;
-    
+
     @ManagedProperty(value="#{param.dbiId}")
     private Integer dbiId;
-    
+
     @ManagedProperty(value="#{param.schId}")
     private Integer schId;
-        
+
     private DatabaseView view;
-          
+
     public List<DatabaseView> getViews() {
         if(views == null) {
-            if(elementFilterMBean.getSelectedDatabaseInstance() != null && elementFilterMBean.getSelectedDatabaseSchema() == null) {
-                DatabaseInstance databaseInstance = elementFilterMBean.getDatabaseInstance();
+            if(databaseFilterMBean.getSelectedDatabaseInstance() != null && databaseFilterMBean.getSelectedDatabaseSchema() == null) {
+                DatabaseInstance databaseInstance = databaseFilterMBean.getDatabaseInstance();
                 views = databaseViewBean.findByDatabaseInstance(databaseInstance);
             }
-            else if(elementFilterMBean.getSelectedDatabaseSchema() != null) {
-                DatabaseSchema databaseSchema = elementFilterMBean.getDatabaseSchema();
+            else if(databaseFilterMBean.getSelectedDatabaseSchema() != null) {
+                DatabaseSchema databaseSchema = databaseFilterMBean.getDatabaseSchema();
                 views = databaseViewBean.findByDatabaseSchema(databaseSchema);
             }
         }
         return views;
     }
-        
+
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public void setDbiId(Integer dbiId) {
         this.dbiId = dbiId;
     }
-    
+
     public void setSchId(Integer schId) {
         this.schId = schId;
     }
-    
+
     public DatabaseView getView() {
         return this.view;
     }
-    
-    public void setElementFilterMBean(DatabaseFilterMBean elementFilterMBean) {
-        this.elementFilterMBean = elementFilterMBean;
+
+    public void setDatabaseFilterMBean(DatabaseFilterMBean databaseFilterMBean) {
+        this.databaseFilterMBean = databaseFilterMBean;
     }
-    
+
     public List<DatabaseInstance> getDatabaseInstances() {
-        return this.elementFilterMBean.getDatabaseInstances();
+        return this.databaseFilterMBean.getDatabaseInstances();
     }
-    
+
     public List<DatabaseSchema> getDatabaseSchemas() {
-        return this.elementFilterMBean.getDatabaseSchemas();
+        return this.databaseFilterMBean.getDatabaseSchemas();
     }
-    
+
     public Integer getSelectedDatabaseInstance() {
-        return this.elementFilterMBean.getSelectedDatabaseInstance();
+        return this.databaseFilterMBean.getSelectedDatabaseInstance();
     }
-    
+
     public void setSelectedDatabaseInstance(Integer selectedDatabaseInstance) {
-        this.elementFilterMBean.setSelectedDatabaseInstance(selectedDatabaseInstance);
+        this.databaseFilterMBean.setSelectedDatabaseInstance(selectedDatabaseInstance);
     }
-    
+
     public Integer getSelectedDatabaseSchema() {
-        return this.elementFilterMBean.getSelectedDatabaseSchema();
+        return this.databaseFilterMBean.getSelectedDatabaseSchema();
     }
-    
+
     public void setSelectedDatabaseSchema(Integer selectedDatabaseSchema) {
-        this.elementFilterMBean.setSelectedDatabaseSchema(selectedDatabaseSchema);
+        this.databaseFilterMBean.setSelectedDatabaseSchema(selectedDatabaseSchema);
     }
-            
+
     @PostConstruct
     public void load() {
         if(id != null) {
             this.view = databaseViewBean.find(id);
-            this.elementFilterMBean.setSelectedDatabaseInstance(this.view.getDatabaseInstance().getId());
+            this.databaseFilterMBean.setSelectedDatabaseInstance(this.view.getDatabaseInstance().getId());
             if(this.view.getDatabaseSchema() != null) {
-                this.elementFilterMBean.setSelectedDatabaseSchema(this.view.getDatabaseSchema().getId());
+                this.databaseFilterMBean.setSelectedDatabaseSchema(this.view.getDatabaseSchema().getId());
             }
         }
         else {
             this.view = new DatabaseView();
             if(dbiId != null) {
-                elementFilterMBean.setSelectedDatabaseInstance(dbiId);
-                this.view.setDatabaseInstance(elementFilterMBean.getDatabaseInstance());
+                databaseFilterMBean.setSelectedDatabaseInstance(dbiId);
+                this.view.setDatabaseInstance(databaseFilterMBean.getDatabaseInstance());
             }
             if(schId != null) {
-                elementFilterMBean.setSelectedDatabaseSchema(schId);
-                this.view.setDatabaseSchema(elementFilterMBean.getDatabaseSchema());
+                databaseFilterMBean.setSelectedDatabaseSchema(schId);
+                this.view.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
             }
         }
     }
-    
+
     public String save() {
-        this.view.setDatabaseInstance(elementFilterMBean.getDatabaseInstance());
-        this.view.setDatabaseSchema(elementFilterMBean.getDatabaseSchema());
-        
+        this.view.setDatabaseInstance(databaseFilterMBean.getDatabaseInstance());
+        this.view.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
+
         databaseViewBean.save(this.view);
         return "elements?faces-redirect=true&dbiId=" + this.view.getDatabaseInstance().getId() + "&schId=" + this.view.getDatabaseSchema().getId() + "&tab=1";
     }
-    
+
     public String saveAndCreateNew() {
-        this.view.setDatabaseInstance(elementFilterMBean.getDatabaseInstance());
-        this.view.setDatabaseSchema(elementFilterMBean.getDatabaseSchema());
-        
+        this.view.setDatabaseInstance(databaseFilterMBean.getDatabaseInstance());
+        this.view.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
+
         databaseViewBean.save(this.view);
         return "view_form?faces-redirect=true&dbiId=" + this.view.getDatabaseInstance().getId() + "&schId=" + this.view.getDatabaseSchema().getId();
     }

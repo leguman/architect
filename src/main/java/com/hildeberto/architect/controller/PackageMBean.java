@@ -43,8 +43,8 @@ public class PackageMBean {
     private List<Component> relatedComponents;
     private List<Layer> layers;
 
-    @ManagedProperty(value="#{packageFilterMBean}")
-    private ApplicationFilterMBean packageFilterMBean;
+    @ManagedProperty(value="#{applicationFilterMBean}")
+    private ApplicationFilterMBean applicationFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -61,12 +61,12 @@ public class PackageMBean {
 
     public List<Package> getPackages() {
         if(packages == null) {
-            if(packageFilterMBean.getSelectedApplication() != null && packageFilterMBean.getSelectedModule() == null) {
-                Application application = packageFilterMBean.getApplication();
+            if(applicationFilterMBean.getSelectedApplication() != null && applicationFilterMBean.getSelectedModule() == null) {
+                Application application = applicationFilterMBean.getApplication();
                 packages = packageBean.findByApplication(application);
             }
-            else if(packageFilterMBean.getSelectedModule() != null) {
-                Module module = packageFilterMBean.getModule();
+            else if(applicationFilterMBean.getSelectedModule() != null) {
+                Module module = applicationFilterMBean.getModule();
                 packages = packageBean.findByModule(module);
             }
         }
@@ -89,16 +89,16 @@ public class PackageMBean {
         return this.pack;
     }
 
-    public void setPackageFilterMBean(ApplicationFilterMBean packageFilterMBean) {
-        this.packageFilterMBean = packageFilterMBean;
+    public void setApplicationFilterMBean(ApplicationFilterMBean applicationFilterMBean) {
+        this.applicationFilterMBean = applicationFilterMBean;
     }
 
     public List<Application> getApplications() {
-        return this.packageFilterMBean.getApplications();
+        return this.applicationFilterMBean.getApplications();
     }
 
     public List<Module> getModules() {
-        return this.packageFilterMBean.getModules();
+        return this.applicationFilterMBean.getModules();
     }
 
     public List<Layer> getLayers() {
@@ -109,19 +109,19 @@ public class PackageMBean {
     }
 
     public Integer getSelectedApplication() {
-        return this.packageFilterMBean.getSelectedApplication();
+        return this.applicationFilterMBean.getSelectedApplication();
     }
 
     public void setSelectedApplication(Integer selectedApplication) {
-        this.packageFilterMBean.setSelectedApplication(selectedApplication);
+        this.applicationFilterMBean.setSelectedApplication(selectedApplication);
     }
 
     public Integer getSelectedModule() {
-        return this.packageFilterMBean.getSelectedModule();
+        return this.applicationFilterMBean.getSelectedModule();
     }
 
     public void setSelectedModule(Integer selectedModule) {
-        this.packageFilterMBean.setSelectedModule(selectedModule);
+        this.applicationFilterMBean.setSelectedModule(selectedModule);
     }
 
     public Integer getSelectedLayer() {
@@ -157,9 +157,9 @@ public class PackageMBean {
     public void load() {
         if(id != null) {
             this.pack = packageBean.find(id);
-            this.packageFilterMBean.setSelectedApplication(this.pack.getApplication().getId());
+            this.applicationFilterMBean.setSelectedApplication(this.pack.getApplication().getId());
             if(this.pack.getModule() != null) {
-                this.packageFilterMBean.setSelectedModule(this.pack.getModule().getId());
+                this.applicationFilterMBean.setSelectedModule(this.pack.getModule().getId());
             }
             if(this.pack.getLayer() != null) {
                 this.selectedLayer = this.pack.getLayer().getId();
@@ -168,19 +168,19 @@ public class PackageMBean {
         else {
             this.pack = new Package();
             if(appId != null) {
-                packageFilterMBean.setSelectedApplication(appId);
-                this.pack.setApplication(packageFilterMBean.getApplication());
+                applicationFilterMBean.setSelectedApplication(appId);
+                this.pack.setApplication(applicationFilterMBean.getApplication());
             }
             if(modId != null) {
-                packageFilterMBean.setSelectedModule(modId);
-                this.pack.setModule(packageFilterMBean.getModule());
+                applicationFilterMBean.setSelectedModule(modId);
+                this.pack.setModule(applicationFilterMBean.getModule());
             }
         }
     }
 
     public String save() {
-        this.pack.setApplication(packageFilterMBean.getApplication());
-        this.pack.setModule(packageFilterMBean.getModule());
+        this.pack.setApplication(applicationFilterMBean.getApplication());
+        this.pack.setModule(applicationFilterMBean.getModule());
 
         if(this.selectedLayer != null) {
             Layer layer = layerBean.find(this.selectedLayer);

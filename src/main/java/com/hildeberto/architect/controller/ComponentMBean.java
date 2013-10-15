@@ -25,8 +25,8 @@ public class ComponentMBean {
 
     private List<Component> components;
 
-    @ManagedProperty(value="#{packageFilterMBean}")
-    private ApplicationFilterMBean packageFilterMBean;
+    @ManagedProperty(value="#{applicationFilterMBean}")
+    private ApplicationFilterMBean applicationFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
     private Integer id;
@@ -44,16 +44,16 @@ public class ComponentMBean {
 
     public List<Component> getComponents() {
         if(components == null) {
-            if(packageFilterMBean.getSelectedApplication() != null && packageFilterMBean.getSelectedModule() == null && packageFilterMBean.getSelectedPackage() == null) {
-                Application application = packageFilterMBean.getApplication();
+            if(applicationFilterMBean.getSelectedApplication() != null && applicationFilterMBean.getSelectedModule() == null && applicationFilterMBean.getSelectedPackage() == null) {
+                Application application = applicationFilterMBean.getApplication();
                 components = componentBean.findByApplication(application);
             }
-            else if(packageFilterMBean.getSelectedModule() != null && packageFilterMBean.getSelectedPackage() == null) {
-                Module module = packageFilterMBean.getModule();
+            else if(applicationFilterMBean.getSelectedModule() != null && applicationFilterMBean.getSelectedPackage() == null) {
+                Module module = applicationFilterMBean.getModule();
                 components = componentBean.findByModule(module);
             }
-            else if(packageFilterMBean.getSelectedPackage() != null) {
-                Package pack = packageFilterMBean.getPackage();
+            else if(applicationFilterMBean.getSelectedPackage() != null) {
+                Package pack = applicationFilterMBean.getPackage();
                 components = componentBean.findByPackage(pack);
             }
         }
@@ -80,79 +80,79 @@ public class ComponentMBean {
         return this.component;
     }
 
-    public void setPackageFilterMBean(ApplicationFilterMBean packageFilterMBean) {
-        this.packageFilterMBean = packageFilterMBean;
+    public void setApplicationFilterMBean(ApplicationFilterMBean applicationFilterMBean) {
+        this.applicationFilterMBean = applicationFilterMBean;
     }
 
     public List<Application> getApplications() {
-        return this.packageFilterMBean.getApplications();
+        return this.applicationFilterMBean.getApplications();
     }
 
     public List<Module> getModules() {
-        return this.packageFilterMBean.getModules();
+        return this.applicationFilterMBean.getModules();
     }
 
     public List<Package> getPackages() {
-        return this.packageFilterMBean.getPackages();
+        return this.applicationFilterMBean.getPackages();
     }
 
     public Integer getSelectedApplication() {
-        return this.packageFilterMBean.getSelectedApplication();
+        return this.applicationFilterMBean.getSelectedApplication();
     }
 
     public void setSelectedApplication(Integer selectedApplication) {
-        this.packageFilterMBean.setSelectedApplication(selectedApplication);
+        this.applicationFilterMBean.setSelectedApplication(selectedApplication);
     }
 
     public Integer getSelectedModule() {
-        return this.packageFilterMBean.getSelectedModule();
+        return this.applicationFilterMBean.getSelectedModule();
     }
 
     public void setSelectedModule(Integer selectedModule) {
-        this.packageFilterMBean.setSelectedModule(selectedModule);
+        this.applicationFilterMBean.setSelectedModule(selectedModule);
     }
 
     public Integer getSelectedPackage() {
-        return this.packageFilterMBean.getSelectedPackage();
+        return this.applicationFilterMBean.getSelectedPackage();
     }
 
     public void setSelectedPackage(Integer selectedPackage) {
-        this.packageFilterMBean.setSelectedPackage(selectedPackage);
+        this.applicationFilterMBean.setSelectedPackage(selectedPackage);
     }
 
     @PostConstruct
     public void load() {
         if(id != null) {
             this.component = componentBean.find(id);
-            this.packageFilterMBean.setSelectedApplication(this.component.getApplication().getId());
+            this.applicationFilterMBean.setSelectedApplication(this.component.getApplication().getId());
             if(this.component.getModule() != null) {
-                this.packageFilterMBean.setSelectedModule(this.component.getModule().getId());
+                this.applicationFilterMBean.setSelectedModule(this.component.getModule().getId());
             }
             if(this.component.getPackage() != null) {
-                this.packageFilterMBean.setSelectedPackage(this.component.getPackage().getId());
+                this.applicationFilterMBean.setSelectedPackage(this.component.getPackage().getId());
             }
         }
         else {
             this.component = new Component();
             if(appId != null) {
-                packageFilterMBean.setSelectedApplication(appId);
-                this.component.setApplication(packageFilterMBean.getApplication());
+                applicationFilterMBean.setSelectedApplication(appId);
+                this.component.setApplication(applicationFilterMBean.getApplication());
             }
             if(modId != null) {
-                packageFilterMBean.setSelectedModule(modId);
-                this.component.setModule(packageFilterMBean.getModule());
+                applicationFilterMBean.setSelectedModule(modId);
+                this.component.setModule(applicationFilterMBean.getModule());
             }
             if(pkgId != null) {
-                packageFilterMBean.setSelectedPackage(pkgId);
-                this.component.setPackage(packageFilterMBean.getPackage());
+                applicationFilterMBean.setSelectedPackage(pkgId);
+                this.component.setPackage(applicationFilterMBean.getPackage());
             }
         }
     }
 
     public String save() {
-        this.component.setApplication(packageFilterMBean.getApplication());
-        this.component.setModule(packageFilterMBean.getModule());
-        this.component.setPackage(packageFilterMBean.getPackage());
+        this.component.setApplication(applicationFilterMBean.getApplication());
+        this.component.setModule(applicationFilterMBean.getModule());
+        this.component.setPackage(applicationFilterMBean.getPackage());
 
         componentBean.save(this.component);
         return "artifacts?faces-redirect=true&appId=" + this.component.getApplication().getId() +

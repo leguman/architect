@@ -4,8 +4,6 @@ import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
-import com.hildeberto.architect.domain.DatabaseTable;
-import com.hildeberto.architect.domain.DatabaseView;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
