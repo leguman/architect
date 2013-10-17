@@ -53,12 +53,20 @@
 
                             <h:dataTable id="entityClasses" var="entity" value="#{entityClassMBean.entityClasses}" class="table table-hover">
                                 <h:column>
-                                    <f:facet name="header">Name</f:facet>
-                                    <h:link outcome="entity_class" value="#{entity.name}">
+                                    <f:facet name="header">Entity</f:facet>
+                                    <h:link outcome="entity_class">
+                                        <h:outputText value="#{entity}" escape="false"/>
                                         <f:param name="id" value="#{entity.id}"/>
                                     </h:link>
-                                </h:column>
+                                </h:column>                               
                                 <h:column>
+                                    <f:facet name="header">Mapped Table</f:facet>
+                                    <h:link outcome="table">
+                                        <h:outputText value="#{entity.databaseElement}" escape="false"/>
+                                        <f:param name="id" value="#{entity.databaseElement.id}"/>
+                                    </h:link>
+                                </h:column>
+                                 <h:column>
                                     <f:facet name="header">Description</f:facet>
                                     <h:outputText value="#{entity.description}"/>
                                 </h:column>
@@ -98,7 +106,7 @@
 
                             <h:dataTable id="components" var="cmp" value="#{componentMBean.components}" class="table table-hover">
                                 <h:column>
-                                    <f:facet name="header">Name</f:facet>
+                                    <f:facet name="header">Component</f:facet>
                                     <h:link outcome="component" value="#{cmp.name}">
                                         <f:param name="id" value="#{cmp.id}"/>
                                     </h:link>

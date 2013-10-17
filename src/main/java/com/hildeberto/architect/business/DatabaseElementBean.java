@@ -1,6 +1,7 @@
 package com.hildeberto.architect.business;
 
 import com.hildeberto.architect.domain.DatabaseElement;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,5 +25,16 @@ public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public DatabaseElement findByName(String name) {
+        DatabaseElement databaseElement = null;
+        List<DatabaseElement> elements = em.createQuery("select de from DatabaseElement de where de.name = :name")
+                                           .setParameter("name", name)
+                                           .getResultList();
+        if(elements.size() > 0) {
+            databaseElement = elements.get(0);
+        }
+        return databaseElement;
     }
 }

@@ -45,6 +45,10 @@
 
                             <h:dataTable id="tables" var="table" value="#{tableMBean.tables}" class="table table-hover">
                                 <h:column>
+                                    <f:facet name="header">Schema</f:facet>
+                                    <h:outputText value="#{table.databaseSchema}"/>
+                                </h:column>
+                                <h:column>
                                     <f:facet name="header">Name</f:facet>
                                     <h:link outcome="table" value="#{table.name}">
                                         <f:param name="id" value="#{table.id}"/>

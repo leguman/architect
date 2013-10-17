@@ -6,7 +6,6 @@ import com.hildeberto.architect.business.DatabaseViewBean;
 import com.hildeberto.architect.business.EntityClassBean;
 import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.DatabaseElement;
-import com.hildeberto.architect.domain.DatabaseTable;
 import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
@@ -161,6 +160,12 @@ public class EntityClassMBean {
     }
 
     public Integer getSelectedDatabaseElement() {
+        if(!this.entityClass.suggestedElementName().isEmpty()) {
+            DatabaseElement databaseElement = databaseElementBean.findByName(this.entityClass.suggestedElementName());
+            if(databaseElement != null) {
+                this.selectedDatabaseElement = databaseElement.getId();
+            }
+        }
         return selectedDatabaseElement;
     }
 
@@ -214,5 +219,21 @@ public class EntityClassMBean {
         return "artifacts?faces-redirect=true&appId=" + this.entityClass.getApplication().getId() +
                                             "&modId=" + this.entityClass.getModule().getId() +
                                             "&pkgId=" + this.entityClass.getPackage().getId();
+    }
+    
+    public String saveAndCreateNew() {
+        this.entityClass.setApplication(applicationFilterMBean.getApplication());
+        this.entityClass.setModule(applicationFilterMBean.getModule());
+        this.entityClass.setPackage(applicationFilterMBean.getPackage());
+
+        if(this.selectedDatabaseElement != null) {
+            DatabaseElement databaseElement = databaseElementBean.find(this.selectedDatabaseElement);
+            this.entityClass.setDatabaseElement(databaseElement);
+        }
+
+        entityClassBean.save(this.entityClass);
+        return "entity_class_form?faces-redirect=true&appId=" + this.entityClass.getApplication().getId() +
+                                                    "&modId=" + this.entityClass.getModule().getId() +
+                                                    "&pkgId=" + this.entityClass.getPackage().getId();
     }
 }

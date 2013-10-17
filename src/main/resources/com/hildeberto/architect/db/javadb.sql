@@ -134,3 +134,18 @@ alter table database_element drop column primary_key;
 alter table code_artifact drop foreign key fk_layer_artifact;
 alter table code_artifact drop index idx_layer_artifact;
 alter table code_artifact drop column layer;
+
+--changeset htmfilho:5
+create table lifecycle (
+    id               integer      not null primary key auto_increment,
+    state            varchar(15)  not null,
+    state_date       date         not null,
+    lifecycle_type   varchar(20)  not null,
+    object           integer      not null
+) engine = innodb;
+
+alter table database_element add lifecycle_state varchar(15) null;
+create index idx_lifecycle_element on database_element (lifecycle_state);
+
+alter table code_artifact add lifecycle_state varchar(15) null;
+create index idx_lifecycle_artifact on code_artifact (lifecycle_state);

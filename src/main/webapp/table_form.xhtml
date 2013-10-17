@@ -50,20 +50,9 @@
 
                     <h:inputHidden value="#{tableMBean.table.id}"/>
 
-                    <div class="row">
-                        <div class="col-md-1">
-                            <h:commandButton id="save" class="btn btn-default" value="Save" action="#{tableMBean.save}">
-                                <f:param name="dbiId" value="#{tableMBean.selectedDatabaseInstance}"/>
-                                <f:param name="schId" value="#{tableMBean.selectedDatabaseSchema}"/>
-                            </h:commandButton>
-                        </div>
-                        <div class="col-md-11">
-                            <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{tableMBean.saveAndCreateNew}">
-                                <f:param name="dbiId" value="#{tableMBean.selectedDatabaseInstance}"/>
-                                <f:param name="schId" value="#{tableMBean.selectedDatabaseSchema}"/>
-                            </h:commandButton>
-                        </div>
-                    </div>
+                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{tableMBean.save}"/>
+                    &nbsp;
+                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{tableMBean.saveAndCreateNew}"/>
                 </h:form>
             </ui:define>
         </ui:composition>

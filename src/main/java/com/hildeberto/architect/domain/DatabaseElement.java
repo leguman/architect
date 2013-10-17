@@ -2,8 +2,11 @@ package com.hildeberto.architect.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,6 +51,10 @@ public abstract class DatabaseElement implements Serializable, Identified {
     @Lob
     @Size(max = 32700)
     private String description;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lifecycle_state")
+    private LifecycleState state;
 
     public DatabaseElement() {
     }
@@ -96,6 +103,14 @@ public abstract class DatabaseElement implements Serializable, Identified {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LifecycleState getState() {
+        return state;
+    }
+
+    public void setState(LifecycleState state) {
+        this.state = state;
     }
 
     @Override
