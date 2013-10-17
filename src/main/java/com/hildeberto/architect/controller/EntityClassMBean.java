@@ -28,18 +28,11 @@ public class EntityClassMBean {
     private EntityClassBean entityClassBean;
 
     @EJB
-    private DatabaseTableBean databaseTableBean;
-
-    @EJB
-    private DatabaseViewBean databaseViewBean;
-
-    @EJB
     private DatabaseElementBean databaseElementBean;
 
     private List<EntityClass> entityClasses;
     private List<DatabaseElement> unmappedDatabaseElements;
 
-    private String databaseElementType = "TABLE";
     private Integer selectedDatabaseElement;
 
     @ManagedProperty(value="#{applicationFilterMBean}")
@@ -79,14 +72,7 @@ public class EntityClassMBean {
 
     public List<? extends DatabaseElement> getUnmappedDatabaseElements() {
         if(this.unmappedDatabaseElements == null) {
-            //switch (databaseElementType) {
-            //    case "TABLE":
-                    this.unmappedDatabaseElements = databaseElementBean.findNotMappedElements(this.entityClass.getDatabaseElement());
-            //        break;
-            //    case "VIEW":
-            //        this.unmappedDatabaseElements = databaseViewBean.findNotMappedViews(this.entityClass.getDatabaseElement());
-            //        break;
-            //}
+            this.unmappedDatabaseElements = databaseElementBean.findNotMappedElements(this.entityClass.getDatabaseElement());
         }
         return this.unmappedDatabaseElements;
     }
@@ -149,14 +135,6 @@ public class EntityClassMBean {
 
     public void setSelectedPackage(Integer selectedPackage) {
         this.applicationFilterMBean.setSelectedPackage(selectedPackage);
-    }
-
-    public String getDatabaseElementType() {
-        return databaseElementType;
-    }
-
-    public void setDatabaseElementType(String databaseElementType) {
-        this.databaseElementType = databaseElementType;
     }
 
     public Integer getSelectedDatabaseElement() {

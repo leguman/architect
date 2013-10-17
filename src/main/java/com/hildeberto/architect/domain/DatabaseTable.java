@@ -10,9 +10,4 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("TABLE")
 public class DatabaseTable extends DatabaseElement {
-    
-    @Override
-    public String toString() {
-        return this.getDatabaseSchema().getName() + ".<b>" + this.getName() + "</b>";
-    }
 }

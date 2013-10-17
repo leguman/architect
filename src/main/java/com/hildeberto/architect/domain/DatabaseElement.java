@@ -134,6 +134,6 @@ public abstract class DatabaseElement implements Serializable, Identified {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.databaseSchema.getName() + ".<b>" + this.name + "</b>";
     }    
 }
