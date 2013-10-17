@@ -37,7 +37,7 @@ public class EntityClassMBean {
     private DatabaseElementBean databaseElementBean;
 
     private List<EntityClass> entityClasses;
-    private List<? extends DatabaseElement> unmappedDatabaseElements;
+    private List<DatabaseElement> unmappedDatabaseElements;
 
     private String databaseElementType = "TABLE";
     private Integer selectedDatabaseElement;
@@ -79,14 +79,14 @@ public class EntityClassMBean {
 
     public List<? extends DatabaseElement> getUnmappedDatabaseElements() {
         if(this.unmappedDatabaseElements == null) {
-            switch (databaseElementType) {
-                case "TABLE":
-                    this.unmappedDatabaseElements = databaseTableBean.findNotMappedTables(this.entityClass.getDatabaseElement());
-                    break;
-                case "VIEW":
-                    this.unmappedDatabaseElements = databaseViewBean.findNotMappedViews(this.entityClass.getDatabaseElement());
-                    break;
-            }
+            //switch (databaseElementType) {
+            //    case "TABLE":
+                    this.unmappedDatabaseElements = databaseElementBean.findNotMappedElements(this.entityClass.getDatabaseElement());
+            //        break;
+            //    case "VIEW":
+            //        this.unmappedDatabaseElements = databaseViewBean.findNotMappedViews(this.entityClass.getDatabaseElement());
+            //        break;
+            //}
         }
         return this.unmappedDatabaseElements;
     }
