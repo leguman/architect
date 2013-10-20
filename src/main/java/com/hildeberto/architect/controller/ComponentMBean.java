@@ -160,4 +160,16 @@ public class ComponentMBean {
                                             "&pkgId=" + this.component.getPackage().getId() +
                                             "&tab=1";
     }
+
+    public String saveAndCreateNew() {
+        this.component.setApplication(applicationFilterMBean.getApplication());
+        this.component.setModule(applicationFilterMBean.getModule());
+        this.component.setPackage(applicationFilterMBean.getPackage());
+
+        componentBean.save(this.component);
+        return "component_form?faces-redirect=true&appId=" + this.component.getApplication().getId() +
+                                            "&modId=" + this.component.getModule().getId() +
+                                            "&pkgId=" + this.component.getPackage().getId() +
+                                            "&tab=1";
+    }
 }

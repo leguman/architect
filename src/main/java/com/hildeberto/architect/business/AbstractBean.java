@@ -17,13 +17,14 @@ public abstract class AbstractBean<T extends Identified> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void save(T entity) {
+    public T save(T entity) {
         if(entity.getId() == null) {
             getEntityManager().persist(entity);
         }
         else {
-            getEntityManager().merge(entity);
+            entity = getEntityManager().merge(entity);
         }
+        return entity;
     }
 
     public void remove(Integer id) {

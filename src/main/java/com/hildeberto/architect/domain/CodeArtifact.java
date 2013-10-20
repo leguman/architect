@@ -28,34 +28,34 @@ import javax.validation.constraints.Size;
 @DiscriminatorColumn(name="artifact_type")
 public abstract class CodeArtifact implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
-        
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    
+
     @ManyToOne
     @JoinColumn(name = "application")
     private Application application;
-    
+
     @ManyToOne
     @JoinColumn(name = "module")
     private Module module;
-    
+
     @ManyToOne
     @JoinColumn(name = "package")
     private Package pack;
-        
+
     @Lob
     @Size(max = 32700)
     private String description;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "lifecycle_state")
     private LifecycleState state;
@@ -117,6 +117,16 @@ public abstract class CodeArtifact implements Serializable, Identified {
         this.description = description;
     }
 
+    /**
+     * If the artifact has a name that also describes its package, then this
+     * method simplifies it to its basic form.
+     */
+    public void simplifyName() {
+        if(name.contains(".")) {
+            this.name = name.substring(name.lastIndexOf(".") + 1);
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,6 +148,6 @@ public abstract class CodeArtifact implements Serializable, Identified {
 
     @Override
     public String toString() {
-        return this.name;
-    }    
+        return this.getPackage().getName() + ".<b>" + this.getName() + "</b>";
+    }
 }

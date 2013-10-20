@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -31,6 +32,18 @@ public class PackageBean extends AbstractBean<Package> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public Package findByExample(Package pack) {
+        try {
+            return em.createQuery("select p from Package p where p.name = :name and p.application = :application", Package.class)
+                     .setParameter("name", pack.getName())
+                     .setParameter("application", pack.getApplication())
+                     .getSingleResult();
+        }
+        catch(NoResultException nre) {
+            return null;
+        }
     }
 
     public List<Package> findByApplication(Application application) {

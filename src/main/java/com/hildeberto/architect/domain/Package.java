@@ -21,29 +21,29 @@ import javax.validation.constraints.Size;
 @Table(name="package")
 public class Package implements Serializable, Identified {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
-    
+
     @ManyToOne
     @JoinColumn(name = "application")
     private Application application;
-    
+
     @ManyToOne
     @JoinColumn(name="module")
     private Module module;
-    
+
     @Lob
     @Size(max = 32700)
     private String description;
-    
+
     @ManyToOne
     @JoinColumn(name = "layer")
     private Layer layer;
@@ -110,6 +110,19 @@ public class Package implements Serializable, Identified {
         this.layer = layer;
     }
 
+    public static Package extractPackage(String className, Application application, Module module, Layer layer) {
+        Package pack = null;
+        if(className.contains(".")) {
+            String packName = className.substring(0, className.lastIndexOf("."));
+            pack = new Package();
+            pack.setApplication(application);
+            pack.setModule(module);
+            pack.setLayer(layer);
+            pack.setName(packName);
+        }
+        return pack;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -132,5 +145,5 @@ public class Package implements Serializable, Identified {
     @Override
     public String toString() {
         return this.name;
-    }    
+    }
 }
