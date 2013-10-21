@@ -54,27 +54,25 @@ public class ComponentBean extends AbstractBean<Component> {
 
     @Override
     public Component save(Component component) {
-        // If the package was not manually selected, there is a possibility it was defined in the name of the component.
-        if(component.getPackage() == null) {
-            // It verifies whether the name of the component contains package information.
-            Package pack = Package.extractPackage(component.getName(), component.getApplication(), component.getModule(), null);
-            if(pack != null) {
-                // In this case, the name contains package information and it verifies whether the package already exists.
-                Package existingPack = packageBean.findByExample(pack);
-                if(existingPack != null) {
-                    // If it exists then it simply sets the package of the component.
-                    component.setPackage(existingPack);
-                }
-                else {
-                    // If it doesn't exist then it creates a new package with the informed package name and
-                    // sets the package of the component.
-                    pack = packageBean.save(pack);
-                    component.setPackage(pack);
-                }
-                // Since the component name contains package information, this method simplifies the name to its common form.
-                component.simplifyName();
+        // It verifies whether the name of the component contains package information.
+        Package pack = Package.extractPackage(component.getName(), component.getApplication(), component.getModule(), null);
+        if(pack != null) {
+            // In this case, the name contains package information and it verifies whether the package already exists.
+            Package existingPack = packageBean.findByExample(pack);
+            if(existingPack != null) {
+                // If it exists then it simply sets the package of the component.
+                component.setPackage(existingPack);
+            }
+            else {
+                // If it doesn't exist then it creates a new package with the informed package name and
+                // sets the package of the component.
+                pack = packageBean.save(pack);
+                component.setPackage(pack);
             }
         }
+        // Since the component name contains package information, this method simplifies the name to its common form.
+        component.simplifyName();
+
         return super.save(component);
     }
 }

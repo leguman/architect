@@ -5,6 +5,7 @@ import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,9 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
 
     @PersistenceContext
     private EntityManager em;
+    
+    @EJB
+    private PackageBean packageBean;
 
     public EntityClassBean() {
         super(EntityClass.class);
@@ -58,5 +62,29 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
             return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null order by ec.name asc")
                      .getResultList();
         }
+    }
+    
+    @Override
+    public EntityClass save(EntityClass entityClass) {
+        // It verifies whether the name of the entity class contains package information.
+        Package pack = Package.extractPackage(entityClass.getName(), entityClass.getApplication(), entityClass.getModule(), null);
+        if(pack != null) {
+            // In this case, the name contains package information and it verifies whether the package already exists.
+            Package existingPack = packageBean.findByExample(pack);
+            if(existingPack != null) {
+                // If it exists then it simply sets the package of the entity class.
+                entityClass.setPackage(existingPack);
+            }
+            else {
+                // If it doesn't exist then it creates a new package with the informed package name and
+                // sets the package of the entity class.
+                pack = packageBean.save(pack);
+                entityClass.setPackage(pack);
+            }
+        }
+        // Since the entity class name contains package information, this method simplifies the name to its common form.
+        entityClass.simplifyName();
+
+        return super.save(entityClass);
     }
 }
