@@ -60,13 +60,25 @@
                                     </h:link>
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Mapped Table</f:facet>
-                                    <h:link outcome="table">
-                                        <h:outputText value="#{entity.databaseElement}" escape="false"/>
-                                        <f:param name="id" value="#{entity.databaseElement.id}"/>
-                                    </h:link>
+                                    <f:facet name="header">Mapped Element</f:facet>
+                                    <h:panelGroup rendered="#{entity.databaseTable}">
+                                        <h:link outcome="table">
+                                            <f:param name="id" value="#{entity.databaseElement.id}"/>
+                                            <h:outputText value="#{entity.databaseElement}" escape="false"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{! entity.databaseTable}">
+                                        <h:link outcome="view">
+                                            <f:param name="id" value="#{entity.databaseElement.id}"/>
+                                            <h:outputText value="#{entity.databaseElement}" escape="false"/>
+                                        </h:link>
+                                    </h:panelGroup>
                                 </h:column>
-                                 <h:column>
+                                <h:column>
+                                    <f:facet name="header">Cachable</f:facet>
+                                    <h:outputText value="#{entity.cacheable}"/>
+                                </h:column>
+                                <h:column>
                                     <f:facet name="header">Description</f:facet>
                                     <h:outputText value="#{entity.description}"/>
                                 </h:column>

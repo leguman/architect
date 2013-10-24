@@ -26,8 +26,25 @@
                                 <dd><a href="module.xhtml?id=#{entityClassMBean.entityClass.module.id}">#{entityClassMBean.entityClass.module}</a></dd>
                                 <dt>Package</dt>
                                 <dd><a href="package.xhtml?id=#{entityClassMBean.entityClass.package.id}">#{entityClassMBean.entityClass.package}</a></dd>
+                                <dt>Mapped Element</dt>
+                                <dd>
+                                    <h:panelGroup rendered="#{entityClassMBean.entityClass.databaseTable}">
+                                        <h:link outcome="table">
+                                            <f:param name="id" value="#{entityClassMBean.entityClass.databaseElement.id}"/>
+                                            <h:outputText value="#{entityClassMBean.entityClass.databaseElement}" escape="false"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{! entityClassMBean.entityClass.databaseTable}">
+                                        <h:link outcome="view">
+                                            <f:param name="id" value="#{entityClassMBean.entityClass.databaseElement.id}"/>
+                                            <h:outputText value="#{entityClassMBean.entityClass.databaseElement}" escape="false"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                 </dd>
                                 <dt>Description</dt>
                                 <dd>#{entityClassMBean.entityClass.description}</dd>
+                                <dt>Cacheable</dt>
+                                <dd>#{entityClassMBean.entityClass.cacheable}</dd>
                             </dl>
 
                             <h:button outcome="entity_class_form" value="Edit" class="btn btn-default pull-right">

@@ -1,8 +1,6 @@
 package com.hildeberto.architect.controller;
 
 import com.hildeberto.architect.business.DatabaseElementBean;
-import com.hildeberto.architect.business.DatabaseTableBean;
-import com.hildeberto.architect.business.DatabaseViewBean;
 import com.hildeberto.architect.business.EntityClassBean;
 import com.hildeberto.architect.domain.Application;
 import com.hildeberto.architect.domain.DatabaseElement;

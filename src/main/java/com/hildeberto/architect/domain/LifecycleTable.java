@@ -15,7 +15,7 @@ public class LifecycleTable extends Lifecycle {
     
     @ManyToOne
     @JoinColumn(name="object")
-     DatabaseTable databaseTable;
+    private DatabaseTable databaseTable;
 
     public DatabaseTable getDatabaseTable() {
         return databaseTable;

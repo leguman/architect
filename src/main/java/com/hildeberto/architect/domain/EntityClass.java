@@ -16,15 +16,38 @@ public class EntityClass extends CodeArtifact {
     @ManyToOne
     @JoinColumn(name="database_element")
     private DatabaseElement databaseElement;
+    
+    private Boolean cacheable;
 
     public DatabaseElement getDatabaseElement() {
         return databaseElement;
+    }
+    
+    public Boolean getDatabaseTable() {
+        if(this.databaseElement != null) {
+            return (databaseElement instanceof DatabaseTable);
+        }
+        else {
+            return null;
+        }
     }
 
     public void setDatabaseElement(DatabaseElement databaseElement) {
         this.databaseElement = databaseElement;
     }
 
+    public Boolean getCacheable() {
+        return cacheable;
+    }
+
+    public void setCacheable(Boolean cacheable) {
+        this.cacheable = cacheable;
+    }
+
+    /**
+     * Based on the name of the entity class, this method suggests the name of
+     * the database element.
+     */
     public String suggestedElementName() {
         if(getName() == null || getName().isEmpty()) {
             return "";

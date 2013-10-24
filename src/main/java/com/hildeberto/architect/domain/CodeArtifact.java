@@ -148,6 +148,6 @@ public abstract class CodeArtifact implements Serializable, Identified {
 
     @Override
     public String toString() {
-        return this.getPackage().getName() + ".<b>" + this.getName() + "</b>";
+        return (this.pack != null ? this.pack.getName() + ".<b>" : "<b>") + this.name + "</b>";
     }
 }

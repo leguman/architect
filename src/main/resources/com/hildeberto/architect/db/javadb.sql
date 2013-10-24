@@ -149,3 +149,7 @@ create index idx_lifecycle_element on database_element (lifecycle_state);
 
 alter table code_artifact add lifecycle_state varchar(15) null;
 create index idx_lifecycle_artifact on code_artifact (lifecycle_state);
+
+-- changeset htmfilho:6
+alter table code_artifact add cacheable tinyint(1) null;
+

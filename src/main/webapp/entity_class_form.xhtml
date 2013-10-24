@@ -17,6 +17,7 @@
                 </div>
 
                 <h:form id="form">
+                    <h:inputHidden value="#{entityClassMBean.entityClass.id}"/>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -66,12 +67,18 @@
                         <label for="description">Description</label>
                         <h:inputTextarea id="description" class="form-control" value="#{entityClassMBean.entityClass.description}"/>
                     </div>
-
-                    <h:inputHidden value="#{entityClassMBean.entityClass.id}"/>
+                    <div class="form-group">
+                        <h:selectBooleanCheckbox id="cacheable" value="#{entityClassMBean.entityClass.cacheable}"/>
+                        <label for="cacheable">Cacheable</label>
+                    </div>
                     
-                    <h:commandButton id="save" class="btn btn-primary" value="Save" action="#{entityClassMBean.save}"/>
+                    <h:commandButton id="save" class="btn btn-primary" value="Save" action="#{entityClassMBean.save}">
+                        <f:param name="id" value="#{entityClassMBean.entityClass.id}"/>
+                    </h:commandButton>
                     &nbsp;
-                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{entityClassMBean.saveAndCreateNew}"/>
+                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{entityClassMBean.saveAndCreateNew}">
+                        <f:param name="id" value="#{entityClassMBean.entityClass.id}"/>
+                    </h:commandButton>
                 </h:form>
             </ui:define>
         </ui:composition>
@@ -79,7 +86,7 @@
         <script type="text/javascript">   
             window.onload = function() {
                 document.getElementById('form:name').focus();
-            }
+            };
         </script>
     </body>
 </html>
