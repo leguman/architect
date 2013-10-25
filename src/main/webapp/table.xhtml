@@ -44,6 +44,24 @@
                                     </h:commandButton>
                                 </div>
                             </div>
+                            <p/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Lifecycle</div>
+                                <div class="panel-body">
+                                    <h:dataTable id="lifecycleTable" var="lifecycleState" value="#{tableMBean.lifecycleTable}" class="table">
+                                        <h:column>
+                                            <f:facet name="header">State</f:facet>
+                                            <h:outputText value="#{lifecycleState.state}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Date</f:facet>
+                                            <h:outputText value="#{lifecycleState.stateDate}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </h:form>
