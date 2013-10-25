@@ -4,7 +4,6 @@ import com.hildeberto.architect.domain.DatabaseElement;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
-import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -22,9 +21,9 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @EJB
-    private LifecycleBean lifecycleBean;
+    private DatabaseElementBean databaseElementBean;
 
     public DatabaseTableBean() {
         super(DatabaseTable.class);
@@ -60,40 +59,9 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
         }
         return unmappedTables;
     }
-    
+
     @Override
     public DatabaseTable save(DatabaseTable databaseTable) {
-        if(databaseTable.getId() == null) {
-            if(databaseTable.getState() != null) {
-                databaseTable = super.save(databaseTable);
-                lifecycleBean.createAndSave(databaseTable);
-            }
-            else {
-                databaseTable = super.save(databaseTable);
-                databaseTable.setState(LifecycleState.getDefaultState());
-                lifecycleBean.createAndSave(databaseTable);
-            }
-        }
-        else {
-            // The database table already exist, so let's check if the state is the same.
-            DatabaseTable existingDatabaseTable = find(databaseTable.getId());
-            if(databaseTable.getState() != null) {
-                if(!databaseTable.getState().equals(existingDatabaseTable.getState())) {
-                    databaseTable = super.save(databaseTable);
-                    lifecycleBean.createAndSave(databaseTable);
-                }
-                else {
-                    databaseTable = super.save(databaseTable);
-                    // Nothing todo in the lifecycle if the state keeps the same.
-                }                
-            }
-            else {
-                databaseTable = super.save(databaseTable);
-                databaseTable.setState(LifecycleState.getDefaultState());
-                lifecycleBean.createAndSave(databaseTable);
-            }
-        }
-        
-        return databaseTable;
+        return (DatabaseTable) databaseElementBean.save(databaseTable);
     }
 }

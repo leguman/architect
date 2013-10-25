@@ -50,18 +50,36 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Lifecycle</div>
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="lifecycleState">State</label>
-                                <h:selectOneMenu id="lifecycleState" label="State" value="#{tableMBean.table.state}" class="form-control">
-                                    <f:selectItem itemLabel="Designed" itemValue="DESIGNED"/>
-                                    <f:selectItem itemLabel="Created" itemValue="CREATED"/>
-                                    <f:selectItem itemLabel="In Use" itemValue="INUSE"/>
-                                    <f:selectItem itemLabel="Obsolete" itemValue="OBSOLETE"/>
-                                    <f:selectItem itemLabel="Removed" itemValue="REMOVED"/>
-                                </h:selectOneMenu>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="lifecycleState">State</label>
+                                        <h:selectOneMenu id="lifecycleState" label="State" value="#{tableMBean.table.state}" class="form-control">
+                                            <f:selectItem itemLabel="Designed" itemValue="DESIGNED"/>
+                                            <f:selectItem itemLabel="Created" itemValue="CREATED"/>
+                                            <f:selectItem itemLabel="In Use" itemValue="INUSE"/>
+                                            <f:selectItem itemLabel="Obsolete" itemValue="OBSOLETE"/>
+                                            <f:selectItem itemLabel="Removed" itemValue="REMOVED"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h:dataTable id="lifecycleTable" var="lifecycleState" value="#{tableMBean.lifecycleTable}" class="table">
+                                        <h:column>
+                                            <f:facet name="header">State</f:facet>
+                                            <h:outputText value="#{lifecycleState.state}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Date</f:facet>
+                                            <h:outputText value="#{lifecycleState.stateDate}">
+                                                <f:convertDateTime pattern="dd/MM:yyyy"/>
+                                            </h:outputText>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
 
                     <h:inputHidden value="#{tableMBean.table.id}"/>
 
@@ -71,7 +89,7 @@
                 </h:form>
             </ui:define>
         </ui:composition>
-        
+
         <script type="text/javascript">
             window.onload = function() {
                 document.getElementById('form:name').focus();

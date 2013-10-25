@@ -26,6 +26,8 @@
                                 <dd><a href="schema.xhtml?id=#{viewMBean.view.databaseSchema.id}">#{viewMBean.view.databaseSchema}</a></dd>
                                 <dt>Description</dt>
                                 <dd>#{viewMBean.view.description}</dd>
+                                <dt>State</dt>
+                                <dd>#{tableMBean.view.state}</dd>
                             </dl>
 
                             <h:button outcome="view_form" value="Edit" class="btn btn-default pull-right">

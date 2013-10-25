@@ -5,6 +5,7 @@ import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseView;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,9 @@ public class DatabaseViewBean extends AbstractBean<DatabaseView> {
 
     @PersistenceContext
     private EntityManager em;
+
+    @EJB
+    private DatabaseElementBean databaseElementBean;
 
     public DatabaseViewBean() {
         super(DatabaseView.class);
@@ -52,5 +56,10 @@ public class DatabaseViewBean extends AbstractBean<DatabaseView> {
             return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec) order by dv.name asc")
                      .getResultList();
         }
+    }
+
+    @Override
+    public DatabaseView save(DatabaseView databaseView) {
+        return (DatabaseView) databaseElementBean.save(databaseView);
     }
 }
