@@ -1,6 +1,7 @@
 package com.hildeberto.architect.domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -34,11 +35,11 @@ public abstract class Lifecycle implements Serializable, Identified {
     private Integer id;
     
     @Enumerated(EnumType.STRING)
-    private LifecycleState state;
+    protected LifecycleState state;
     
     @Column(name = "state_date")
     @Temporal(TemporalType.DATE)
-    private Date stateDate;
+    private final Date stateDate = Calendar.getInstance().getTime();
 
     @Override
     public Integer getId() {
@@ -54,16 +55,8 @@ public abstract class Lifecycle implements Serializable, Identified {
         return state;
     }
 
-    public void setState(LifecycleState state) {
-        this.state = state;
-    }
-
     public Date getStateDate() {
         return stateDate;
-    }
-
-    public void setStateDate(Date stateDate) {
-        this.stateDate = stateDate;
     }
 
     @Override

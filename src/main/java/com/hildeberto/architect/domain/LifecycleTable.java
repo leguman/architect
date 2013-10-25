@@ -23,5 +23,11 @@ public class LifecycleTable extends Lifecycle {
 
     public void setDatabaseTable(DatabaseTable databaseTable) {
         this.databaseTable = databaseTable;
-    }   
+        if(this.databaseTable.getState() != null) {
+            this.state = this.databaseTable.getState();
+        }
+        else {
+            this.state = LifecycleState.getDefaultState();
+        }
+    }
 }

@@ -117,6 +117,14 @@ public abstract class CodeArtifact implements Serializable, Identified {
         this.description = description;
     }
 
+    public LifecycleState getState() {
+        return state;
+    }
+
+    public void setState(LifecycleState state) {
+        this.state = state;
+    }
+
     /**
      * If the artifact has a name that also describes its package, then this
      * method simplifies it to its basic form.

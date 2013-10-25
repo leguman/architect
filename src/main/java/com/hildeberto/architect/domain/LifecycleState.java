@@ -6,4 +6,8 @@ package com.hildeberto.architect.domain;
  */
 public enum LifecycleState {
     DESIGNED, CREATED, INUSE, OBSOLETE, REMOVED;
+    
+    public static LifecycleState getDefaultState() {
+        return INUSE;
+    }
 }
