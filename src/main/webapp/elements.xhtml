@@ -21,17 +21,28 @@
                     <p:tabView id="tabView" activeIndex="#{param.tab}">
                         <p:tab title="Tables">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <h:selectOneMenu id="databaseInstanceTable" label="Database Instance" value="#{tableMBean.selectedDatabaseInstance}" class="form-control">
                                         <f:selectItem itemLabel="Database Instances ..." itemValue="0"/>
                                         <f:selectItems value="#{tableMBean.databaseInstances}" var="dbi" itemLabel="#{dbi.name}" itemValue="#{dbi.id}"/>
                                         <f:ajax render="databaseSchemaTable tables createTable"/>
                                     </h:selectOneMenu>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <h:selectOneMenu id="databaseSchemaTable" label="Schema" value="#{tableMBean.selectedDatabaseSchema}" class="form-control">
                                         <f:selectItem itemLabel="Schemas ..." itemValue="0"/>
                                         <f:selectItems value="#{tableMBean.databaseSchemas}" var="sch" itemLabel="#{sch.name}" itemValue="#{sch.id}"/>
+                                        <f:ajax render="tables createTable"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:selectOneMenu id="lifecycleState" label="Lifecycle State" value="#{tableMBean.selectedState}" class="form-control">
+                                        <f:selectItem itemLabel="All" itemValue=""/>
+                                        <f:selectItem itemLabel="Designed" itemValue="DESIGNED"/>
+                                        <f:selectItem itemLabel="Created" itemValue="CREATED"/>
+                                        <f:selectItem itemLabel="In Use" itemValue="INUSE"/>
+                                        <f:selectItem itemLabel="Obsolete" itemValue="OBSOLETE"/>
+                                        <f:selectItem itemLabel="Removed" itemValue="REMOVED"/>
                                         <f:ajax render="tables createTable"/>
                                     </h:selectOneMenu>
                                 </div>

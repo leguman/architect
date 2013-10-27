@@ -1,10 +1,12 @@
 package com.hildeberto.architect.controller;
 
 import com.hildeberto.architect.business.DatabaseTableBean;
+import com.hildeberto.architect.business.EntityClassBean;
 import com.hildeberto.architect.business.LifecycleBean;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
+import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.LifecycleTable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,6 +27,9 @@ public class TableMBean {
     private DatabaseTableBean databaseTableBean;
 
     @EJB
+    private EntityClassBean entityClassBean;
+
+    @EJB
     private LifecycleBean lifecycleBean;
 
     private List<DatabaseTable> tables;
@@ -43,6 +48,8 @@ public class TableMBean {
     private Integer schId;
 
     private DatabaseTable table;
+    private EntityClass entityClass;
+    private String selectedState;
 
     public List<DatabaseTable> getTables() {
         if(tables == null) {
@@ -63,6 +70,13 @@ public class TableMBean {
             this.lifecycleTable = lifecycleBean.findLifecycleTable(table);
         }
         return this.lifecycleTable;
+    }
+
+    public EntityClass getEntityClass() {
+        if(this.entityClass == null && this.table != null && this.table.getId() != null) {
+            this.entityClass = entityClassBean.findByMappedDatabaseElement(this.table);
+        }
+        return this.entityClass;
     }
 
     public void setId(Integer id) {
@@ -107,6 +121,14 @@ public class TableMBean {
 
     public void setSelectedDatabaseSchema(Integer selectedDatabaseSchema) {
         this.databaseFilterMBean.setSelectedDatabaseSchema(selectedDatabaseSchema);
+    }
+
+    public String getSelectedState() {
+        return selectedState;
+    }
+
+    public void setSelectedState(String selectedState) {
+        this.selectedState = selectedState;
     }
 
     @PostConstruct

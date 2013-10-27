@@ -1,6 +1,7 @@
 package com.hildeberto.architect.business;
 
 import com.hildeberto.architect.domain.Application;
+import com.hildeberto.architect.domain.DatabaseElement;
 import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.Module;
 import com.hildeberto.architect.domain.Package;
@@ -9,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -21,7 +23,7 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @EJB
     private PackageBean packageBean;
 
@@ -52,6 +54,16 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
                  .getResultList();
     }
 
+    public EntityClass findByMappedDatabaseElement(DatabaseElement databaseElement) {
+        try {
+            return em.createQuery("select ec from EntityClass ec where ec.databaseElement = :databaseElement", EntityClass.class)
+                     .setParameter("databaseElement", databaseElement)
+                     .getSingleResult();
+        } catch(NoResultException nre) {
+            return null;
+        }
+    }
+
     public List<EntityClass> findNotMappedClasses(EntityClass except) {
         if(except != null) {
             return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null && ec != :except order by ec.name asc")
@@ -63,7 +75,7 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
                      .getResultList();
         }
     }
-    
+
     @Override
     public EntityClass save(EntityClass entityClass) {
         // It verifies whether the name of the entity class contains package information.
