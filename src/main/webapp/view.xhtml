@@ -24,10 +24,15 @@
                                 <dd><a href="database.xhtml?id=#{viewMBean.view.databaseInstance.id}">#{viewMBean.view.databaseInstance}</a></dd>
                                 <dt>Database Schema</dt>
                                 <dd><a href="schema.xhtml?id=#{viewMBean.view.databaseSchema.id}">#{viewMBean.view.databaseSchema}</a></dd>
+                                <dt>Entity Class</dt>
+                                <dd><h:link outcome="entity_class">
+                                        <h:outputText value="#{viewMBean.entityClass}" escape="false"/>
+                                        <f:param name="id" value="#{viewMBean.entityClass.id}"/>
+                                    </h:link></dd>
                                 <dt>Description</dt>
                                 <dd>#{viewMBean.view.description}</dd>
                                 <dt>State</dt>
-                                <dd>#{tableMBean.view.state}</dd>
+                                <dd>#{viewMBean.view.state}</dd>
                             </dl>
 
                             <h:button outcome="view_form" value="Edit" class="btn btn-default pull-right">

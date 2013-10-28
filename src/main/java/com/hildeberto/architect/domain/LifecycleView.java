@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue("VIEW")
 public class LifecycleView extends Lifecycle {
-    
+
     @ManyToOne
     @JoinColumn(name="object")
     private DatabaseView databaseView;
@@ -23,5 +23,11 @@ public class LifecycleView extends Lifecycle {
 
     public void setDatabaseView(DatabaseView databaseView) {
         this.databaseView = databaseView;
-    }   
+        if(this.databaseView.getState() != null) {
+            this.state = this.databaseView.getState();
+        }
+        else {
+            this.state = LifecycleState.getDefaultState();
+        }
+    }
 }

@@ -83,17 +83,17 @@
 
                     <h:inputHidden value="#{viewMBean.view.id}"/>
 
-                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{viewMBean.save}">
-                        <f:param name="dbiId" value="#{viewMBean.selectedDatabaseInstance}"/>
-                        <f:param name="schId" value="#{viewMBean.selectedDatabaseSchema}"/>
-                    </h:commandButton>
+                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{viewMBean.save}"/>
                     &nbsp;
-                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{viewMBean.saveAndCreateNew}">
-                        <f:param name="dbiId" value="#{viewMBean.selectedDatabaseInstance}"/>
-                        <f:param name="schId" value="#{viewMBean.selectedDatabaseSchema}"/>
-                    </h:commandButton>
+                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{viewMBean.saveAndCreateNew}"/>
                 </h:form>
             </ui:define>
         </ui:composition>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                document.getElementById('form:name').focus();
+            }
+        </script>
     </body>
 </html>

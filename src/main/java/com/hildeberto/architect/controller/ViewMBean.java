@@ -1,10 +1,12 @@
 package com.hildeberto.architect.controller;
 
 import com.hildeberto.architect.business.DatabaseViewBean;
+import com.hildeberto.architect.business.EntityClassBean;
 import com.hildeberto.architect.business.LifecycleBean;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseView;
+import com.hildeberto.architect.domain.EntityClass;
 import com.hildeberto.architect.domain.LifecycleView;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,6 +29,9 @@ public class ViewMBean {
     @EJB
     private LifecycleBean lifecycleBean;
 
+    @EJB
+    private EntityClassBean entityClassBean;
+
     private List<DatabaseView> views;
     private List<LifecycleView> lifecycleView;
 
@@ -43,6 +48,7 @@ public class ViewMBean {
     private Integer schId;
 
     private DatabaseView view;
+    private EntityClass entityClass;
 
     public List<DatabaseView> getViews() {
         if(views == null) {
@@ -63,6 +69,13 @@ public class ViewMBean {
             this.lifecycleView = lifecycleBean.findLifecycleView(view);
         }
         return this.lifecycleView;
+    }
+
+    public EntityClass getEntityClass() {
+        if(this.entityClass == null && this.view != null && this.view.getId() != null) {
+            this.entityClass = entityClassBean.findByMappedDatabaseElement(this.view);
+        }
+        return this.entityClass;
     }
 
     public void setId(Integer id) {

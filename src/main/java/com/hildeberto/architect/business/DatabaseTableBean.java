@@ -4,6 +4,7 @@ import com.hildeberto.architect.domain.DatabaseElement;
 import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
+import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -34,16 +35,32 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
         return em;
     }
 
-    public List<DatabaseTable> findByDatabaseInstance(DatabaseInstance database) {
-        return em.createQuery("select dt from DatabaseTable dt where dt.databaseInstance = :database order by dt.name asc")
-                 .setParameter("database", database)
-                 .getResultList();
+    public List<DatabaseTable> findByDatabaseInstance(DatabaseInstance database, LifecycleState state) {
+        if(state == null) {
+            return em.createQuery("select dt from DatabaseTable dt where dt.databaseInstance = :database order by dt.name asc")
+                     .setParameter("database", database)
+                     .getResultList();
+        }
+        else {
+            return em.createQuery("select dt from DatabaseTable dt where dt.databaseInstance = :database and dt.state = :state order by dt.name asc")
+                     .setParameter("database", database)
+                     .setParameter("state", state)
+                     .getResultList();
+        }
     }
 
-    public List<DatabaseTable> findByDatabaseSchema(DatabaseSchema schema) {
-        return em.createQuery("select dt from DatabaseTable dt where dt.databaseSchema = :schema order by dt.name asc")
-                 .setParameter("schema", schema)
-                 .getResultList();
+    public List<DatabaseTable> findByDatabaseSchema(DatabaseSchema schema, LifecycleState state) {
+        if(state == null) {
+            return em.createQuery("select dt from DatabaseTable dt where dt.databaseSchema = :schema order by dt.name asc")
+                     .setParameter("schema", schema)
+                     .getResultList();
+        }
+        else {
+            return em.createQuery("select dt from DatabaseTable dt where dt.databaseSchema = :schema and dt.state = :state order by dt.name asc")
+                     .setParameter("schema", schema)
+                     .setParameter("state", state)
+                     .getResultList();
+        }
     }
 
     public List<DatabaseTable> findNotMappedTables(DatabaseElement except) {

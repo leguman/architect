@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <h:selectOneMenu id="lifecycleState" label="Lifecycle State" value="#{tableMBean.selectedState}" class="form-control">
-                                        <f:selectItem itemLabel="All" itemValue=""/>
+                                        <f:selectItem itemLabel="States ..." itemValue=""/>
                                         <f:selectItem itemLabel="Designed" itemValue="DESIGNED"/>
                                         <f:selectItem itemLabel="Created" itemValue="CREATED"/>
                                         <f:selectItem itemLabel="In Use" itemValue="INUSE"/>
@@ -100,6 +100,10 @@
                             </div>
 
                             <h:dataTable id="views" var="vw" value="#{viewMBean.views}" class="table table-hover">
+                                <h:column>
+                                    <f:facet name="header">Schema</f:facet>
+                                    <h:outputText value="#{vw.databaseSchema}"/>
+                                </h:column>
                                 <h:column>
                                     <f:facet name="header">Name</f:facet>
                                     <h:link outcome="view" value="#{vw.name}">

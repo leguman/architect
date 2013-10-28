@@ -8,6 +8,7 @@ import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
 import com.hildeberto.architect.domain.DatabaseView;
+import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -61,7 +62,7 @@ public class DatabaseMBean {
 
     public List<DatabaseTable> getRelatedTables() {
         if(relatedTables == null && database != null) {
-            relatedTables = databaseTableBean.findByDatabaseInstance(database);
+            relatedTables = databaseTableBean.findByDatabaseInstance(database, LifecycleState.INUSE);
         }
         return relatedTables;
     }

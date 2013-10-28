@@ -7,6 +7,7 @@ import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
 import com.hildeberto.architect.domain.DatabaseView;
+import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -59,7 +60,7 @@ public class SchemaMBean {
 
     public List<DatabaseTable> getRelatedTables() {
         if(relatedTables == null && schema != null) {
-            relatedTables = databaseTableBean.findByDatabaseSchema(schema);
+            relatedTables = databaseTableBean.findByDatabaseSchema(schema, LifecycleState.INUSE);
         }
         return relatedTables;
     }

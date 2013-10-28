@@ -7,6 +7,7 @@ import com.hildeberto.architect.domain.DatabaseInstance;
 import com.hildeberto.architect.domain.DatabaseSchema;
 import com.hildeberto.architect.domain.DatabaseTable;
 import com.hildeberto.architect.domain.EntityClass;
+import com.hildeberto.architect.domain.LifecycleState;
 import com.hildeberto.architect.domain.LifecycleTable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -49,17 +50,18 @@ public class TableMBean {
 
     private DatabaseTable table;
     private EntityClass entityClass;
-    private String selectedState;
+    private LifecycleState selectedState;
 
     public List<DatabaseTable> getTables() {
         if(tables == null) {
             if(databaseFilterMBean.getSelectedDatabaseInstance() != null && databaseFilterMBean.getSelectedDatabaseSchema() == null) {
                 DatabaseInstance databaseInstance = databaseFilterMBean.getDatabaseInstance();
-                tables = databaseTableBean.findByDatabaseInstance(databaseInstance);
+
+                tables = databaseTableBean.findByDatabaseInstance(databaseInstance, selectedState);
             }
             else if(databaseFilterMBean.getSelectedDatabaseSchema() != null) {
                 DatabaseSchema databaseSchema = databaseFilterMBean.getDatabaseSchema();
-                tables = databaseTableBean.findByDatabaseSchema(databaseSchema);
+                tables = databaseTableBean.findByDatabaseSchema(databaseSchema, selectedState);
             }
         }
         return tables;
@@ -123,11 +125,11 @@ public class TableMBean {
         this.databaseFilterMBean.setSelectedDatabaseSchema(selectedDatabaseSchema);
     }
 
-    public String getSelectedState() {
+    public LifecycleState getSelectedState() {
         return selectedState;
     }
 
-    public void setSelectedState(String selectedState) {
+    public void setSelectedState(LifecycleState selectedState) {
         this.selectedState = selectedState;
     }
 
