@@ -36,7 +36,13 @@
                             </dl>
 
                             <div class="row">
-                                <div class="col-md-11">
+                                <div class="col-md-1">
+                                    <h:button outcome="elements" value="Back" class="btn btn-default pull-right">
+                                        <f:param name="dbiId" value="#{tableMBean.table.databaseInstance.id}"/>
+                                        <f:param name="state" value="#{tableMBean.table.state}"/>
+                                    </h:button>
+                                </div>
+                                <div class="col-md-10">
                                     <h:button outcome="table_form" value="Edit" class="btn btn-default pull-right">
                                         <f:param name="id" value="#{tableMBean.table.id}"/>
                                     </h:button>
@@ -47,7 +53,7 @@
                                         <f:param name="dbiId" value="#{tableMBean.table.databaseInstance.id}"/>
                                         <f:param name="schId" value="#{tableMBean.table.databaseSchema.id}"/>
                                     </h:commandButton>
-                                </div>
+                                </div>                                
                             </div>
                             <p/>
                             <div class="panel panel-default">

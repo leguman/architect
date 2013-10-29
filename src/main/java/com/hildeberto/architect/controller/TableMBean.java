@@ -47,6 +47,9 @@ public class TableMBean {
 
     @ManagedProperty(value="#{param.schId}")
     private Integer schId;
+    
+    @ManagedProperty(value="#{param.state}")
+    private String state;
 
     private DatabaseTable table;
     private EntityClass entityClass;
@@ -91,6 +94,10 @@ public class TableMBean {
 
     public void setSchId(Integer schId) {
         this.schId = schId;
+    }
+    
+    public void setState(String state) {
+        this.state = state;
     }
 
     public DatabaseTable getTable() {
@@ -151,6 +158,9 @@ public class TableMBean {
             if(schId != null) {
                 databaseFilterMBean.setSelectedDatabaseSchema(schId);
                 this.table.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
+            }
+            if(state != null) {
+                this.selectedState = LifecycleState.valueOf(state);
             }
         }
     }

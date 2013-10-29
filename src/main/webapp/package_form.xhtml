@@ -59,7 +59,7 @@
 
                     <h:inputHidden value="#{packageMBean.package.id}"/>
 
-                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{packageMBean.save}">
+                    <h:commandButton id="save" class="btn btn-primary" value="Save" action="#{packageMBean.save}">
                         <f:param name="appId" value="#{packageMBean.selectedApplication}"/>
                         <f:param name="modId" value="#{packageMBean.selectedModule}"/>
                     </h:commandButton>
