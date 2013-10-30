@@ -6,27 +6,29 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
-        <ui:composition template="./layout.xhtml">
+        <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
-                <li><a href="applications.xhtml">Applications</a></li>
-                <li><a href="#">Application</a></li>
+                <li><a href="modules.xhtml">Modules</a></li>
+                <li><a href="#">Module</a></li>
             </ui:define>
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Application: #{applicationMBean.application.name}</h1>
+                    <h1>Module: #{moduleMBean.module.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <dl class="dl-horizontal">
+                                <dt>Application</dt>
+                                <dd><a href="application.xhtml?id=#{moduleMBean.module.application.id}">#{moduleMBean.module.application}</a></dd>
                                 <dt>Description</dt>
-                                <dd>#{applicationMBean.application.description}</dd>
+                                <dd>#{moduleMBean.module.description}</dd>
                             </dl>
 
-                            <h:button outcome="application_form" value="Edit" class="btn btn-default pull-right">
-                                <f:param name="id" value="#{applicationMBean.application.id}"/>
+                            <h:button outcome="module_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{moduleMBean.module.id}"/>
                             </h:button>
                         </div>
                     </div>
@@ -34,12 +36,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Modules <span class="badge">#{applicationMBean.modules.size()}</span></div>
+                            <div class="panel-heading">Sub-Modules <span class="badge">#{moduleMBean.subModules.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="module" items="#{applicationMBean.modules}">
-                                        <h:link outcome="module" value="#{module.name}" class="list-group-item">
-                                            <f:param name="id" value="#{module.id}"/>
+                                    <c:forEach var="subModule" items="#{moduleMBean.subModules}">
+                                        <h:link outcome="module" value="#{subModule.name}" class="list-group-item">
+                                            <f:param name="id" value="#{subModule.id}"/>
                                         </h:link>
                                     </c:forEach>
                                 </ul>
@@ -48,10 +50,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Packages <span class="badge">#{applicationMBean.packages.size()}</span></div>
+                            <div class="panel-heading">Packages <span class="badge">#{moduleMBean.packages.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="package" items="#{applicationMBean.packages}">
+                                    <c:forEach var="package" items="#{moduleMBean.packages}">
                                         <h:link outcome="package" value="#{package.name}" class="list-group-item">
                                             <f:param name="id" value="#{package.id}"/>
                                         </h:link>

@@ -6,29 +6,29 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
-        <ui:composition template="./layout.xhtml">
+        <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
-                <li><a href="systems.xhtml">Systems</a></li>
-                <li><a href="modules.xhtml">Modules</a></li>
-                <li><a href="#">Module</a></li>
+                <li><a href="data_sources.xhtml">Data Sources</a></li>
+                <li><a href="schemas.xhtml">Schemas</a></li>
+                <li><a href="#">Schema</a></li>
             </ui:define>
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Module: #{moduleMBean.module.name}</h1>
+                    <h1>Schema: #{schemaMBean.schema.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <dl class="dl-horizontal">
-                                <dt>Application</dt>
-                                <dd><a href="application.xhtml?id=#{moduleMBean.module.application.id}">#{moduleMBean.module.application}</a></dd>
+                                <dt>Database Instance</dt>
+                                <dd><a href="database.xhtml?id=#{schemaMBean.schema.databaseInstance.id}">#{schemaMBean.schema.databaseInstance}</a></dd>
                                 <dt>Description</dt>
-                                <dd>#{moduleMBean.module.description}</dd>
+                                <dd>#{schemaMBean.schema.description}</dd>
                             </dl>
 
-                            <h:button outcome="module_form" value="Edit" class="btn btn-default pull-right">
-                                <f:param name="id" value="#{moduleMBean.module.id}"/>
+                            <h:button outcome="schema_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{schemaMBean.schema.id}"/>
                             </h:button>
                         </div>
                     </div>
@@ -36,12 +36,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Sub-Modules <span class="badge">#{moduleMBean.subModules.size()}</span></div>
+                            <div class="panel-heading">Tables <span class="badge">#{schemaMBean.relatedTables.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="subModule" items="#{moduleMBean.subModules}">
-                                        <h:link outcome="module" value="#{subModule.name}" class="list-group-item">
-                                            <f:param name="id" value="#{subModule.id}"/>
+                                    <c:forEach var="table" items="#{schemaMBean.relatedTables}">
+                                        <h:link outcome="table" value="#{table.name}" class="list-group-item">
+                                            <f:param name="id" value="#{table.id}"/>
                                         </h:link>
                                     </c:forEach>
                                 </ul>
@@ -50,12 +50,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Packages <span class="badge">#{moduleMBean.packages.size()}</span></div>
+                            <div class="panel-heading">View <span class="badge">#{schemaMBean.relatedViews.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="package" items="#{moduleMBean.packages}">
-                                        <h:link outcome="package" value="#{package.name}" class="list-group-item">
-                                            <f:param name="id" value="#{package.id}"/>
+                                    <c:forEach var="vw" items="#{schemaMBean.relatedViews}">
+                                        <h:link outcome="view" value="#{vw.name}" class="list-group-item">
+                                            <f:param name="id" value="#{vw.id}"/>
                                         </h:link>
                                     </c:forEach>
                                 </ul>

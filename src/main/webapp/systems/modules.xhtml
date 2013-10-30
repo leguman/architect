@@ -5,43 +5,43 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <ui:composition template="./layout.xhtml">
+        <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
-                <li><a href="data_sources.xhtml">Data Sources</a></li>
-                <li><a href="schemas.xhtml">Schemas</a></li>
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="modules.xhtml">Modules</a></li>
             </ui:define>
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Schemas</h1>
+                    <h1>Modules</h1>
                 </div>
 
                 <h:form>
                     <div class="row">
                         <div class="col-md-8">
-                            <h:selectOneMenu id="database" label="Database" value="#{schemaMBean.selectedDatabase}" class="form-control">
-                                <f:selectItem itemLabel="Databases ..." itemValue="0"/>
-                                <f:selectItems value="#{schemaMBean.databases}" var="database" itemLabel="#{database.name}" itemValue="#{database.id}"/>
-                                <f:ajax render="schemas create"/>
+                            <h:selectOneMenu id="application" label="Application" value="#{moduleMBean.selectedApplication}" class="form-control">
+                                <f:selectItem itemLabel="Applications ..." itemValue="0"/>
+                                <f:selectItems value="#{moduleMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                <f:ajax render="modules create"/>
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                            <h:button id="create" outcome="schema_form" value="Create" class="btn btn-default pull-right">
-                                <f:param name="dbId" value="#{schemaMBean.selectedDatabase}"/>
+                            <h:button id="create" outcome="module_form" value="Create" class="btn btn-default pull-right">
+                                <f:param name="appId" value="#{moduleMBean.selectedApplication}"/>
                             </h:button>
                         </div>
                     </div>
 
-                    <h:dataTable id="schemas" var="schema" value="#{schemaMBean.schemas}" class="table table-hover">
+                    <h:dataTable id="modules" var="module" value="#{moduleMBean.modules}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            <h:link outcome="schema" value="#{schema.name}">
-                                <f:param name="id" value="#{schema.id}"/>
+                            <h:link outcome="module" value="#{module.name}">
+                                <f:param name="id" value="#{module.id}"/>
                             </h:link>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Description</f:facet>
-                            <h:outputText value="#{schema.description}"/>
+                            <h:outputText value="#{module.description}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>

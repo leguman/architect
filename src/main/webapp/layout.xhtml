@@ -6,15 +6,15 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
-        <link href="./resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
-        <link href="./resources/css/bootstrap-theme.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="#{request.contextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="#{request.contextPath}/resources/css/bootstrap-theme.css" rel="stylesheet" type="text/css" media="screen" />
         <title>Architect</title>
     </h:head>
 
     <h:body>
-        <script src="//code.jquery.com/jquery.js"></script>
-        <script src="./resources/js/bootstrap.js"></script>
+        <script src="#{request.contextPath}/resources/js/jquery-1.10.2.min.js"></script>
+        <script src="#{request.contextPath}/resources/js/bootstrap.js"></script>
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -24,26 +24,26 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.xhtml">The Architect</a>
+                    <a class="navbar-brand" href="#{request.contextPath}/index.xhtml">The Architect</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Systems <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="applications.xhtml">Applications</a></li>
-                                <li><a href="modules.xhtml">Modules</a></li>
-                                <li><a href="layers.xhtml">Layers</a></li>
-                                <li><a href="packages.xhtml">Packages</a></li>
-                                <li><a href="artifacts.xhtml">Artifacts</a></li>
+                                <li><a href="#{request.contextPath}/systems/applications.xhtml">Applications</a></li>
+                                <li><a href="#{request.contextPath}/systems/modules.xhtml">Modules</a></li>
+                                <li><a href="#{request.contextPath}/systems/layers.xhtml">Layers</a></li>
+                                <li><a href="#{request.contextPath}/systems/packages.xhtml">Packages</a></li>
+                                <li><a href="#{request.contextPath}/systems/artifacts.xhtml">Artifacts</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Sources <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="databases.xhtml">Databases</a></li>
-                                <li><a href="schemas.xhtml">Schemas</a></li>
-                                <li><a href="elements.xhtml">Elements</a></li>
+                                <li><a href="#{request.contextPath}/data_sources/databases.xhtml">Databases</a></li>
+                                <li><a href="#{request.contextPath}/data_sources/schemas.xhtml">Schemas</a></li>
+                                <li><a href="#{request.contextPath}/data_sources/elements.xhtml">Elements</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@
         <div class="container">
             <div id="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="index.xhtml"><span class="glyphicon glyphicon-home"/></a></li>
+                    <li><a href="#{request.contextPath}/index.xhtml"><span class="glyphicon glyphicon-home"/></a></li>
                     <ui:insert name="breadcrumbs">Breadcrumbs</ui:insert>
                 </ol>
             </div>

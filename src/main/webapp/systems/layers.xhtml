@@ -5,30 +5,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <ui:composition template="./layout.xhtml">
+        <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
-                <li><a href="applications.xhtml">Applications</a></li>
+                <li><a href="layers.xhtml">Layers</a></li>
             </ui:define>
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Applications</h1>
+                    <h1>Layers</h1>
                 </div>
 
                 <h:form>
-                    <h:button outcome="application_form" value="Create" class="btn btn-default pull-right"/>
+                    <h:button outcome="layer_form" value="Create" class="btn btn-default pull-right"/>
 
-                    <h:dataTable var="app" value="#{applicationMBean.applications}" class="table table-hover">
+                    <h:dataTable var="layer" value="#{layerMBean.layers}" class="table table-hover">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            <h:link outcome="application" value="#{app.name}">
-                                <f:param name="id" value="#{app.id}"/>
+                            <h:link outcome="layer" value="#{layer.name}">
+                                <f:param name="id" value="#{layer.id}"/>
                             </h:link>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Description</f:facet>
-                            <h:outputText value="#{app.description}"/>
+                            <h:outputText value="#{layer.description}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>

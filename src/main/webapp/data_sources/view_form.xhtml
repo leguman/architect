@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <ui:composition template="./layout.xhtml">
+        <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="data_sources.xhtml">Data Sources</a></li>
                 <li><a href="elements.xhtml">Elements</a></li>
@@ -13,7 +13,7 @@
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Table</h1>
+                    <h1>View</h1>
                 </div>
 
                 <h:form id="form">
@@ -21,9 +21,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="database">Database Instance</label>
-                                <h:selectOneMenu id="database" label="Database Instance" value="#{tableMBean.selectedDatabaseInstance}" class="form-control">
+                                <h:selectOneMenu id="database" label="Database Instance" value="#{viewMBean.selectedDatabaseInstance}" class="form-control">
                                     <f:selectItem itemLabel="Select ..." itemValue="0"/>
-                                    <f:selectItems value="#{tableMBean.databaseInstances}" var="dbi" itemLabel="#{dbi.name}" itemValue="#{dbi.id}"/>
+                                    <f:selectItems value="#{viewMBean.databaseInstances}" var="dbi" itemLabel="#{dbi.name}" itemValue="#{dbi.id}"/>
                                     <f:ajax render="schema save saveAndNew"/>
                                 </h:selectOneMenu>
                             </div>
@@ -31,9 +31,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="under">Schema</label>
-                                <h:selectOneMenu id="schema" label="Schema" value="#{tableMBean.selectedDatabaseSchema}" class="form-control">
+                                <h:selectOneMenu id="schema" label="Schema" value="#{viewMBean.selectedDatabaseSchema}" class="form-control">
                                     <f:selectItem itemLabel="Select..." itemValue="0"/>
-                                    <f:selectItems value="#{tableMBean.databaseSchemas}" var="sch" itemLabel="#{sch.name}" itemValue="#{sch.id}"/>
+                                    <f:selectItems value="#{viewMBean.databaseSchemas}" var="sch" itemLabel="#{sch.name}" itemValue="#{sch.id}"/>
                                     <f:ajax render="save saveAndNew"/>
                                 </h:selectOneMenu>
                             </div>
@@ -41,11 +41,11 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <h:inputText id="name" class="form-control" value="#{tableMBean.table.name}"/>
+                        <h:inputText id="name" class="form-control" value="#{viewMBean.view.name}"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <h:inputTextarea id="description" class="form-control" value="#{tableMBean.table.description}"/>
+                        <h:inputTextarea id="description" class="form-control" value="#{viewMBean.view.description}"/>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">Lifecycle</div>
@@ -54,7 +54,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="lifecycleState">State</label>
-                                        <h:selectOneMenu id="lifecycleState" label="State" value="#{tableMBean.table.state}" class="form-control">
+                                        <h:selectOneMenu id="lifecycleState" label="State" value="#{viewMBean.view.state}" class="form-control">
                                             <f:selectItem itemLabel="Designed" itemValue="DESIGNED"/>
                                             <f:selectItem itemLabel="Created" itemValue="CREATED"/>
                                             <f:selectItem itemLabel="In Use" itemValue="INUSE"/>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h:dataTable id="lifecycleTable" var="lifecycleState" value="#{tableMBean.lifecycleTable}" class="table">
+                                    <h:dataTable id="lifecycleView" var="lifecycleState" value="#{viewMBean.lifecycleView}" class="table">
                                         <h:column>
                                             <f:facet name="header">State</f:facet>
                                             <h:outputText value="#{lifecycleState.state}"/>
@@ -81,11 +81,11 @@
                         </div>
                     </div>
 
-                    <h:inputHidden value="#{tableMBean.table.id}"/>
+                    <h:inputHidden value="#{viewMBean.view.id}"/>
 
-                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{tableMBean.save}"/>
+                    <h:commandButton id="save" class="btn btn-default" value="Save" action="#{viewMBean.save}"/>
                     &nbsp;
-                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{tableMBean.saveAndCreateNew}"/>
+                    <h:commandButton id="saveAndNew" class="btn btn-default" value="Save And Create New" action="#{viewMBean.saveAndCreateNew}"/>
                 </h:form>
             </ui:define>
         </ui:composition>
@@ -93,7 +93,7 @@
         <script type="text/javascript">
             window.onload = function() {
                 document.getElementById('form:name').focus();
-            }
+            };
         </script>
     </body>
 </html>
