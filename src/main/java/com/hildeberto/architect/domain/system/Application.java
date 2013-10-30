@@ -1,32 +1,24 @@
-package com.hildeberto.architect.domain;
+package com.hildeberto.architect.domain.system;
 
+import com.hildeberto.architect.domain.Identified;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Hildeberto Mendonca
  */
 @Entity
-@Inheritance
-@Table(name="lifecycle")
-@DiscriminatorColumn(name="lifecycle_type")
-public abstract class Lifecycle implements Serializable, Identified<Integer> {
-    
+@Table(name="application")
+public class Application implements Serializable, Identified<Integer> {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -34,12 +26,21 @@ public abstract class Lifecycle implements Serializable, Identified<Integer> {
     @Basic(optional = false)
     private Integer id;
     
-    @Enumerated(EnumType.STRING)
-    protected LifecycleState state;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String name;
     
-    @Column(name = "state_date")
-    @Temporal(TemporalType.DATE)
-    private final Date stateDate = Calendar.getInstance().getTime();
+    @Lob
+    @Size(max = 32700)
+    private String description;
+
+    public Application() {
+    }
+
+    public Application(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public Integer getId() {
@@ -51,12 +52,20 @@ public abstract class Lifecycle implements Serializable, Identified<Integer> {
         this.id = id;
     }
 
-    public LifecycleState getState() {
-        return state;
+    public String getName() {
+        return name;
     }
 
-    public Date getStateDate() {
-        return stateDate;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -68,10 +77,10 @@ public abstract class Lifecycle implements Serializable, Identified<Integer> {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Lifecycle)) {
+        if (!(object instanceof Application)) {
             return false;
         }
-        Lifecycle other = (Lifecycle) object;
+        Application other = (Application) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,6 +89,6 @@ public abstract class Lifecycle implements Serializable, Identified<Integer> {
 
     @Override
     public String toString() {
-        return this.state.name();
+        return this.name;
     }
 }

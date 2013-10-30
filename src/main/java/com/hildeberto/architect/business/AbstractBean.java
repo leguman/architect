@@ -6,10 +6,11 @@ import javax.persistence.EntityManager;
 /**
  *
  * @author Hildeberto Mendonca
+ * @param <T>
  */
 public abstract class AbstractBean<T extends Identified> {
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
 
     public AbstractBean(Class<T> entityClass) {
         this.entityClass = entityClass;

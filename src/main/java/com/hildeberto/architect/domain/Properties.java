@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author mendoncafilh
+ * @author Hildeberto Mendonca
  */
 @Entity
 @Table(name = "properties")

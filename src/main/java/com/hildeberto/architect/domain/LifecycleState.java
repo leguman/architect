@@ -2,7 +2,7 @@ package com.hildeberto.architect.domain;
 
 /**
  *
- * @author mendoncafilh
+ * @author Hildeberto Mendonca
  */
 public enum LifecycleState {
     DESIGNED, CREATED, INUSE, OBSOLETE, REMOVED;

@@ -153,3 +153,42 @@ create index idx_lifecycle_artifact on code_artifact (lifecycle_state);
 -- changeset htmfilho:6
 alter table code_artifact add cacheable tinyint(1) null;
 
+--changeset htmfilho:7
+create table server (
+    id          integer       not null primary key auto_increment,
+    name        varchar(100)  not null,
+    domain_name varchar(255)      null,
+    ip_address  varchar(40)       null,
+    server_role varchar(20)       null,
+    description text              null
+) engine = innodb;
+
+create table server_log (
+    id               integer      not null primary key auto_increment,
+    server           integer      not null,
+    name             varchar(20)  not null,
+    location         varchar(255) not null,
+    filename_pattern varchar(255) not null,
+    record_pattern   varchar(255) not null,
+    filter           varchar(20)      null
+) engine = innodb;
+
+create index idx_server_log on server_log (server);
+alter table server_log add constraint fk_server_log foreign key (server) references server (id) on delete cascade;
+
+create table log_record (
+    id              bigint       not null primary key auto_increment,
+    server          integer      not null,
+    log             integer      not null,
+    instant         timestamp    not null,
+    level           varchar(20)      null,
+    product         varchar(100)     null,
+    logger_name     varchar(255)     null,
+    key_value_pairs varchar(255)     null,
+    message         text             null
+) engine = innodb;
+
+create index idx_server_log_record on log_record (server);
+create index idx_record_log on log_record (log);
+alter table log_record add constraint fk_server_log_record foreign key (server) references server (id) on delete cascade;
+alter table log_record add constraint fk_record_log foreign key (log) references server (id) on delete cascade;
