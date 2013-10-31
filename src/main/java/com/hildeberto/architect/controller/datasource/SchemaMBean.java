@@ -11,9 +11,9 @@ import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -43,7 +43,7 @@ public class SchemaMBean {
     @ManagedProperty(value="#{param.dbId}")
     private Integer dbId;
 
-    @ManagedProperty(value="#{databaseFilterMBean}")
+    @Inject
     private DatabaseFilterMBean databaseFilterMBean;
 
     private DatabaseSchema schema;

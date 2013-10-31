@@ -10,9 +10,9 @@ import com.hildeberto.architect.domain.system.Package;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -34,7 +34,7 @@ public class EntityClassMBean {
 
     private Integer selectedDatabaseElement;
 
-    @ManagedProperty(value="#{applicationFilterMBean}")
+    @Inject
     private ApplicationFilterMBean applicationFilterMBean;
 
     @ManagedProperty(value="#{param.id}")
