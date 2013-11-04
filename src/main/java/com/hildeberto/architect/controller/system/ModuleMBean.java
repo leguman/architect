@@ -8,16 +8,15 @@ import com.hildeberto.architect.domain.system.Package;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author Hildeberto Mendonca
  */
-@Named
+@ManagedBean
 @RequestScoped
 public class ModuleMBean {
 
@@ -38,7 +37,7 @@ public class ModuleMBean {
     @ManagedProperty(value="#{param.appId}")
     private Integer appId;
 
-    @Inject
+    @ManagedProperty(value="#{applicationFilterMBean}")
     private ApplicationFilterMBean applicationFilterMBean;
 
     private Integer selectedSubModuleOf;

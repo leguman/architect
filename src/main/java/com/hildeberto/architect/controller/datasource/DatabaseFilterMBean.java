@@ -6,14 +6,14 @@ import com.hildeberto.architect.domain.datasource.DatabaseInstance;
 import com.hildeberto.architect.domain.datasource.DatabaseSchema;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Hildeberto Mendonca
  */
-@Named
+@ManagedBean
 @ViewScoped
 public class DatabaseFilterMBean {
     
