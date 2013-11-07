@@ -1,13 +1,13 @@
 package com.hildeberto.architect.business;
 
-import com.hildeberto.architect.domain.datasource.DatabaseElement;
-import com.hildeberto.architect.domain.datasource.DatabaseTable;
-import com.hildeberto.architect.domain.datasource.DatabaseView;
-import com.hildeberto.architect.domain.system.EntityClass;
+import com.hildeberto.architect.datasource.domain.DatabaseElement;
+import com.hildeberto.architect.datasource.domain.DatabaseTable;
+import com.hildeberto.architect.datasource.domain.DatabaseView;
+import com.hildeberto.architect.system.domain.EntityClass;
 import com.hildeberto.architect.domain.Lifecycle;
-import com.hildeberto.architect.domain.system.LifecycleEntityClass;
-import com.hildeberto.architect.domain.datasource.LifecycleTable;
-import com.hildeberto.architect.domain.datasource.LifecycleView;
+import com.hildeberto.architect.system.domain.LifecycleEntityClass;
+import com.hildeberto.architect.datasource.domain.LifecycleTable;
+import com.hildeberto.architect.datasource.domain.LifecycleView;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

@@ -64,6 +64,7 @@
                                     <h:link outcome="table" value="#{table.name}">
                                         <f:param name="id" value="#{table.id}"/>
                                     </h:link>
+                                    <f:facet name="footer">#{tableMBean.tables.size()}</f:facet>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Description</f:facet>
