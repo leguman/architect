@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <body>
+        <ui:composition template="../layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="functionalities.xhtml">Functionalities</a></li>
+                <li><a href="#">Functionality</a></li>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>Functionality: #{functionalityMBean.functionality.name}</h1>
+                </div>
+                <h:form>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>Application</dt>
+                                <dd><a href="application.xhtml?id=#{functionalityMBean.functionality.application.id}">#{functionalityMBean.functionality.application}</a></dd>
+                                <dt>Module</dt>
+                                <dd><a href="module.xhtml?id=#{functionalityMBean.functionality.module.id}">#{functionalityMBean.functionality.module}</a></dd>
+                                <dt>Description</dt>
+                                <dd>#{functionalityMBean.functionality.description}</dd>
+                            </dl>
+
+                            <h:button outcome="functionality_form" value="Edit" class="btn btn-default pull-right">
+                                <f:param name="id" value="#{functionalityMBean.functionality.id}"/>
+                            </h:button>
+                        </div>
+                    </div>
+                </h:form>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Actions <span class="badge">#{functionalityMBean.relatedActions.size()}</span></div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <c:forEach var="action" items="#{functionalityMBean.relatedActions}">
+                                <h:link outcome="action" value="#{action.name}" class="list-group-item">
+                                    <f:param name="id" value="#{action.id}"/>
+                                </h:link>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

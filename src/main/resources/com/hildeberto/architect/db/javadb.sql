@@ -4,7 +4,7 @@
 create table properties (
     property_key   varchar(100) not null,
     property_value varchar(255)     null
-) engine = MyISAM;
+) engine = innodb;
 
 alter table properties add constraint pk_properties primary key (property_key);
 
@@ -75,7 +75,7 @@ alter table package add constraint fk_module_package foreign key (module) refere
 create table entity_class (
     id               integer      not null primary key auto_increment,
     class_name       varchar(255) not null,
-    application      integer      not null,  
+    application      integer      not null,
     module           integer          null,
     package          integer          null,
     database_element integer          null,
@@ -192,3 +192,27 @@ create index idx_server_log_record on log_record (server);
 create index idx_record_log on log_record (log);
 alter table log_record add constraint fk_server_log_record foreign key (server) references server (id) on delete cascade;
 alter table log_record add constraint fk_record_log foreign key (log) references server (id) on delete cascade;
+
+--changeset htmfilho:8
+create table functionality (
+    id          integer      not null primary key auto_increment,
+    application integer      not null,
+    name        varchar(100) not null,
+    module      integer          null,
+    description text             null
+) engine = innodb;
+
+create index idx_application_functionality on functionality (application);
+create index idx_module_functionality on functionality (module);
+alter table functionality add constraint fk_application_functionality foreign key (application) references application (id) on delete cascade;
+alter table functionality add constraint fk_module_functionality foreign key (module) references module (id) on delete set null;
+
+create table action (
+    id            integer     not null primary key auto_increment,
+    functionality integer     not null,
+    name          varchar(30) not null,
+    description   text            null
+) engine = innodb;
+
+create index idx_functionality_action on action (functionality);
+alter table action add constraint fk_functionality_action foreign key (functionality) references functionality (id) on delete cascade;

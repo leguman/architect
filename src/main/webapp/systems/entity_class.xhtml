@@ -29,13 +29,13 @@
                                 <dt>Mapped Element</dt>
                                 <dd>
                                     <h:panelGroup rendered="#{entityClassMBean.entityClass.databaseTable}">
-                                        <h:link outcome="table">
+                                        <h:link outcome="/data_sources/table">
                                             <f:param name="id" value="#{entityClassMBean.entityClass.databaseElement.id}"/>
                                             <h:outputText value="#{entityClassMBean.entityClass.databaseElement}" escape="false"/>
                                         </h:link>
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{! entityClassMBean.entityClass.databaseTable}">
-                                        <h:link outcome="view">
+                                        <h:link outcome="/data_source/view">
                                             <f:param name="id" value="#{entityClassMBean.entityClass.databaseElement.id}"/>
                                             <h:outputText value="#{entityClassMBean.entityClass.databaseElement}" escape="false"/>
                                         </h:link>

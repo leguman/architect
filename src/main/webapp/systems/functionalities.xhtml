@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="../layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="functionalities.xhtml">Functionalities</a></li>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>Functionalities</h1>
+                </div>
+
+                <h:form>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h:selectOneMenu id="application" label="Application" value="#{functionalityMBean.selectedApplication}" class="form-control">
+                                <f:selectItem itemLabel="Applications ..." itemValue="0"/>
+                                <f:selectItems value="#{functionalityMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                <f:ajax render="module functionalities create"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-md-5">
+                            <h:selectOneMenu id="module" label="Module" value="#{functionalityMBean.selectedModule}" class="form-control">
+                                <f:selectItem itemLabel="Modules ..." itemValue="0"/>
+                                <f:selectItems value="#{functionalityMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
+                                <f:ajax render="functionalities create"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-md-2">
+                            <h:button id="create" outcome="functionality_form" value="Create" class="btn btn-default pull-right">
+                                <f:param name="appId" value="#{functionalityMBean.selectedApplication}"/>
+                                <f:param name="modId" value="#{functionalityMBean.selectedModule}"/>
+                            </h:button>
+                        </div>
+                    </div>
+
+                    <h:dataTable id="functionalities" var="function" value="#{functionalityMBean.functionalities}" class="table table-hover">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            <h:link outcome="functionality" value="#{function.name}">
+                                <f:param name="id" value="#{function.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Module</f:facet>
+                            <h:outputText value="#{function.module}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Description</f:facet>
+                            <h:outputText value="#{function.description}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

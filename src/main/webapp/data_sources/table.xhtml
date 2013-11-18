@@ -25,7 +25,7 @@
                                 <dt>Schema</dt>
                                 <dd><a href="schema.xhtml?id=#{tableMBean.table.databaseSchema.id}">#{tableMBean.table.databaseSchema}</a></dd>
                                 <dt>Entity Class</dt>
-                                <dd><h:link outcome="entity_class">
+                                <dd><h:link outcome="/systems/entity_class">
                                         <h:outputText value="#{tableMBean.entityClass}" escape="false"/>
                                         <f:param name="id" value="#{tableMBean.entityClass.id}"/>
                                     </h:link></dd>
@@ -53,7 +53,7 @@
                                         <f:param name="dbiId" value="#{tableMBean.table.databaseInstance.id}"/>
                                         <f:param name="schId" value="#{tableMBean.table.databaseSchema.id}"/>
                                     </h:commandButton>
-                                </div>                                
+                                </div>
                             </div>
                             <p/>
                             <div class="panel panel-default">

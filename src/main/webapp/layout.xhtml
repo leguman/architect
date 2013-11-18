@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -33,6 +33,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#{request.contextPath}/systems/applications.xhtml">Applications</a></li>
                                 <li><a href="#{request.contextPath}/systems/modules.xhtml">Modules</a></li>
+                                <li><a href="#{request.contextPath}/systems/functionalities.xhtml">Functionalities</a></li>
                                 <li><a href="#{request.contextPath}/systems/layers.xhtml">Layers</a></li>
                                 <li><a href="#{request.contextPath}/systems/packages.xhtml">Packages</a></li>
                                 <li><a href="#{request.contextPath}/systems/artifacts.xhtml">Artifacts</a></li>
@@ -50,7 +51,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="container">
             <div id="breadcrumbs">
                 <ol class="breadcrumb">
@@ -58,12 +59,12 @@
                     <ui:insert name="breadcrumbs">Breadcrumbs</ui:insert>
                 </ol>
             </div>
-        
+
             <div id="content">
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
-        
+
         <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
             <h5><a href="http://hildeberto.com" target="_blank">The Architect</a></h5>
         </nav>

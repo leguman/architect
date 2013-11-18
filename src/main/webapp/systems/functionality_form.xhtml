@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="../layout.xhtml">
+            <ui:define name="breadcrumbs">
+                <li><a href="systems.xhtml">Systems</a></li>
+                <li><a href="functionalities.xhtml">Functionalities</a></li>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h1>Functionality</h1>
+                </div>
+
+                <h:form id="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="application">Application</label>
+                                <h:selectOneMenu id="application" label="Application" value="#{functionalityMBean.selectedApplication}" class="form-control">
+                                    <f:selectItem itemLabel="Select ..." itemValue="0"/>
+                                    <f:selectItems value="#{functionalityMBean.applications}" var="app" itemLabel="#{app.name}" itemValue="#{app.id}"/>
+                                    <f:ajax render="module save"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="under">Module</label>
+                                <h:selectOneMenu id="module" label="Module" value="#{functionalityMBean.selectedModule}" class="form-control">
+                                    <f:selectItem itemLabel="Select..." itemValue="0"/>
+                                    <f:selectItems value="#{functionalityMBean.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>
+                                    <f:ajax render="save"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <h:inputText id="name" class="form-control" value="#{functionalityMBean.functionality.name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <h:inputTextarea id="description" class="form-control" value="#{functionalityMBean.functionality.description}"/>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Actions</div>
+                        <div class="panel-body">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label for="actionName">Action Name</label>
+                                    <h:inputText id="actionName" label="Action Name" value="#{functionalityMBean.action.name}" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="actionDescription">Description</label>
+                                    <h:inputText id="actionDescription" label="Description" value="#{functionalityMBean.action.description}" class="form-control"/>
+                                </div>
+                                <h:inputHidden value="#{functionalityMBean.action.id}"/>
+                                &nbsp;
+                                <h:commandButton id="saveAction" class="btn btn-primary" value="Save" actionListener="#{functionalityMBean.saveAction}" style="vertical-align: bottom;"/>
+                            </div>
+
+                            <h:dataTable id="actions" var="action" value="#{functionalityMBean.actions}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:outputText value="#{action.name}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Description</f:facet>
+                                    <h:outputText value="#{action.description}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+
+                    <h:inputHidden value="#{functionalityMBean.functionality.id}"/>
+
+                    <h:commandButton id="save" class="btn btn-primary" value="Save" action="#{functionalityMBean.save}">
+                        <f:param name="appId" value="#{functionalityMBean.selectedApplication}"/>
+                        <f:param name="modId" value="#{functionalityMBean.selectedModule}"/>
+                    </h:commandButton>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
