@@ -1,11 +1,10 @@
 package com.hildeberto.architect.system.controller;
 
-import com.hildeberto.architect.system.business.ActionBean;
 import com.hildeberto.architect.system.domain.Action;
 import com.hildeberto.architect.system.domain.Functionality;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -16,10 +15,7 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @ViewScoped
-public class ActionMBean {
-
-    @EJB
-    private ActionBean actionBean;
+public class ActionMBean implements Serializable {
 
     private Action action;
 

@@ -4,6 +4,7 @@ import com.hildeberto.architect.datasource.business.DatabaseInstanceBean;
 import com.hildeberto.architect.datasource.business.DatabaseSchemaBean;
 import com.hildeberto.architect.datasource.domain.DatabaseInstance;
 import com.hildeberto.architect.datasource.domain.DatabaseSchema;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -15,7 +16,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class DatabaseFilterMBean {
+public class DatabaseFilterMBean implements Serializable {
     
     @EJB
     private DatabaseInstanceBean databaseInstanceBean;

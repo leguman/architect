@@ -39,7 +39,7 @@ public abstract class Lifecycle implements Serializable, Identified<Integer> {
     
     @Column(name = "state_date")
     @Temporal(TemporalType.DATE)
-    private final Date stateDate = Calendar.getInstance().getTime();
+    private Date stateDate = Calendar.getInstance().getTime();
 
     @Override
     public Integer getId() {

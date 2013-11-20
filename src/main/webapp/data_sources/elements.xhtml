@@ -44,6 +44,7 @@
                                         <f:selectItem itemLabel="Obsolete" itemValue="OBSOLETE"/>
                                         <f:selectItem itemLabel="Removed" itemValue="REMOVED"/>
                                         <f:ajax render="tables createTable"/>
+                                        <f:converter converterId="lifecycleStateConverter"/>
                                     </h:selectOneMenu>
                                 </div>
                                 <div class="col-md-2">
@@ -72,7 +73,9 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">State</f:facet>
-                                    <h:outputText value="#{table.state}"/>
+                                    <h:outputText value="#{table.state}">
+                                        <f:converter converterId="lifecycleStateConverter"/>
+                                    </h:outputText>
                                 </h:column>
                             </h:dataTable>
                         </p:tab>
@@ -117,7 +120,9 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">State</f:facet>
-                                    <h:outputText value="#{vw.state}"/>
+                                    <h:outputText value="#{vw.state}">
+                                        <f:converter converterId="lifecycleStateConverter"/>
+                                    </h:outputText>
                                 </h:column>
                             </h:dataTable>
                         </p:tab>

@@ -6,6 +6,7 @@ import com.hildeberto.architect.system.business.PackageBean;
 import com.hildeberto.architect.system.domain.Application;
 import com.hildeberto.architect.system.domain.Module;
 import com.hildeberto.architect.system.domain.Package;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +18,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ApplicationFilterMBean {
+public class ApplicationFilterMBean implements Serializable {
     
     @EJB
     private ApplicationBean applicationBean;
