@@ -32,7 +32,6 @@ public abstract class DatabaseElement implements Serializable, Identified<Intege
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
     
