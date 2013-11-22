@@ -122,7 +122,7 @@ public class FunctionalityMBean {
     }
 
     public List<Action> getActions() {
-        return this.actionMBean.getActions(functionality);
+        return this.actionMBean.getActions();
     }
 
     @PostConstruct
@@ -150,7 +150,15 @@ public class FunctionalityMBean {
 
     public void saveAction(ActionEvent event) {
         actionMBean.setFunctionality(functionality);
-        actionMBean.save(event);
+        actionMBean.save();
+    }
+
+    public void editAction(Integer i) {
+        actionMBean.edit(i);
+    }
+
+    public void removeAction(Integer i) {
+        actionMBean.remove(i);
     }
 
     public String save() {

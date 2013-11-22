@@ -60,9 +60,10 @@
                                     <label for="actionDescription">Description</label>
                                     <h:inputText id="actionDescription" label="Description" value="#{functionalityMBean.action.description}" class="form-control"/>
                                 </div>
-                                <h:inputHidden value="#{functionalityMBean.action.id}"/>
-                                &nbsp;
-                                <h:commandButton id="saveAction" class="btn btn-primary" value="Save" actionListener="#{functionalityMBean.saveAction}" style="vertical-align: bottom;"/>
+                                <div class="form-group">
+                                    <h:inputHidden value="#{functionalityMBean.action.id}"/>
+                                </div>
+                                <h:commandButton id="saveAction" class="btn btn-default" value="Save" actionListener="#{functionalityMBean.saveAction}" style="vertical-align: bottom"/>
                             </div>
 
                             <h:dataTable id="actions" var="action" value="#{functionalityMBean.actions}" class="table">
@@ -73,6 +74,10 @@
                                 <h:column>
                                     <f:facet name="header">Description</f:facet>
                                     <h:outputText value="#{action.description}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="Edit" actionListener="#{functionalityMBean.editAction(action.id)}" styleClass="btn btn-default" style="margin: 3;"/>
+                                    <h:commandButton value="Remove" actionListener="#{functionalityMBean.removeAction(action.id)}" styleClass="btn btn-default" style="margin: 3;"/>
                                 </h:column>
                             </h:dataTable>
                         </div>

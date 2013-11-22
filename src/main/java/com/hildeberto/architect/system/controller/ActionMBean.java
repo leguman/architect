@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -30,7 +29,7 @@ public class ActionMBean implements Serializable {
         return this.action;
     }
 
-    public List<Action> getActions(Functionality functionality) {
+    public List<Action> getActions() {
         return this.actions;
     }
 
@@ -42,8 +41,43 @@ public class ActionMBean implements Serializable {
         this.action.setFunctionality(functionality);
     }
 
-    public void save(ActionEvent event) {
-        actions.add(this.action);
+    public void save() {
+        if (action.getId() != null) {
+            boolean found = false;
+            for (Action a : actions) {
+                if (a.getId() != null && a.getId().equals(action.getId())) {
+                    a.setName(action.getName());
+                    a.setDescription(action.getDescription());
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) {
+                actions.add(this.action.getId(), action);
+            }
+        } else {
+            action.setId(actions.size());
+            actions.add(action);
+        }
+        action = new Action();
+    }
+
+    public void edit(int id) {
+        for (Action a : actions) {
+            if (a.getId() != null && a.getId().intValue() == id) {
+                this.action = a;
+                break;
+            }
+        }
+    }
+
+    public void remove(int id) {
+        for (Action a : actions) {
+            if (a.getId() != null && a.getId().intValue() == id) {
+                actions.remove(a);
+                break;
+            }
+        }
         this.action = new Action();
     }
 }
