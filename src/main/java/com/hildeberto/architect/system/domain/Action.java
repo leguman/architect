@@ -92,8 +92,10 @@ public class Action implements Serializable, Identified<Integer> {
         if (!(object instanceof Action)) {
             return false;
         }
+
         Action other = (Action) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        // By adding this.id != other.id it makes sure the object is not exactly the same.
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)) || (this.id != other.id)) {
             return false;
         }
         return true;

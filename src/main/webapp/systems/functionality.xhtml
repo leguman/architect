@@ -41,9 +41,7 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <c:forEach var="action" items="#{functionalityMBean.relatedActions}">
-                                <h:link outcome="action" value="#{action.name}" class="list-group-item">
-                                    <f:param name="id" value="#{action.id}"/>
-                                </h:link>
+                                <h:outputText value="#{action.name}" class="list-group-item"/>
                             </c:forEach>
                         </ul>
                     </div>

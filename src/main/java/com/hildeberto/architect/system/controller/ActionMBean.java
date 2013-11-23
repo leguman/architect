@@ -42,42 +42,22 @@ public class ActionMBean implements Serializable {
     }
 
     public void save() {
-        if (action.getId() != null) {
-            boolean found = false;
-            for (Action a : actions) {
-                if (a.getId() != null && a.getId().equals(action.getId())) {
-                    a.setName(action.getName());
-                    a.setDescription(action.getDescription());
-                    found = true;
-                    break;
-                }
-            }
-            if(!found) {
-                actions.add(this.action.getId(), action);
-            }
-        } else {
-            action.setId(actions.size());
-            actions.add(action);
+        if(actions.contains(this.action)) {
+            int i = actions.indexOf(this.action);
+            actions.set(i, this.action);
+        }
+        else {
+            actions.add(this.action);
         }
         action = new Action();
     }
 
-    public void edit(int id) {
-        for (Action a : actions) {
-            if (a.getId() != null && a.getId().intValue() == id) {
-                this.action = a;
-                break;
-            }
-        }
+    public void edit(Action action) {
+        this.action = action;
     }
 
-    public void remove(int id) {
-        for (Action a : actions) {
-            if (a.getId() != null && a.getId().intValue() == id) {
-                actions.remove(a);
-                break;
-            }
-        }
+    public void remove(Action action) {
+        actions.remove(action);
         this.action = new Action();
     }
 }

@@ -153,12 +153,12 @@ public class FunctionalityMBean {
         actionMBean.save();
     }
 
-    public void editAction(Integer i) {
-        actionMBean.edit(i);
+    public void editAction(Action action) {
+        actionMBean.edit(action);
     }
 
-    public void removeAction(Integer i) {
-        actionMBean.remove(i);
+    public void removeAction(Action action) {
+        actionMBean.remove(action);
     }
 
     public String save() {
@@ -166,6 +166,11 @@ public class FunctionalityMBean {
         this.functionality.setModule(applicationFilterMBean.getModule());
 
         functionalityBean.save(this.functionality);
+
+        for(Action action: actionMBean.getActions()) {
+            actionBean.save(action);
+        }
+
         return "functionalities?faces-redirect=true&appId=" + this.functionality.getApplication().getId() + "&modId=" + this.functionality.getModule().getId();
     }
 }

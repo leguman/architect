@@ -76,8 +76,8 @@
                                     <h:outputText value="#{action.description}"/>
                                 </h:column>
                                 <h:column>
-                                    <h:commandButton value="Edit" actionListener="#{functionalityMBean.editAction(action.id)}" styleClass="btn btn-default" style="margin: 3;"/>
-                                    <h:commandButton value="Remove" actionListener="#{functionalityMBean.removeAction(action.id)}" styleClass="btn btn-default" style="margin: 3;"/>
+                                    <h:commandButton value="Edit" actionListener="#{functionalityMBean.editAction(action)}" class="btn btn-default"/>
+                                    <h:commandButton value="Remove" actionListener="#{functionalityMBean.removeAction(action)}" class="btn btn-default"/>
                                 </h:column>
                             </h:dataTable>
                         </div>
