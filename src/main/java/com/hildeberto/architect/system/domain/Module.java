@@ -39,6 +39,9 @@ public class Module implements Serializable, Identified<Integer> {
     @Lob
     @Size(max = 32700)
     private String description;
+
+    @Size(max = 20)
+    private String acronym;
     
     @ManyToOne
     @JoinColumn(name="submodule_of")
@@ -91,6 +94,14 @@ public class Module implements Serializable, Identified<Integer> {
 
     public void setSubModuleOf(Module submoduleOf) {
         this.subModuleOf = submoduleOf;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
     }
 
     @Override

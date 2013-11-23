@@ -49,7 +49,7 @@ public class DatabaseViewBean extends AbstractBean<DatabaseView> {
 
     public List<DatabaseView> findNotMappedViews(DatabaseElement except) {
         if(except != null) {
-            return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec where ec.databaseElement != :except) order by dv.name asc")
+            return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec where ec.databaseElement <> :except) order by dv.name asc")
                      .setParameter("except", except)
                      .getResultList();
         }

@@ -48,7 +48,7 @@ public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
     public List<DatabaseElement> findNotMappedElements(DatabaseElement except) {
         List<DatabaseElement> unmappedElements;
         if(except != null) {
-            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement != :except) order by de.name asc")
+            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement <> :except) order by de.name asc")
                     .setParameter("except", except)
                     .getResultList();
         }

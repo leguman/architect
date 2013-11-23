@@ -149,7 +149,6 @@ public class FunctionalityMBean {
     }
 
     public void saveAction(ActionEvent event) {
-        actionMBean.setFunctionality(functionality);
         actionMBean.save();
     }
 
@@ -165,11 +164,7 @@ public class FunctionalityMBean {
         this.functionality.setApplication(applicationFilterMBean.getApplication());
         this.functionality.setModule(applicationFilterMBean.getModule());
 
-        functionalityBean.save(this.functionality);
-
-        for(Action action: actionMBean.getActions()) {
-            actionBean.save(action);
-        }
+        this.functionality = functionalityBean.save(this.functionality, actionMBean.getActions());
 
         return "functionalities?faces-redirect=true&appId=" + this.functionality.getApplication().getId() + "&modId=" + this.functionality.getModule().getId();
     }
