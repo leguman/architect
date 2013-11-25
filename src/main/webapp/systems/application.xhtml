@@ -51,9 +51,9 @@
                             <div class="panel-heading">Packages <span class="badge">#{applicationMBean.packages.size()}</span></div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <c:forEach var="package" items="#{applicationMBean.packages}">
-                                        <h:link outcome="package" value="#{package.name}" class="list-group-item">
-                                            <f:param name="id" value="#{package.id}"/>
+                                    <c:forEach var="pack" items="#{applicationMBean.packages}">
+                                        <h:link outcome="package" value="#{pack.name}" class="list-group-item">
+                                            <f:param name="id" value="#{pack.id}"/>
                                         </h:link>
                                     </c:forEach>
                                 </ul>

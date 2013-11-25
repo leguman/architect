@@ -1,7 +1,6 @@
 package com.hildeberto.architect.system.domain;
 
 import com.hildeberto.architect.domain.Lifecycle;
-import com.hildeberto.architect.system.domain.Component;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

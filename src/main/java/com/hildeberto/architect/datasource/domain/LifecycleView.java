@@ -2,7 +2,6 @@ package com.hildeberto.architect.datasource.domain;
 
 import com.hildeberto.architect.domain.Lifecycle;
 import com.hildeberto.architect.domain.LifecycleState;
-import com.hildeberto.architect.datasource.domain.DatabaseView;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
