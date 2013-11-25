@@ -67,7 +67,7 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
     public List<DatabaseTable> findNotMappedTables(DatabaseElement except) {
         List<DatabaseTable> unmappedTables;
         if(except != null) {
-            unmappedTables = em.createQuery("select dt from DatabaseTable dt where dt.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement != :except) order by dt.name asc")
+            unmappedTables = em.createQuery("select dt from DatabaseTable dt where dt.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement <> :except) order by dt.name asc")
                                .setParameter("except", except)
                                .getResultList();
         }

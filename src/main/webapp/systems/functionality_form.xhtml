@@ -3,12 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="functionalities.xhtml">Functionalities</a></li>
+                <li><a href="#">Functionality</a></li>
             </ui:define>
 
             <ui:define name="content">
@@ -39,9 +41,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <h:inputText id="name" class="form-control" value="#{functionalityMBean.functionality.name}"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <h:inputText id="name" class="form-control" value="#{functionalityMBean.functionality.name}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="acronym">Acronym</label>
+                                <h:inputText id="acronym" class="form-control" value="#{functionalityMBean.functionality.acronym}"/>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
@@ -51,18 +63,27 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Actions</div>
                         <div class="panel-body">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <label for="actionName">Action Name</label>
-                                    <h:inputText id="actionName" label="Action Name" value="#{functionalityMBean.action.name}" class="form-control"/>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label for="actionName">Action Name</label>
+                                            <h:inputText id="actionName" label="Action Name" value="#{functionalityMBean.action.name}" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="actionAcronym">Acronym</label>
+                                            <h:inputText id="actionAcronym" label="Acronym" value="#{functionalityMBean.action.acronym}" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="actionDescription">Description</label>
+                                            <h:inputText id="actionDescription" label="Description" value="#{functionalityMBean.action.description}" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <h:inputHidden value="#{functionalityMBean.action.id}"/>
+                                        </div>
+                                        <h:commandButton id="saveAction" class="btn btn-default" value="Save" actionListener="#{functionalityMBean.saveAction}" style="vertical-align: bottom"/>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="actionDescription">Description</label>
-                                    <h:inputText id="actionDescription" label="Description" value="#{functionalityMBean.action.description}" class="form-control"/>
-                                </div>
-                                <h:inputHidden value="#{functionalityMBean.action.id}"/>
-                                &nbsp;
-                                <h:commandButton id="saveAction" class="btn btn-primary" value="Save" actionListener="#{functionalityMBean.saveAction}" style="vertical-align: bottom;"/>
                             </div>
 
                             <h:dataTable id="actions" var="action" value="#{functionalityMBean.actions}" class="table">
@@ -71,8 +92,17 @@
                                     <h:outputText value="#{action.name}"/>
                                 </h:column>
                                 <h:column>
+                                    <f:facet name="header">Acronym</f:facet>
+                                    <h:outputText value="#{action.acronym}"/>
+                                </h:column>
+                                <h:column>
                                     <f:facet name="header">Description</f:facet>
                                     <h:outputText value="#{action.description}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="Edit" actionListener="#{functionalityMBean.editAction(action)}" class="btn btn-default"/>
+                                    <p:spacer width="5"/>
+                                    <h:commandButton value="Remove" actionListener="#{functionalityMBean.removeAction(action)}" class="btn btn-default"/>
                                 </h:column>
                             </h:dataTable>
                         </div>

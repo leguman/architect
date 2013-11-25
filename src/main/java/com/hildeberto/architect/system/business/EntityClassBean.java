@@ -67,7 +67,7 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
 
     public List<EntityClass> findNotMappedClasses(EntityClass except) {
         if(except != null) {
-            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null && ec != :except order by ec.name asc")
+            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null && ec <> :except order by ec.name asc")
                      .setParameter("except", except)
                      .getResultList();
         }

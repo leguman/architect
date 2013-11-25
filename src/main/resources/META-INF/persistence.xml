@@ -4,6 +4,9 @@
     <jta-data-source>jdbc/architect</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
-    <properties/>
+    <properties>
+        <property name="openjpa.Log" value="SQL=TRACE"/>
+        <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=72"/>
+    </properties>
   </persistence-unit>
 </persistence>

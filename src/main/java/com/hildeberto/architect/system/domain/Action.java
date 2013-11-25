@@ -2,13 +2,7 @@ package com.hildeberto.architect.system.domain;
 
 import com.hildeberto.architect.domain.Identified;
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -21,7 +15,6 @@ public class Action implements Serializable, Identified<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Basic(optional = false)
     private Integer id;
 
     private String name;
@@ -33,6 +26,9 @@ public class Action implements Serializable, Identified<Integer> {
     @Lob
     @Size(max = 32700)
     private String description;
+
+    @Size(max = 20)
+    private String acronym;
 
     public Action() {
     }
@@ -80,6 +76,14 @@ public class Action implements Serializable, Identified<Integer> {
         this.description = description;
     }
 
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,8 +96,10 @@ public class Action implements Serializable, Identified<Integer> {
         if (!(object instanceof Action)) {
             return false;
         }
+
         Action other = (Action) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        // By adding this.id != other.id it makes sure the object is not exactly the same.
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)) || (this.id != other.id)) {
             return false;
         }
         return true;

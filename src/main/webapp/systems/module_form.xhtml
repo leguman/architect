@@ -9,6 +9,7 @@
             <ui:define name="breadcrumbs">
                 <li><a href="systems.xhtml">Systems</a></li>
                 <li><a href="modules.xhtml">Modules</a></li>
+                <li><a href="#">Module</a></li>
             </ui:define>
 
             <ui:define name="content">
@@ -28,6 +29,10 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <h:inputText id="name" class="form-control" value="#{moduleMBean.module.name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="acronym">Acronym</label>
+                        <h:inputText id="acronym" class="form-control" value="#{moduleMBean.module.acronym}"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>

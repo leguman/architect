@@ -122,7 +122,7 @@ public class FunctionalityMBean {
     }
 
     public List<Action> getActions() {
-        return this.actionMBean.getActions(functionality);
+        return this.actionMBean.getActions();
     }
 
     @PostConstruct
@@ -149,15 +149,23 @@ public class FunctionalityMBean {
     }
 
     public void saveAction(ActionEvent event) {
-        actionMBean.setFunctionality(functionality);
-        actionMBean.save(event);
+        actionMBean.save();
+    }
+
+    public void editAction(Action action) {
+        actionMBean.edit(action);
+    }
+
+    public void removeAction(Action action) {
+        actionMBean.remove(action);
     }
 
     public String save() {
         this.functionality.setApplication(applicationFilterMBean.getApplication());
         this.functionality.setModule(applicationFilterMBean.getModule());
 
-        functionalityBean.save(this.functionality);
+        this.functionality = functionalityBean.save(this.functionality, actionMBean.getActions());
+
         return "functionalities?faces-redirect=true&appId=" + this.functionality.getApplication().getId() + "&modId=" + this.functionality.getModule().getId();
     }
 }

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
@@ -33,11 +34,25 @@
                     </div>
 
                     <h:dataTable id="modules" var="module" value="#{moduleMBean.modules}" class="table table-hover">
+                        <f:facet name="header">
+                            <p:ajaxStatus style="width: 16px; height: 16px;" id="ajaxStatusPanel">
+                                <f:facet name="start">
+                                    <h:graphicImage name="ajax-loader.gif" library="images" alt="Loading ..."/>
+                                </f:facet>
+                                <f:facet name="complete">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </p:ajaxStatus>
+                        </f:facet>
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             <h:link outcome="module" value="#{module.name}">
                                 <f:param name="id" value="#{module.id}"/>
                             </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Acronym</f:facet>
+                            <h:outputText value="#{module.acronym}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Description</f:facet>

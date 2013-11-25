@@ -216,3 +216,8 @@ create table action (
 
 create index idx_functionality_action on action (functionality);
 alter table action add constraint fk_functionality_action foreign key (functionality) references functionality (id) on delete cascade;
+
+--changeset htmfilho:9
+alter table module add acronym varchar(20) null;
+alter table functionality add acronym varchar(20) null;
+alter table action add acronym varchar(20) null;

@@ -25,6 +25,8 @@
                                 <dd><a href="application.xhtml?id=#{functionalityMBean.functionality.application.id}">#{functionalityMBean.functionality.application}</a></dd>
                                 <dt>Module</dt>
                                 <dd><a href="module.xhtml?id=#{functionalityMBean.functionality.module.id}">#{functionalityMBean.functionality.module}</a></dd>
+                                <dt>Acronym</dt>
+                                <dd>#{functionalityMBean.functionality.acronym}</dd>
                                 <dt>Description</dt>
                                 <dd>#{functionalityMBean.functionality.description}</dd>
                             </dl>
@@ -39,13 +41,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Actions <span class="badge">#{functionalityMBean.relatedActions.size()}</span></div>
                     <div class="panel-body">
-                        <ul class="list-group">
-                            <c:forEach var="action" items="#{functionalityMBean.relatedActions}">
-                                <h:link outcome="action" value="#{action.name}" class="list-group-item">
-                                    <f:param name="id" value="#{action.id}"/>
-                                </h:link>
-                            </c:forEach>
-                        </ul>
+                        <h:dataTable id="actions" var="action" value="#{functionalityMBean.relatedActions}" class="table">
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>
+                                <h:outputText value="#{action.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Acronym</f:facet>
+                                <h:outputText value="#{action.acronym}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Description</f:facet>
+                                <h:outputText value="#{action.description}"/>
+                            </h:column>
+                        </h:dataTable>
                     </div>
                 </div>
             </ui:define>

@@ -43,7 +43,7 @@ public class ModuleBean extends AbstractBean<Module> {
     }
     
     public List<Module> findSubModulesByApplication(Application application, Module except) {
-        Query query = em.createQuery("select m from Module m where m.application = :application "+ ((except != null)?"and m != :except ":"") +"order by m.name asc");
+        Query query = em.createQuery("select m from Module m where m.application = :application "+ ((except != null)?"and m <> :except ":"") +"order by m.name asc");
         
         query.setParameter("application", application);
         if(except != null) {

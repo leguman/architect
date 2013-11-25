@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -30,7 +29,7 @@ public class ActionMBean implements Serializable {
         return this.action;
     }
 
-    public List<Action> getActions(Functionality functionality) {
+    public List<Action> getActions() {
         return this.actions;
     }
 
@@ -42,8 +41,23 @@ public class ActionMBean implements Serializable {
         this.action.setFunctionality(functionality);
     }
 
-    public void save(ActionEvent event) {
-        actions.add(this.action);
+    public void save() {
+        if(actions.contains(this.action)) {
+            int i = actions.indexOf(this.action);
+            actions.set(i, this.action);
+        }
+        else {
+            actions.add(this.action);
+        }
+        action = new Action();
+    }
+
+    public void edit(Action action) {
+        this.action = action;
+    }
+
+    public void remove(Action action) {
+        actions.remove(action);
         this.action = new Action();
     }
 }
