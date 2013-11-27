@@ -2,10 +2,8 @@ package com.hildeberto.architect.datasource.domain;
 
 import com.hildeberto.architect.domain.Lifecycle;
 import com.hildeberto.architect.domain.LifecycleState;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 /**
  *
@@ -16,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class LifecycleTable extends Lifecycle {
     
     @ManyToOne
-    @JoinColumn(name="object")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private DatabaseTable databaseTable;
 
     public DatabaseTable getDatabaseTable() {

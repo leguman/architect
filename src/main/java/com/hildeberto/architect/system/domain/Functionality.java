@@ -17,6 +17,7 @@ public class Functionality implements Serializable, Identified<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Basic(optional = false)
@@ -36,7 +37,6 @@ public class Functionality implements Serializable, Identified<Integer> {
     @Size(max = 32700)
     private String description;
 
-    @Size(max = 20)
     private String acronym;
 
     public Functionality() {

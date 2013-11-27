@@ -2,13 +2,7 @@ package com.hildeberto.architect.system.domain;
 
 import com.hildeberto.architect.domain.Identified;
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,7 +16,7 @@ public class Package implements Serializable, Identified<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Basic(optional = false)

@@ -15,6 +15,7 @@ public class Action implements Serializable, Identified<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -27,7 +28,6 @@ public class Action implements Serializable, Identified<Integer> {
     @Size(max = 32700)
     private String description;
 
-    @Size(max = 20)
     private String acronym;
 
     public Action() {
@@ -82,6 +82,16 @@ public class Action implements Serializable, Identified<Integer> {
 
     public void setAcronym(String acronym) {
         this.acronym = acronym;
+    }
+
+    public String getPermission() {
+        String permission = null;
+
+        if(this.functionality != null && this.functionality.getModule() != null && this.getAcronym() != null) {
+            permission = this.functionality.getModule().getAcronym() + "_" + this.functionality.getAcronym() + "_" + this.getAcronym();
+        }
+
+        return permission;
     }
 
     @Override

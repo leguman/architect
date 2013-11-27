@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="architect-pu" transaction-type="JTA">
-    <jta-data-source>jdbc/architect</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <shared-cache-mode>ALL</shared-cache-mode>
-    <properties>
+    <persistence-unit name="architect-pu" transaction-type="JTA">
+        <jta-data-source>jdbc/architect</jta-data-source>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties/>
+    <!--<properties>
         <property name="openjpa.Log" value="SQL=TRACE"/>
         <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=72"/>
-    </properties>
-  </persistence-unit>
+        <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.MySQLDictionary"/>
+    </properties>-->
+    </persistence-unit>
 </persistence>

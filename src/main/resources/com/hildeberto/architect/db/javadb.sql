@@ -221,3 +221,8 @@ alter table action add constraint fk_functionality_action foreign key (functiona
 alter table module add acronym varchar(20) null;
 alter table functionality add acronym varchar(20) null;
 alter table action add acronym varchar(20) null;
+
+--changeset htmfilho:10
+alter table module modify acronym varchar(25);
+alter table functionality modify acronym varchar(25);
+alter table action modify acronym varchar(25);

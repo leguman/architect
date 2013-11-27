@@ -49,9 +49,11 @@ public class FunctionalityBean extends AbstractBean<Functionality> {
     
     public Functionality save(Functionality functionality, List<Action> actions) {
         functionality = super.save(functionality);
-        for(Action action: actions) {
-            action.setFunctionality(functionality);
-            actionBean.save(action);
+        if(actions != null && !actions.isEmpty()) {
+            for(Action action: actions) {
+                action.setFunctionality(functionality);
+                actionBean.save(action);
+            }
         }
 
         return functionality;
