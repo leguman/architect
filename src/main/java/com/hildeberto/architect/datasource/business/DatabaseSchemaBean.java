@@ -4,7 +4,6 @@ import com.hildeberto.architect.business.AbstractBean;
 import com.hildeberto.architect.datasource.domain.DatabaseInstance;
 import com.hildeberto.architect.datasource.domain.DatabaseSchema;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class DatabaseSchemaBean extends AbstractBean<DatabaseSchema> {
 
     @PersistenceContext

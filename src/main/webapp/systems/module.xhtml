@@ -36,7 +36,7 @@
                     </div>
                 </h:form>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">Sub-Modules <span class="badge">#{moduleMBean.subModules.size()}</span></div>
                             <div class="panel-body">
@@ -50,7 +50,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Functionalities <span class="badge">#{moduleMBean.functionalities.size()}</span></div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <c:forEach var="functionality" items="#{moduleMBean.functionalities}">
+                                        <h:link outcome="functionality" value="#{functionality.name}" class="list-group-item">
+                                            <f:param name="id" value="#{functionality.id}"/>
+                                        </h:link>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">Packages <span class="badge">#{moduleMBean.packages.size()}</span></div>
                             <div class="panel-body">

@@ -6,7 +6,6 @@ import com.hildeberto.architect.datasource.domain.DatabaseElement;
 import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,6 @@ import javax.persistence.PersistenceContext;
  * @author Hildeberto Mendonca
  */
 @Stateless
-@LocalBean
 public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
 
     @PersistenceContext

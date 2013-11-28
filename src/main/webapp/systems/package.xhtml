@@ -15,24 +15,24 @@
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Package: #{packageMBean.package.name}</h1>
+                    <h1>Package: #{packageMBean.pack.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <dl class="dl-horizontal">
                                 <dt>Application</dt>
-                                <dd><a href="application.xhtml?id=#{packageMBean.package.application.id}">#{packageMBean.package.application}</a></dd>
+                                <dd><a href="application.xhtml?id=#{packageMBean.pack.application.id}">#{packageMBean.pack.application}</a></dd>
                                 <dt>Module</dt>
-                                <dd><a href="module.xhtml?id=#{packageMBean.package.module.id}">#{packageMBean.package.module}</a></dd>
+                                <dd><a href="module.xhtml?id=#{packageMBean.pack.module.id}">#{packageMBean.pack.module}</a></dd>
                                 <dt>Layer</dt>
-                                <dd><a href="layer.xhtml?id=#{packageMBean.package.layer.id}">#{packageMBean.package.layer}</a></dd>
+                                <dd><a href="layer.xhtml?id=#{packageMBean.pack.layer.id}">#{packageMBean.pack.layer}</a></dd>
                                 <dt>Description</dt>
-                                <dd>#{packageMBean.package.description}</dd>
+                                <dd>#{packageMBean.pack.description}</dd>
                             </dl>
 
                             <h:button outcome="package_form" value="Edit" class="btn btn-default pull-right">
-                                <f:param name="id" value="#{packageMBean.package.id}"/>
+                                <f:param name="id" value="#{packageMBean.pack.id}"/>
                             </h:button>
                         </div>
                     </div>

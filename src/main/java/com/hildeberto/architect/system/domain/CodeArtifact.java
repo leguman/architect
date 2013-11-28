@@ -73,11 +73,11 @@ public abstract class CodeArtifact implements Serializable, Identified<Integer> 
         this.name = name;
     }
 
-    public Package getPackage() {
+    public Package getPack() {
         return pack;
     }
 
-    public void setPackage(Package pack) {
+    public void setPack(Package pack) {
         this.pack = pack;
     }
 

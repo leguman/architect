@@ -8,7 +8,6 @@ import com.hildeberto.architect.datasource.domain.DatabaseTable;
 import com.hildeberto.architect.domain.LifecycleState;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +17,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
 
     @PersistenceContext

@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class LifecycleTable extends Lifecycle {
     
     @ManyToOne
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name="object")
     private DatabaseTable databaseTable;
 
     public DatabaseTable getDatabaseTable() {

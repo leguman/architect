@@ -157,8 +157,8 @@ public class EntityClassMBean {
             if(this.entityClass.getModule() != null) {
                 this.applicationFilterMBean.setSelectedModule(this.entityClass.getModule().getId());
             }
-            if(this.entityClass.getPackage() != null) {
-                this.applicationFilterMBean.setSelectedPackage(this.entityClass.getPackage().getId());
+            if(this.entityClass.getPack() != null) {
+                this.applicationFilterMBean.setSelectedPackage(this.entityClass.getPack().getId());
             }
             if(this.entityClass.getDatabaseElement() != null) {
                 this.selectedDatabaseElement = this.entityClass.getDatabaseElement().getId();
@@ -176,7 +176,7 @@ public class EntityClassMBean {
             }
             if(pkgId != null) {
                 applicationFilterMBean.setSelectedPackage(pkgId);
-                this.entityClass.setPackage(applicationFilterMBean.getPackage());
+                this.entityClass.setPack(applicationFilterMBean.getPackage());
             }
         }
     }
@@ -184,7 +184,7 @@ public class EntityClassMBean {
     public String save() {
         this.entityClass.setApplication(applicationFilterMBean.getApplication());
         this.entityClass.setModule(applicationFilterMBean.getModule());
-        this.entityClass.setPackage(applicationFilterMBean.getPackage());
+        this.entityClass.setPack(applicationFilterMBean.getPackage());
 
         if(this.selectedDatabaseElement != null) {
             DatabaseElement databaseElement = databaseElementBean.find(this.selectedDatabaseElement);
@@ -194,13 +194,13 @@ public class EntityClassMBean {
         entityClassBean.save(this.entityClass);
         return "artifacts?faces-redirect=true&appId=" + this.entityClass.getApplication().getId() +
                                             "&modId=" + this.entityClass.getModule().getId() +
-                                            "&pkgId=" + this.entityClass.getPackage().getId();
+                                            "&pkgId=" + this.entityClass.getPack().getId();
     }
     
     public String saveAndCreateNew() {
         this.entityClass.setApplication(applicationFilterMBean.getApplication());
         this.entityClass.setModule(applicationFilterMBean.getModule());
-        this.entityClass.setPackage(applicationFilterMBean.getPackage());
+        this.entityClass.setPack(applicationFilterMBean.getPackage());
 
         if(this.selectedDatabaseElement != null) {
             DatabaseElement databaseElement = databaseElementBean.find(this.selectedDatabaseElement);
@@ -210,6 +210,6 @@ public class EntityClassMBean {
         entityClassBean.save(this.entityClass);
         return "entity_class_form?faces-redirect=true&appId=" + this.entityClass.getApplication().getId() +
                                                     "&modId=" + this.entityClass.getModule().getId() +
-                                                    "&pkgId=" + this.entityClass.getPackage().getId();
+                                                    "&pkgId=" + this.entityClass.getPack().getId();
     }
 }

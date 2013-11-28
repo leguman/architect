@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,7 +19,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class PackageBean extends AbstractBean<Package> {
 
     @PersistenceContext

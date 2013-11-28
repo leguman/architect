@@ -128,8 +128,8 @@ public class ComponentMBean {
             if(this.component.getModule() != null) {
                 this.applicationFilterMBean.setSelectedModule(this.component.getModule().getId());
             }
-            if(this.component.getPackage() != null) {
-                this.applicationFilterMBean.setSelectedPackage(this.component.getPackage().getId());
+            if(this.component.getPack() != null) {
+                this.applicationFilterMBean.setSelectedPackage(this.component.getPack().getId());
             }
         }
         else {
@@ -144,7 +144,7 @@ public class ComponentMBean {
             }
             if(pkgId != null) {
                 applicationFilterMBean.setSelectedPackage(pkgId);
-                this.component.setPackage(applicationFilterMBean.getPackage());
+                this.component.setPack(applicationFilterMBean.getPackage());
             }
         }
     }
@@ -152,24 +152,24 @@ public class ComponentMBean {
     public String save() {
         this.component.setApplication(applicationFilterMBean.getApplication());
         this.component.setModule(applicationFilterMBean.getModule());
-        this.component.setPackage(applicationFilterMBean.getPackage());
+        this.component.setPack(applicationFilterMBean.getPackage());
 
         componentBean.save(this.component);
         return "artifacts?faces-redirect=true&appId=" + this.component.getApplication().getId() +
                                             "&modId=" + this.component.getModule().getId() +
-                                            "&pkgId=" + this.component.getPackage().getId() +
+                                            "&pkgId=" + this.component.getPack().getId() +
                                             "&tab=1";
     }
 
     public String saveAndCreateNew() {
         this.component.setApplication(applicationFilterMBean.getApplication());
         this.component.setModule(applicationFilterMBean.getModule());
-        this.component.setPackage(applicationFilterMBean.getPackage());
+        this.component.setPack(applicationFilterMBean.getPackage());
 
         componentBean.save(this.component);
         return "component_form?faces-redirect=true&appId=" + this.component.getApplication().getId() +
                                             "&modId=" + this.component.getModule().getId() +
-                                            "&pkgId=" + this.component.getPackage().getId() +
+                                            "&pkgId=" + this.component.getPack().getId() +
                                             "&tab=1";
     }
 }

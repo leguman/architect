@@ -85,7 +85,7 @@ public class PackageMBean {
         this.modId = modId;
     }
 
-    public Package getPackage() {
+    public Package getPack() {
         return this.pack;
     }
 

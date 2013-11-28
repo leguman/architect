@@ -10,10 +10,9 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author htmfilho
+ * @author Hildeberto Mendonça
  */
 @Stateless
-@LocalBean
 public class ApplicationBean extends AbstractBean<Application> {
 
     @PersistenceContext

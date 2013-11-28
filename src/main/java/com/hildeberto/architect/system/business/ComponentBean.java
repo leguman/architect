@@ -7,7 +7,6 @@ import com.hildeberto.architect.system.domain.Module;
 import com.hildeberto.architect.system.domain.Package;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +16,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class ComponentBean extends AbstractBean<Component> {
 
     @PersistenceContext
@@ -62,13 +60,13 @@ public class ComponentBean extends AbstractBean<Component> {
             Package existingPack = packageBean.findByExample(pack);
             if(existingPack != null) {
                 // If it exists then it simply sets the package of the component.
-                component.setPackage(existingPack);
+                component.setPack(existingPack);
             }
             else {
                 // If it doesn't exist then it creates a new package with the informed package name and
                 // sets the package of the component.
                 pack = packageBean.save(pack);
-                component.setPackage(pack);
+                component.setPack(pack);
             }
         }
         // Since the component name contains package information, this method simplifies the name to its common form.

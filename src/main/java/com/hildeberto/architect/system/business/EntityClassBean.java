@@ -8,7 +8,6 @@ import com.hildeberto.architect.system.domain.Module;
 import com.hildeberto.architect.system.domain.Package;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -19,7 +18,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class EntityClassBean extends AbstractBean<EntityClass> {
 
     @PersistenceContext
@@ -86,13 +84,13 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
             Package existingPack = packageBean.findByExample(pack);
             if(existingPack != null) {
                 // If it exists then it simply sets the package of the entity class.
-                entityClass.setPackage(existingPack);
+                entityClass.setPack(existingPack);
             }
             else {
                 // If it doesn't exist then it creates a new package with the informed package name and
                 // sets the package of the entity class.
                 pack = packageBean.save(pack);
-                entityClass.setPackage(pack);
+                entityClass.setPack(pack);
             }
         }
         // Since the entity class name contains package information, this method simplifies the name to its common form.

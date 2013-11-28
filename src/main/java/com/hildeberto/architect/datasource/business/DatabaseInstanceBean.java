@@ -3,7 +3,6 @@ package com.hildeberto.architect.datasource.business;
 import com.hildeberto.architect.business.AbstractBean;
 import com.hildeberto.architect.datasource.domain.DatabaseInstance;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,6 @@ import javax.persistence.PersistenceContext;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class DatabaseInstanceBean extends AbstractBean<DatabaseInstance> {
 
     @PersistenceContext

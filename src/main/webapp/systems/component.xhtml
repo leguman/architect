@@ -14,7 +14,7 @@
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Component: #{componentMBean.component.package}.#{componentMBean.component.name}</h1>
+                    <h1>Component: #{componentMBean.component.pack}.#{componentMBean.component.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
@@ -25,7 +25,7 @@
                                 <dt>Module</dt>
                                 <dd><a href="module.xhtml?id=#{componentMBean.component.module.id}">#{componentMBean.component.module}</a></dd>
                                 <dt>Package</dt>
-                                <dd><a href="package.xhtml?id=#{componentMBean.component.package.id}">#{componentMBean.component.package}</a></dd>
+                                <dd><a href="package.xhtml?id=#{componentMBean.component.pack.id}">#{componentMBean.component.pack}</a></dd>
                                 <dt>Description</dt>
                                 <dd>#{componentMBean.component.description}</dd>
                             </dl>

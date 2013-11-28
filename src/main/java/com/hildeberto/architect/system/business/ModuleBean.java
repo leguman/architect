@@ -4,7 +4,6 @@ import com.hildeberto.architect.business.AbstractBean;
 import com.hildeberto.architect.system.domain.Application;
 import com.hildeberto.architect.system.domain.Module;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,6 @@ import javax.persistence.Query;
  * @author htmfilho
  */
 @Stateless
-@LocalBean
 public class ModuleBean extends AbstractBean<Module> {
 
     @PersistenceContext

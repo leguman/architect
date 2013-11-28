@@ -14,7 +14,7 @@
 
             <ui:define name="content">
                 <div class="page-header">
-                    <h1>Entity Class: #{entityClassMBean.entityClass.package}.#{entityClassMBean.entityClass.name}</h1>
+                    <h1>Entity Class: #{entityClassMBean.entityClass.pack}.#{entityClassMBean.entityClass.name}</h1>
                 </div>
                 <h:form>
                     <div class="panel panel-default">
@@ -25,7 +25,7 @@
                                 <dt>Module</dt>
                                 <dd><a href="module.xhtml?id=#{entityClassMBean.entityClass.module.id}">#{entityClassMBean.entityClass.module}</a></dd>
                                 <dt>Package</dt>
-                                <dd><a href="package.xhtml?id=#{entityClassMBean.entityClass.package.id}">#{entityClassMBean.entityClass.package}</a></dd>
+                                <dd><a href="package.xhtml?id=#{entityClassMBean.entityClass.pack.id}">#{entityClassMBean.entityClass.pack}</a></dd>
                                 <dt>Mapped Element</dt>
                                 <dd>
                                     <h:panelGroup rendered="#{entityClassMBean.entityClass.databaseTable}">
