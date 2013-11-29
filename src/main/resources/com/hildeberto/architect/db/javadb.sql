@@ -226,3 +226,12 @@ alter table action add acronym varchar(20) null;
 alter table module modify acronym varchar(25);
 alter table functionality modify acronym varchar(25);
 alter table action modify acronym varchar(25);
+
+--changeset htmfilho:11
+alter table database_instance add jdbc_driver varchar(100) null;
+alter table database_instance add url varchar(255) null;
+alter table database_instance add username varchar(20) null;
+alter table database_instance add password varchar(20) null;
+
+--changeset htmfilho:12
+alter table database_instance add data_source varchar(50) null;

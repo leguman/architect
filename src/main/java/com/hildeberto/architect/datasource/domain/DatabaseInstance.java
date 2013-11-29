@@ -28,6 +28,18 @@ public class DatabaseInstance implements Serializable, Identified<Integer> {
     @Size(max = 32700)
     private String description;
 
+    @Column(name="jdbc_driver")
+    private String jdbcDriver;
+
+    private String url;
+
+    private String username;
+
+    private String password;
+
+    @Column(name="data_source")
+    private String dataSource;
+
     public DatabaseInstance() {
     }
 
@@ -66,6 +78,46 @@ public class DatabaseInstance implements Serializable, Identified<Integer> {
         this.description = description;
     }
 
+    public String getJdbcDriver() {
+        return jdbcDriver;
+    }
+
+    public void setJdbcDriver(String jdbcDriver) {
+        this.jdbcDriver = jdbcDriver;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,5 +140,5 @@ public class DatabaseInstance implements Serializable, Identified<Integer> {
     @Override
     public String toString() {
         return this.name;
-    }    
+    }
 }

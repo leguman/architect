@@ -9,12 +9,20 @@ import com.hildeberto.architect.datasource.domain.DatabaseSchema;
 import com.hildeberto.architect.datasource.domain.DatabaseTable;
 import com.hildeberto.architect.datasource.domain.DatabaseView;
 import com.hildeberto.architect.domain.LifecycleState;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ActionEvent;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 /**
  *
@@ -45,6 +53,8 @@ public class DatabaseMBean {
     private Integer id;
 
     private DatabaseInstance database;
+
+    private String connectionResult;
 
     public List<DatabaseInstance> getDatabases() {
         if(databases == null) {
@@ -82,6 +92,10 @@ public class DatabaseMBean {
         return this.database;
     }
 
+    public String getConnectionResult() {
+        return this.connectionResult;
+    }
+
     @PostConstruct
     public void load() {
         if(id != null) {
@@ -95,5 +109,21 @@ public class DatabaseMBean {
     public String save() {
         databaseInstanceBean.save(this.database);
         return "databases";
+    }
+
+    public void testConnection(ActionEvent ae) {
+        try {
+            System.out.println("start connection to "+ this.database.getDataSource());
+            Context context = new InitialContext();
+            DataSource dataSource = (DataSource) context.lookup(this.database.getDataSource());
+            Connection connection = dataSource.getConnection();
+            this.connectionResult = "Successful!";
+            connection.close();
+            System.out.println("connected");
+        } catch(NamingException | SQLException e) {
+            this.connectionResult = "Failure";
+            System.out.println("not connected" + e.getMessage());
+        }
+        System.out.println("end");
     }
 }
