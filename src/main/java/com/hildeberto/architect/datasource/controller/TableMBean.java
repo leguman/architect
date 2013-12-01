@@ -1,14 +1,14 @@
 package com.hildeberto.architect.datasource.controller;
 
+import com.hildeberto.architect.datasource.business.DatabaseInstanceBean;
+import com.hildeberto.architect.datasource.business.DatabaseSchemaBean;
 import com.hildeberto.architect.datasource.business.DatabaseTableBean;
+import com.hildeberto.architect.datasource.domain.*;
 import com.hildeberto.architect.system.business.EntityClassBean;
 import com.hildeberto.architect.business.LifecycleBean;
-import com.hildeberto.architect.datasource.domain.DatabaseInstance;
-import com.hildeberto.architect.datasource.domain.DatabaseSchema;
-import com.hildeberto.architect.datasource.domain.DatabaseTable;
 import com.hildeberto.architect.system.domain.EntityClass;
 import com.hildeberto.architect.domain.LifecycleState;
-import com.hildeberto.architect.datasource.domain.LifecycleTable;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -26,7 +26,13 @@ public class TableMBean {
 
     @EJB
     private DatabaseTableBean databaseTableBean;
+    
+    @EJB
+    private DatabaseSchemaBean databaseSchemaBean;
 
+    @EJB
+    private DatabaseInstanceBean databaseInstanceBean;
+    
     @EJB
     private EntityClassBean entityClassBean;
 
@@ -35,6 +41,7 @@ public class TableMBean {
 
     private List<DatabaseTable> tables;
     private List<LifecycleTable> lifecycleTable;
+    private List<ElementColumn> columns;
 
     @ManagedProperty(value="#{databaseFilterMBean}")
     private DatabaseFilterMBean databaseFilterMBean;
@@ -47,6 +54,12 @@ public class TableMBean {
 
     @ManagedProperty(value="#{param.schId}")
     private Integer schId;
+
+    @ManagedProperty(value="#{param.schema}")
+    private String schemaName;
+
+    @ManagedProperty(value = "#{param.name}")
+    private String tableName;
     
     @ManagedProperty(value="#{param.state}")
     private String state;
@@ -77,6 +90,13 @@ public class TableMBean {
         return this.lifecycleTable;
     }
 
+    public List<ElementColumn> getColumns() {
+        if(this.columns == null && this.table != null && this.table.getId() != null) {
+            this.columns = databaseTableBean.findPhysicalColumns(this.table);
+        }
+        return this.columns;
+    }
+
     public EntityClass getEntityClass() {
         if(this.entityClass == null && this.table != null && this.table.getId() != null) {
             this.entityClass = entityClassBean.findByMappedDatabaseElement(this.table);
@@ -94,6 +114,14 @@ public class TableMBean {
 
     public void setSchId(Integer schId) {
         this.schId = schId;
+    }
+
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
     
     public void setState(String state) {
@@ -149,6 +177,20 @@ public class TableMBean {
                 this.databaseFilterMBean.setSelectedDatabaseSchema(this.table.getDatabaseSchema().getId());
             }
         }
+        else if(tableName != null && dbiId != null) {
+            DatabaseInstance database = databaseInstanceBean.find(dbiId);
+            if(schemaName != null) {
+                DatabaseSchema schema = databaseSchemaBean.findByName(database, schemaName);
+                this.table = databaseTableBean.findByName(database, schema, tableName);
+            }
+            else {
+                this.table = databaseTableBean.findByName(database, null, tableName);
+            }
+            this.databaseFilterMBean.setSelectedDatabaseInstance(this.table.getDatabaseInstance().getId());
+            if(this.table.getDatabaseSchema() != null) {
+                this.databaseFilterMBean.setSelectedDatabaseSchema(this.table.getDatabaseSchema().getId());
+            }
+        }
         else {
             this.table = new DatabaseTable();
             if(dbiId != null) {
@@ -170,7 +212,8 @@ public class TableMBean {
         this.table.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
 
         databaseTableBean.save(this.table);
-        return "elements?faces-redirect=true&dbiId=" + this.table.getDatabaseInstance().getId() + "&schId=" + this.table.getDatabaseSchema().getId();
+        return "elements?faces-redirect=true&dbiId=" + this.table.getDatabaseInstance().getId() +
+                (this.table.getDatabaseSchema() != null ? "&schId=" + this.table.getDatabaseSchema().getId(): "");
     }
 
     public String saveAndCreateNew() {
@@ -178,7 +221,8 @@ public class TableMBean {
         this.table.setDatabaseSchema(databaseFilterMBean.getDatabaseSchema());
 
         databaseTableBean.save(this.table);
-        return "table_form?faces-redirect=true&dbiId=" + this.table.getDatabaseInstance().getId() + "&schId=" + this.table.getDatabaseSchema().getId();
+        return "table_form?faces-redirect=true&dbiId=" + this.table.getDatabaseInstance().getId() +
+                (this.table.getDatabaseSchema() != null ? "&schId=" + this.table.getDatabaseSchema().getId(): "");
     }
 
     public String remove() {

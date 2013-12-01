@@ -40,6 +40,10 @@ public class DatabaseSchema implements Serializable, Identified<Integer> {
         this.id = id;
     }
 
+    public DatabaseSchema(String name) {
+        this.name = name;
+    }
+
     public DatabaseSchema(Integer id, String name) {
         this.id = id;
         this.name = name;

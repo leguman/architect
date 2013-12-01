@@ -28,8 +28,19 @@ public class DatabaseSchemaBean extends AbstractBean<DatabaseSchema> {
     }
     
     public List<DatabaseSchema> findByDatabaseInstance(DatabaseInstance database) {
-        return em.createQuery("select ds from DatabaseSchema ds where ds.databaseInstance = :database order by ds.name asc")
+        return em.createQuery("select ds from DatabaseSchema ds where ds.databaseInstance = :database order by ds.name asc", DatabaseSchema.class)
                  .setParameter("database", database)
                  .getResultList();
+    }
+
+    public DatabaseSchema findByName(DatabaseInstance database, String name) {
+        DatabaseSchema schema = null;
+        if(database != null && name != null) {
+            schema = em.createQuery("select ds from DatabaseSchema ds where ds.databaseInstance = :database and ds.name = :name", DatabaseSchema.class)
+                       .setParameter("database", database)
+                       .setParameter("name", name)
+                       .getSingleResult();
+        }
+        return schema;
     }
 }

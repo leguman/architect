@@ -36,19 +36,19 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
     }
 
     public List<EntityClass> findByApplication(Application application) {
-        return em.createQuery("select ec from EntityClass ec where ec.application = :application order by ec.name asc")
+        return em.createQuery("select ec from EntityClass ec where ec.application = :application order by ec.name asc", EntityClass.class)
                  .setParameter("application", application)
                  .getResultList();
     }
 
     public List<EntityClass> findByModule(Module module) {
-        return em.createQuery("select ec from EntityClass ec where ec.module = :module order by ec.name asc")
+        return em.createQuery("select ec from EntityClass ec where ec.module = :module order by ec.name asc", EntityClass.class)
                  .setParameter("module", module)
                  .getResultList();
     }
 
     public List<EntityClass> findByPackage(Package pack) {
-        return em.createQuery("select ec from EntityClass ec where ec.pack = :pack order by ec.name asc")
+        return em.createQuery("select ec from EntityClass ec where ec.pack = :pack order by ec.name asc", EntityClass.class)
                  .setParameter("pack", pack)
                  .getResultList();
     }
@@ -60,18 +60,6 @@ public class EntityClassBean extends AbstractBean<EntityClass> {
                      .getSingleResult();
         } catch(NoResultException nre) {
             return null;
-        }
-    }
-
-    public List<EntityClass> findNotMappedClasses(EntityClass except) {
-        if(except != null) {
-            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null && ec <> :except order by ec.name asc")
-                     .setParameter("except", except)
-                     .getResultList();
-        }
-        else {
-            return em.createQuery("select ec from EntityClass ec where ec.databaseElement is null order by ec.name asc")
-                     .getResultList();
         }
     }
 

@@ -35,19 +35,19 @@ public class LifecycleBean extends AbstractBean<Lifecycle> {
     }
 
     public List<LifecycleTable> findLifecycleTable(DatabaseTable databaseTable) {
-        return em.createQuery("select lt from LifecycleTable lt where lt.databaseTable = :databaseTable order by lt.stateDate")
+        return em.createQuery("select lt from LifecycleTable lt where lt.databaseTable = :databaseTable order by lt.stateDate", LifecycleTable.class)
                  .setParameter("databaseTable", databaseTable)
                  .getResultList();
     }
 
     public List<LifecycleView> findLifecycleView(DatabaseView databaseView) {
-        return em.createQuery("select lv from LifecycleView lv where lv.databaseView = :databaseView order by lv.stateDate")
+        return em.createQuery("select lv from LifecycleView lv where lv.databaseView = :databaseView order by lv.stateDate", LifecycleView.class)
                  .setParameter("databaseView", databaseView)
                  .getResultList();
     }
 
     public List<LifecycleEntityClass> findLifecycleEntityClass(EntityClass entityClass) {
-        return em.createQuery("select lec from LifecycleEntityClass lec where lec.entityClass = :entityClass order by lec.stateDate")
+        return em.createQuery("select lec from LifecycleEntityClass lec where lec.entityClass = :entityClass order by lec.stateDate", LifecycleEntityClass.class)
                  .setParameter("entityClass", entityClass)
                  .getResultList();
     }

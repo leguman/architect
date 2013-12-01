@@ -51,6 +51,10 @@ public abstract class DatabaseElement implements Serializable, Identified<Intege
         this.id = id;
     }
 
+    public DatabaseElement(String name) {
+        this.name = name;
+    }
+
     @Override
     public Integer getId() {
         return id;

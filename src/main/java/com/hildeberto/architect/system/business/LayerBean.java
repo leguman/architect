@@ -27,6 +27,6 @@ public class LayerBean extends AbstractBean<Layer> {
     }
     
     public List<Layer> findAll() {
-        return em.createQuery("select l from Layer l order by l.name asc").getResultList();
+        return em.createQuery("select l from Layer l order by l.name asc", Layer.class).getResultList();
     }
 }

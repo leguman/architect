@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h:commandButton value="Test Connection" actionListener="#{databaseMBean.testConnection}">
+                            <h:commandButton value="Test Connection" actionListener="#{databaseMBean.testConnection}" styleClass="btn btn-default">
                                 <f:ajax execute="dataSource" render="connectionResult"/>
                             </h:commandButton>
                             <br/>
@@ -73,7 +73,7 @@
 
                     <h:inputHidden value="#{databaseMBean.database.id}"/>
 
-                    <h:commandButton class="btn btn-default" value="Save" action="#{databaseMBean.save}"/>
+                    <h:commandButton class="btn btn-primary" value="Save" action="#{databaseMBean.save}"/>
                 </h:form>
             </ui:define>
         </ui:composition>

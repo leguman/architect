@@ -46,7 +46,7 @@ public class PackageBean extends AbstractBean<Package> {
     }
 
     public List<Package> findByApplication(Application application) {
-        List<Package> packages = em.createQuery("select p from Package p where p.application = :application order by p.name asc")
+        List<Package> packages = em.createQuery("select p from Package p where p.application = :application order by p.name asc", Package.class)
                                    .setParameter("application", application)
                                    .getResultList();
         Set<String> packNames = new HashSet<>();
@@ -60,13 +60,13 @@ public class PackageBean extends AbstractBean<Package> {
     }
 
     public List<Package> findByModule(Module module) {
-        return em.createQuery("select p from Package p where p.module = :module order by p.name asc")
+        return em.createQuery("select p from Package p where p.module = :module order by p.name asc", Package.class)
                  .setParameter("module", module)
                  .getResultList();
     }
 
     public List<Package> findByLayer(Layer layer) {
-        List<Package> packages = em.createQuery("select p from Package p where p.layer = :layer order by p.name asc")
+        List<Package> packages = em.createQuery("select p from Package p where p.layer = :layer order by p.name asc", Package.class)
                                    .setParameter("layer", layer)
                                    .getResultList();
         Set<String> packNames = new HashSet<>();
@@ -84,7 +84,7 @@ public class PackageBean extends AbstractBean<Package> {
             return null;
         }
 
-        return em.createQuery("select distinct p.module from Package p where p.name = :packName order by p.module.name asc")
+        return em.createQuery("select distinct p.module from Package p where p.name = :packName order by p.module.name asc", Module.class)
                  .setParameter("packName", pack.getName())
                  .getResultList();
     }

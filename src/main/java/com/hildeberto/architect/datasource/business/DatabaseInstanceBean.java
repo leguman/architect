@@ -27,6 +27,6 @@ public class DatabaseInstanceBean extends AbstractBean<DatabaseInstance> {
     }
     
     public List<DatabaseInstance> findAll() {
-        return em.createQuery("select di from DatabaseInstance di order by di.name asc").getResultList();
+        return em.createQuery("select di from DatabaseInstance di order by di.name asc", DatabaseInstance.class).getResultList();
     }
 }

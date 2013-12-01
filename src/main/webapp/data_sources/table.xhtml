@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition template="../layout.xhtml">
             <ui:define name="breadcrumbs">
@@ -68,6 +69,54 @@
                                             <f:facet name="header">Date</f:facet>
                                             <h:outputText value="#{lifecycleState.stateDate}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Columns</div>
+                                <div class="panel-body">
+                                    <h:dataTable id="columns" var="column" value="#{tableMBean.columns}" class="table">
+                                        <h:column>
+                                            <f:facet name="header">Name</f:facet>
+                                            <h:outputText value="#{column.name}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Type</f:facet>
+                                            <h:outputText value="#{column.type}"/> (<h:outputText value="#{column.size}"/>
+                                            <h:outputText value=", #{column.precision}" rendered="#{column.precision != 0}"/>)
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Required</f:facet>
+                                            <h:outputText value="No" rendered="#{column.nullable}"/>
+                                            <h:outputText value="Yes" rendered="#{! column.nullable}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Default</f:facet>
+                                            <h:outputText value="#{column.defaultValue}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Primary Key</f:facet>
+                                            <h:outputText rendered="#{! empty column.primaryKey}">
+                                                <span class="glyphicon glyphicon-flag"></span>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Indexed</f:facet>
+                                            <h:outputText rendered="#{column.indexed}">
+                                                <span class="glyphicon glyphicon-flash"></span>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Foreign Key</f:facet>
+                                            <h:outputText rendered="#{! empty column.foreignKey}">
+                                                <h:link outcome="table">
+                                                    <span class="glyphicon glyphicon-link"></span>
+                                                    <f:param name="name" value="#{column.foreignKey.parentTable.name}"/>
+                                                    <f:param name="schema" value="#{column.foreignKey.parentSchema.name}" disable="#{! empty column.foreignKey.parentSchema}"/>
+                                                    <f:param name="dbiId" value="#{column.databaseElement.databaseInstance.id}"/>
+                                                </h:link>
                                             </h:outputText>
                                         </h:column>
                                     </h:dataTable>

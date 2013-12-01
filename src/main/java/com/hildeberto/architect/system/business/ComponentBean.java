@@ -34,19 +34,19 @@ public class ComponentBean extends AbstractBean<Component> {
     }
 
     public List<Component> findByApplication(Application application) {
-        return em.createQuery("select c from Component c where c.application = :application order by c.name asc")
+        return em.createQuery("select c from Component c where c.application = :application order by c.name asc", Component.class)
                  .setParameter("application", application)
                  .getResultList();
     }
 
     public List<Component> findByModule(Module module) {
-        return em.createQuery("select c from Component c where c.module = :module order by c.name asc")
+        return em.createQuery("select c from Component c where c.module = :module order by c.name asc", Component.class)
                  .setParameter("module", module)
                  .getResultList();
     }
 
     public List<Component> findByPackage(Package pack) {
-        return em.createQuery("select c from Component c where c.pack = :pack order by c.name asc")
+        return em.createQuery("select c from Component c where c.pack = :pack order by c.name asc", Component.class)
                  .setParameter("pack", pack)
                  .getResultList();
     }

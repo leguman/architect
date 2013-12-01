@@ -28,7 +28,7 @@ public class ActionBean extends AbstractBean<Action> {
     }
 
     public List<Action> findByFunctionality(Functionality functionality) {
-        return em.createQuery("select a from Action a where a.functionality = :functionality order by a.name asc")
+        return em.createQuery("select a from Action a where a.functionality = :functionality order by a.name asc", Action.class)
                  .setParameter("functionality", functionality)
                  .getResultList();
     }

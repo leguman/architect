@@ -34,13 +34,13 @@ public class FunctionalityBean extends AbstractBean<Functionality> {
     }
 
     public List<Functionality> findByApplication(Application application) {
-        return em.createQuery("select f from Functionality f where f.application = :application order by f.name asc")
+        return em.createQuery("select f from Functionality f where f.application = :application order by f.name asc", Functionality.class)
                  .setParameter("application", application)
                  .getResultList();
     }
 
     public List<Functionality> findByModule(Module module) {
-        return em.createQuery("select f from Functionality f where f.module = :module order by f.name asc")
+        return em.createQuery("select f from Functionality f where f.module = :module order by f.name asc", Functionality.class)
                  .setParameter("module", module)
                  .getResultList();
     }

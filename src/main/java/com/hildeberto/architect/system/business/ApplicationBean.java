@@ -28,6 +28,6 @@ public class ApplicationBean extends AbstractBean<Application> {
     }
     
     public List<Application> findAll() {
-        return em.createQuery("select a from Application a order by a.name asc").getResultList();
+        return em.createQuery("select a from Application a order by a.name asc", Application.class).getResultList();
     }
 }

@@ -1,9 +1,6 @@
 package com.hildeberto.architect.datasource.controller;
 
-import com.hildeberto.architect.datasource.business.DatabaseInstanceBean;
-import com.hildeberto.architect.datasource.business.DatabaseSchemaBean;
-import com.hildeberto.architect.datasource.business.DatabaseTableBean;
-import com.hildeberto.architect.datasource.business.DatabaseViewBean;
+import com.hildeberto.architect.datasource.business.*;
 import com.hildeberto.architect.datasource.domain.DatabaseInstance;
 import com.hildeberto.architect.datasource.domain.DatabaseSchema;
 import com.hildeberto.architect.datasource.domain.DatabaseTable;
@@ -36,6 +33,9 @@ public class DatabaseMBean {
     private DatabaseInstanceBean databaseInstanceBean;
 
     @EJB
+    private DatabaseConnectionBean databaseConnectionBean;
+
+    @EJB
     private DatabaseSchemaBean databaseSchemaBean;
 
     @EJB
@@ -47,6 +47,7 @@ public class DatabaseMBean {
     private List<DatabaseInstance> databases;
     private List<DatabaseSchema> relatedSchemas;
     private List<DatabaseTable> relatedTables;
+    private List<DatabaseTable> physicalTables;
     private List<DatabaseView> relatedViews;
 
     @ManagedProperty(value="#{param.id}")
@@ -75,6 +76,13 @@ public class DatabaseMBean {
             relatedTables = databaseTableBean.findByDatabaseInstance(database, LifecycleState.INUSE);
         }
         return relatedTables;
+    }
+
+    public List<DatabaseTable> getPhysicalTables() {
+        if(physicalTables == null && database != null) {
+            physicalTables = databaseTableBean.findPhysicalTables(database, null);
+        }
+        return physicalTables;
     }
 
     public List<DatabaseView> getRelatedViews() {
@@ -113,17 +121,14 @@ public class DatabaseMBean {
 
     public void testConnection(ActionEvent ae) {
         try {
-            System.out.println("start connection to "+ this.database.getDataSource());
-            Context context = new InitialContext();
-            DataSource dataSource = (DataSource) context.lookup(this.database.getDataSource());
-            Connection connection = dataSource.getConnection();
-            this.connectionResult = "Successful!";
-            connection.close();
-            System.out.println("connected");
-        } catch(NamingException | SQLException e) {
-            this.connectionResult = "Failure";
-            System.out.println("not connected" + e.getMessage());
+            databaseConnectionBean.getConnection(this.database);
+            this.connectionResult = "Success!";
         }
-        System.out.println("end");
+        catch(NamingException ne) {
+            this.connectionResult = "No connection found with the name "+ this.database.getDataSource();
+        }
+        catch(SQLException se) {
+            this.connectionResult = "Not possible to establish a connection. Error: "+ se.getMessage();
+        }
     }
 }

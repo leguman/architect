@@ -29,19 +29,19 @@ public class ModuleBean extends AbstractBean<Module> {
     }
     
     public List<Module> findByApplication(Application application) {
-        return em.createQuery("select m from Module m where m.application = :application and m.subModuleOf is null order by m.name asc")
+        return em.createQuery("select m from Module m where m.application = :application and m.subModuleOf is null order by m.name asc", Module.class)
                  .setParameter("application", application)
                  .getResultList();
     }
     
     public List<Module> findSubModules(Module module) {
-        return em.createQuery("select m from Module m where m.subModuleOf = :module order by m.name asc")
+        return em.createQuery("select m from Module m where m.subModuleOf = :module order by m.name asc", Module.class)
                  .setParameter("module", module)
                  .getResultList();
     }
     
     public List<Module> findSubModulesByApplication(Application application, Module except) {
-        Query query = em.createQuery("select m from Module m where m.application = :application "+ ((except != null)?"and m <> :except ":"") +"order by m.name asc");
+        Query query = em.createQuery("select m from Module m where m.application = :application "+ ((except != null)?"and m <> :except ":"") +"order by m.name asc", Module.class);
         
         query.setParameter("application", application);
         if(except != null) {

@@ -34,27 +34,15 @@ public class DatabaseViewBean extends AbstractBean<DatabaseView> {
     }
 
     public List<DatabaseView> findByDatabaseInstance(DatabaseInstance database) {
-        return em.createQuery("select dv from DatabaseView dv where dv.databaseInstance = :database order by dv.name asc")
+        return em.createQuery("select dv from DatabaseView dv where dv.databaseInstance = :database order by dv.name asc", DatabaseView.class)
                  .setParameter("database", database)
                  .getResultList();
     }
 
     public List<DatabaseView> findByDatabaseSchema(DatabaseSchema schema) {
-        return em.createQuery("select dv from DatabaseView dv where dv.databaseSchema = :schema order by dv.name asc")
+        return em.createQuery("select dv from DatabaseView dv where dv.databaseSchema = :schema order by dv.name asc", DatabaseView.class)
                  .setParameter("schema", schema)
                  .getResultList();
-    }
-
-    public List<DatabaseView> findNotMappedViews(DatabaseElement except) {
-        if(except != null) {
-            return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec where ec.databaseElement <> :except) order by dv.name asc")
-                     .setParameter("except", except)
-                     .getResultList();
-        }
-        else {
-            return em.createQuery("select dv from DatabaseView dv where dv not in (select ec.databaseElement from EntityClass ec) order by dv.name asc")
-                     .getResultList();
-        }
     }
 
     @Override

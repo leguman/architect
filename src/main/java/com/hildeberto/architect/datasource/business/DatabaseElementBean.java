@@ -34,7 +34,7 @@ public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
 
     public DatabaseElement findByName(String name) {
         DatabaseElement databaseElement = null;
-        List<DatabaseElement> elements = em.createQuery("select de from DatabaseElement de where de.name = :name")
+        List<DatabaseElement> elements = em.createQuery("select de from DatabaseElement de where de.name = :name", DatabaseElement.class)
                                            .setParameter("name", name)
                                            .getResultList();
         if(elements.size() > 0) {
@@ -46,12 +46,12 @@ public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
     public List<DatabaseElement> findNotMappedElements(DatabaseElement except) {
         List<DatabaseElement> unmappedElements;
         if(except != null) {
-            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement <> :except) order by de.name asc")
+            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec where ec.databaseElement <> :except) order by de.name asc", DatabaseElement.class)
                     .setParameter("except", except)
                     .getResultList();
         }
         else {
-            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec) order by de.name asc")
+            unmappedElements = em.createQuery("select de from DatabaseElement de where de.id not in (select ec.databaseElement.id from EntityClass ec) order by de.name asc", DatabaseElement.class)
                     .getResultList();
         }
         return unmappedElements;
@@ -80,7 +80,7 @@ public class DatabaseElementBean extends AbstractBean<DatabaseElement> {
                 }
                 else {
                     databaseElement = super.save(databaseElement);
-                    // Nothing todo in the lifecycle if the state keeps the same.
+                    // Nothing to do in the lifecycle if the state keeps the same.
                 }
             }
             else {

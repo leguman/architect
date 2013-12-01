@@ -10,4 +10,16 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("TABLE")
 public class DatabaseTable extends DatabaseElement {
+
+    public DatabaseTable() {
+        super();
+    }
+
+    public DatabaseTable(Integer id) {
+        super(id);
+    }
+
+    public DatabaseTable(String name) {
+        super(name);
+    }
 }

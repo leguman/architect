@@ -26,7 +26,7 @@ public class PropertiesBean {
 
     public Map<String, String> findProperties() {
         Map<String, String> propertiesMap = new HashMap<>();
-        List<Properties> properties = em.createQuery("select ap from Properties ap").getResultList();
+        List<Properties> properties = em.createQuery("select ap from Properties ap", Properties.class).getResultList();
         for(Properties property: properties) {
             propertiesMap.put(property.getPropertyKey(), property.getPropertyValue());
         }

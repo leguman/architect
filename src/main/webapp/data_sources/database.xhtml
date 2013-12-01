@@ -75,6 +75,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Tables <span class="badge">#{databaseMBean.physicalTables.size()}</span></div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <c:forEach var="table" items="#{databaseMBean.physicalTables}">
+                                <h:outputText value="#{table.name}" class="list-group-item"/>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
     </body>
