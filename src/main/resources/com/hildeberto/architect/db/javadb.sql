@@ -235,3 +235,9 @@ alter table database_instance add password varchar(20) null;
 
 --changeset htmfilho:12
 alter table database_instance add data_source varchar(50) null;
+
+--changeset htmfilho:13
+alter table database_instance drop column jdbc_driver;
+alter table database_instance drop column url;
+alter table database_instance drop column username;
+alter table database_instance drop column password;

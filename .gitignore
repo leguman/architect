@@ -17,3 +17,5 @@
 .idea/workspace.xml
 architect.iml
 nb-configuration.xml
+.idea/
+src/main/resources/rebel.xml

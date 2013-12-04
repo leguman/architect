@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
@@ -22,6 +24,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
+
+    private static final Logger LOGGER = Logger.getLogger(DatabaseTableBean.class.getName());
 
     @PersistenceContext
     private EntityManager em;
@@ -115,6 +119,64 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
             throw new RuntimeException(e);
         }
 
+        return tables;
+    }
+
+    public List<DatabaseTable> findReferencesTo(DatabaseTable databaseTable) {
+        List<DatabaseTable> tables = new ArrayList<>();
+        try {
+            Connection connection = databaseConnectionBean.getConnection(databaseTable.getDatabaseInstance());
+            DatabaseMetaData dbMetaData = connection.getMetaData();
+            ResultSet rs;
+            if(databaseTable.getDatabaseSchema() != null) {
+                rs = dbMetaData.getExportedKeys(null, databaseTable.getDatabaseSchema().getName(), databaseTable.getName());
+            }
+            else {
+                rs = dbMetaData.getExportedKeys(null, null, databaseTable.getName());
+            }
+
+            DatabaseTable table;
+            while(rs.next()) {
+                table = new DatabaseTable();
+                table.setDatabaseInstance(databaseTable.getDatabaseInstance());
+                if(rs.getString("FKTABLE_SCHEM") != null) {
+                    table.setDatabaseSchema(new DatabaseSchema(rs.getString("FKTABLE_SCHEM")));
+                }
+                table.setName(rs.getString("FKTABLE_NAME"));
+                tables.add(table);
+            }
+        } catch (NamingException | SQLException e) {
+            LOGGER.log(Level.WARNING, "Not possible to load physical data: {0}", e.getMessage());
+        }
+        return tables;
+    }
+
+    public List<DatabaseTable> findReferencesFrom(DatabaseTable databaseTable) {
+        List<DatabaseTable> tables = new ArrayList<>();
+        try {
+            Connection connection = databaseConnectionBean.getConnection(databaseTable.getDatabaseInstance());
+            DatabaseMetaData dbMetaData = connection.getMetaData();
+            ResultSet rs;
+            if(databaseTable.getDatabaseSchema() != null) {
+                rs = dbMetaData.getImportedKeys(null, databaseTable.getDatabaseSchema().getName(), databaseTable.getName());
+            }
+            else {
+                rs = dbMetaData.getImportedKeys(null, null, databaseTable.getName());
+            }
+
+            DatabaseTable table;
+            while(rs.next()) {
+                table = new DatabaseTable();
+                table.setDatabaseInstance(databaseTable.getDatabaseInstance());
+                if(rs.getString("PKTABLE_SCHEM") != null) {
+                    table.setDatabaseSchema(new DatabaseSchema(rs.getString("PKTABLE_SCHEM")));
+                }
+                table.setName(rs.getString("PKTABLE_NAME"));
+                tables.add(table);
+            }
+        } catch (NamingException | SQLException e) {
+            LOGGER.log(Level.WARNING, "Not possible to load physical data: {0}", e.getMessage());
+        }
         return tables;
     }
 
@@ -215,7 +277,7 @@ public class DatabaseTableBean extends AbstractBean<DatabaseTable> {
                 }
             }
         } catch (NamingException | SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.log(Level.WARNING, "Not possible to load physical data: {0}", e.getMessage());
         }
 
         return columns;

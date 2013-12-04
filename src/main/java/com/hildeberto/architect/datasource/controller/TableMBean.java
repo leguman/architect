@@ -40,6 +40,8 @@ public class TableMBean {
     private LifecycleBean lifecycleBean;
 
     private List<DatabaseTable> tables;
+    private List<DatabaseTable> referencesTo;
+    private List<DatabaseTable> referencesFrom;
     private List<LifecycleTable> lifecycleTable;
     private List<ElementColumn> columns;
 
@@ -95,6 +97,20 @@ public class TableMBean {
             this.columns = databaseTableBean.findPhysicalColumns(this.table);
         }
         return this.columns;
+    }
+
+    public List<DatabaseTable> getReferencesTo() {
+        if(this.referencesTo == null &&  this.table != null && this.table.getId() != null) {
+            this.referencesTo = databaseTableBean.findReferencesTo(this.table);
+        }
+        return this.referencesTo;
+    }
+
+    public List<DatabaseTable> getReferencesFrom() {
+        if(this.referencesFrom == null &&  this.table != null && this.table.getId() != null) {
+            this.referencesFrom = databaseTableBean.findReferencesFrom(this.table);
+        }
+        return this.referencesFrom;
     }
 
     public EntityClass getEntityClass() {

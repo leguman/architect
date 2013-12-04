@@ -57,6 +57,91 @@
                                 </div>
                             </div>
                             <p/>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Columns <span class="badge">#{tableMBean.columns.size()}</span></div>
+                                        <div class="panel-body">
+                                            <h:dataTable id="columns" var="column" value="#{tableMBean.columns}" class="table">
+                                                <h:column>
+                                                    <f:facet name="header">Name</f:facet>
+                                                    <h:outputText value="#{column.name}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Type</f:facet>
+                                                    <h:outputText value="#{column.type}"/> (<h:outputText value="#{column.size}"/>
+                                                    <h:outputText value=", #{column.precision}" rendered="#{column.precision != 0}"/>)
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Required</f:facet>
+                                                    <h:outputText value="No" rendered="#{column.nullable}"/>
+                                                    <h:outputText value="Yes" rendered="#{! column.nullable}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Default</f:facet>
+                                                    <h:outputText value="#{column.defaultValue}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">PK</f:facet>
+                                                    <h:outputText rendered="#{! empty column.primaryKey}">
+                                                        <span class="glyphicon glyphicon-flag"></span>
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Idx</f:facet>
+                                                    <h:outputText rendered="#{column.indexed}">
+                                                        <span class="glyphicon glyphicon-flash"></span>
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">FK</f:facet>
+                                                    <h:outputText rendered="#{! empty column.foreignKey}">
+                                                        <h:link outcome="table">
+                                                            <span class="glyphicon glyphicon-link"></span>
+                                                            <f:param name="name" value="#{column.foreignKey.parentTable.name}"/>
+                                                            <f:param name="schema" value="#{column.foreignKey.parentSchema.name}" disable="#{! empty column.foreignKey.parentSchema}"/>
+                                                            <f:param name="dbiId" value="#{column.databaseElement.databaseInstance.id}"/>
+                                                        </h:link>
+                                                    </h:outputText>
+                                                </h:column>
+                                            </h:dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">References to #{tableMBean.table.name} <span class="badge">#{tableMBean.referencesTo.size()}</span></div>
+                                        <div class="panel-body">
+                                            <h:dataTable id="referencesTo" var="referenceTo" value="#{tableMBean.referencesTo}" class="table">
+                                                <h:column>
+                                                    <span class="glyphicon glyphicon-link"></span>
+                                                    <h:link outcome="table" value="#{referenceTo.name}">
+                                                        <f:param name="name" value="#{referenceTo.name}"/>
+                                                        <f:param name="schema" value="#{referenceTo.databaseSchema.name}" disable="#{! empty referenceTo.databaseSchema}"/>
+                                                        <f:param name="dbiId" value="#{referenceTo.databaseInstance.id}"/>
+                                                    </h:link>
+                                                </h:column>
+                                            </h:dataTable>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">References from #{tableMBean.table.name} <span class="badge">#{tableMBean.referencesFrom.size()}</span></div>
+                                        <div class="panel-body">
+                                            <h:dataTable id="referencesFrom" var="referenceFrom" value="#{tableMBean.referencesFrom}" class="table">
+                                                <h:column>
+                                                    <span class="glyphicon glyphicon-link"></span>
+                                                    <h:link outcome="table" value="#{referenceFrom.name}">
+                                                        <f:param name="name" value="#{referenceFrom.name}"/>
+                                                        <f:param name="schema" value="#{referenceFrom.databaseSchema.name}" disable="#{! empty referenceFrom.databaseSchema}"/>
+                                                        <f:param name="dbiId" value="#{referenceFrom.databaseInstance.id}"/>
+                                                    </h:link>
+                                                </h:column>
+                                            </h:dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="panel panel-default">
                                 <div class="panel-heading">Lifecycle</div>
                                 <div class="panel-body">
@@ -69,54 +154,6 @@
                                             <f:facet name="header">Date</f:facet>
                                             <h:outputText value="#{lifecycleState.stateDate}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                            </h:outputText>
-                                        </h:column>
-                                    </h:dataTable>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Columns</div>
-                                <div class="panel-body">
-                                    <h:dataTable id="columns" var="column" value="#{tableMBean.columns}" class="table">
-                                        <h:column>
-                                            <f:facet name="header">Name</f:facet>
-                                            <h:outputText value="#{column.name}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Type</f:facet>
-                                            <h:outputText value="#{column.type}"/> (<h:outputText value="#{column.size}"/>
-                                            <h:outputText value=", #{column.precision}" rendered="#{column.precision != 0}"/>)
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Required</f:facet>
-                                            <h:outputText value="No" rendered="#{column.nullable}"/>
-                                            <h:outputText value="Yes" rendered="#{! column.nullable}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Default</f:facet>
-                                            <h:outputText value="#{column.defaultValue}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Primary Key</f:facet>
-                                            <h:outputText rendered="#{! empty column.primaryKey}">
-                                                <span class="glyphicon glyphicon-flag"></span>
-                                            </h:outputText>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Indexed</f:facet>
-                                            <h:outputText rendered="#{column.indexed}">
-                                                <span class="glyphicon glyphicon-flash"></span>
-                                            </h:outputText>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Foreign Key</f:facet>
-                                            <h:outputText rendered="#{! empty column.foreignKey}">
-                                                <h:link outcome="table">
-                                                    <span class="glyphicon glyphicon-link"></span>
-                                                    <f:param name="name" value="#{column.foreignKey.parentTable.name}"/>
-                                                    <f:param name="schema" value="#{column.foreignKey.parentSchema.name}" disable="#{! empty column.foreignKey.parentSchema}"/>
-                                                    <f:param name="dbiId" value="#{column.databaseElement.databaseInstance.id}"/>
-                                                </h:link>
                                             </h:outputText>
                                         </h:column>
                                     </h:dataTable>
